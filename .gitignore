@@ -5,6 +5,7 @@
 *.egg-info
 *.pot
 *.py[co]
+*DS_Store
 .tox/
 __pycache__
 MANIFEST
