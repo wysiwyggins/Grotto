@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class CharacterbuilderConfig(AppConfig):
+class CharacterBuilderConfig(AppConfig):
     name = 'characterBuilder'
