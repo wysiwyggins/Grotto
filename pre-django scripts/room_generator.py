@@ -14,7 +14,7 @@ codexList = []
 
 nlp = spacy.load("en_core_web_sm")
 
-with open("/corpuses/rooms.txt") as f:
+with open("corpuses/rooms.txt") as f:
     text = f.read()
 
 text_model = markovify.Text(text)
@@ -94,7 +94,7 @@ def getColor(elaborateColor):
         red = 255
         green = random.randint(100, 200)
         blue = random.randint(100, 200)
-     if "coral" in elaborateColor:
+    if "coral" in elaborateColor:
         red = 255
         green = random.randint(100, 200)
         blue = random.randint(50, 100)
