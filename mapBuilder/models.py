@@ -16,9 +16,11 @@ class Room(models.Model):
 #   color = 
     class Meta:
         unique_together = ["id", "url"]
+    def __str__(self):
+        return self.name
 
 
-class Visit(models.Model):
+""" class Visit(models.Model):
     room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
     character = models.ForeignKey(Character, on_delete=models.SET_NULL, null=True)
-    stamp_date = models.DateTimeField('date created')
+    stamp_date = models.DateTimeField('date created') """
