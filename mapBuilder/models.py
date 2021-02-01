@@ -1,5 +1,5 @@
 import datetime
-
+from colorfield.fields import ColorField
 from django.db import models
 from django.utils import timezone
 from characterBuilder.models import Character
@@ -9,11 +9,12 @@ from characterBuilder.models import Character
 class Room(models.Model):
     name = models.CharField(max_length=200)
     url = models.URLField(max_length=200)
- #   visits =
+ #  visits =
     exits = models.URLField(max_length=200)
     pub_date = models.DateTimeField('date created')
     description = models.CharField(max_length=600)
-#   color = 
+    colorName = models.CharField(max_length=200)
+    colorHex = ColorField(default='#222222')
     class Meta:
         unique_together = ["id", "url"]
     def __str__(self):
