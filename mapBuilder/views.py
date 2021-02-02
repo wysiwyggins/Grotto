@@ -12,6 +12,17 @@ class Index(generic.ListView):
     queryset = Room.objects.filter(status=1).order_by('-pub_date')
     template_name = 'mapBuilder/index.html'
 
+    if request.method == 'POST' and 'generate_room' in request.POST:
+
+        # import function to run
+        from room_generator.py import generateRoom
+
+        # call function
+        generateRoom() 
+
+        # return user to required page
+        return HttpResponseRedirect(reverse(app_name:view_name)
+
 class RoomList(generic.ListView):
     queryset = Room.objects.filter(status=1).order_by('-pub_date')
     template_name = 'mapBuilder/index.html'
