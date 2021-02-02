@@ -12,5 +12,9 @@
         {% block content %}
         <!-- Content Goes here -->
         {% endblock content %}
+        <form method="post">
+          {% csrf_token %}
+            <button type="submit" name="generate_room">Add Room to Map</button>
+        </form>
     </body>
 </html>
