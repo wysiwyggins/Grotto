@@ -14,6 +14,7 @@ class Room(models.Model):
     pub_date = models.DateTimeField('date created')
     description = models.CharField(max_length=600)
     colorName = models.CharField(max_length=200)
+    status = models.CharField(max_length=200)
     colorHex = ColorField(default='#222222')
     class Meta:
         unique_together = ["id", "url"]

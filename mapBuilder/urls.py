@@ -5,6 +5,6 @@ from . import views
 app_name = 'mapBuilder'
 urlpatterns = [
     # ex: /polls/
-    path('', views.index, name='index'),
+    path('', views.Index.as_view(), name='index'),
     path('<slug:slug>/', views.RoomDetail.as_view(), name='room_detail'),
 ]

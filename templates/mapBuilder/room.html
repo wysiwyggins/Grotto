@@ -1,4 +1,4 @@
-{% load static %}
+
 
 <!DOCTYPE html>
 <html>
@@ -8,10 +8,17 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
   </head>
   <body class = "room {{ room.id }}" style='background-color:{{room.colorHex}}'>
+    <sidebar>
+      <ul class="exits">
+        {% for exit in room.exits %}
+          {{ exit }}
+      </ul>
+    </sidebar>
     <section class='description'>
         <h1>{{room.colorName}} Room</h1>
-        <p class="description">{{room.description}}</p>
+        <p class="description"> {% block content %}
+          <!-- Content Goes here -->
+          {% endblock content %}</p>
     </section>
     </body>
 </html>
-

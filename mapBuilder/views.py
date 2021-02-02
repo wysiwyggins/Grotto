@@ -8,11 +8,14 @@ from django.http import HttpResponse
 # Create your views here.
 
 
+class Index(generic.ListView):
+    queryset = Room.objects.filter(status=1).order_by('-pub_date')
+    template_name = 'mapBuilder/index.html'
 
-def index(request):
-    queryset = Room.objects.filter(status=1).order_by('-created_on')
+class RoomList(generic.ListView):
+    queryset = Room.objects.filter(status=1).order_by('-pub_date')
     template_name = 'mapBuilder/index.html'
 
 class RoomDetail(generic.DetailView):
     model = Room
-    template_name = 'room.html'
+    template_name = 'mapBuilder/room.html'
