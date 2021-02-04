@@ -16,7 +16,7 @@ def generateRoom():
     codexList = []
 
     nlp = spacy.load("en_core_web_sm")
-
+    # since I moved this script to django it's not finding its txt files. I tried putting them in static too
     with open("corpuses/rooms.txt") as f:
         text = f.read()
 
@@ -157,7 +157,9 @@ def generateRoom():
         title = text_model.make_short_sentence(120)
     hashids = Hashids(salt=title)
     id= hashids.encode(i)
-    myfile = "rooms/room-"+str(i)+id+".html"
+    # this script was standalone originally and just made a bunch of html files in a loop. I removed
+    # the loop but I still need to figure out how to add Rooms to the db instead of making html pages
+    myfile = "rooms/room-"+str(i)+id+".html" 
 
     with open(myfile, "a") as myfile:
         myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
