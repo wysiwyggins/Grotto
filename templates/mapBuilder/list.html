@@ -9,19 +9,18 @@
   </head>
   <body class = "characterBuilder">
         <p>Spread out on the bed is a map and the tumped contents of a junk drawer.</p> 
-
         <ul>
-          {% for room in object_list %}
-              <li>{{ room.pub_date|date }} - {{ room.headline }}</li>
-          {% empty %}
-              <li>No rooms yet.</li>
+          {% for room in obj %}
+            <li><a href="{{room.url}}">{{room.name}}</a></li>
+            <a href="{% url 'detail' room.id %}"><h1> {{x.name}} (pdf)</h1></a>
           {% endfor %}
-          </ul>
-
-
+        </ul>
+        {% block content %}
+        <!-- Content Goes here -->
+        {% endblock content %}
         <form method="post">
           {% csrf_token %}
-          <button type="submit" name="generate_room">Add Room to Map</button>
+            <button type="submit" name="generate_room">Add Room to Map</button>
         </form>
     </body>
 </html>

@@ -19,10 +19,15 @@ class Index(generic.ListView):
         generateRoom()
         return redirect('.') # points the user right back where they came from
 
-class RoomList(generic.ListView):
-    queryset = Room.objects.filter(status=1).order_by('-pub_date')
-    template_name = 'mapBuilder/index.html'
+class RoomListView(generic.ListView):
+    model = Room
+    paginate_by = 25
 
-class RoomDetail(generic.DetailView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
+
+class RoomDetailView(generic.DetailView):
     model = Room
     template_name = 'mapBuilder/room.html'
