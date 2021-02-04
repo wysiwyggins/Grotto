@@ -14,7 +14,6 @@ from django.http import HttpResponse
 
 
 class Index(ListView):
-    queryset = Room.objects.filter(status=1).order_by('-pub_date')
     template_name = 'mapBuilder/index.html'
     model = Room
     paginate_by = 25

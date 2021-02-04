@@ -19,3 +19,4 @@ build/
 tests/report/
 venv/
 db.sqlite3
+mapBuilder/.DS_Store
