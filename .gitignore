@@ -18,3 +18,4 @@ tests/.coverage
 build/
 tests/report/
 venv/
+db.sqlite3
