@@ -1,21 +1,20 @@
 
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{room.colorName}} Room</title>
+    <title>{{object.colorName}} Room</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
   </head>
-  <body class = "room {{ room.id }}" style='background-color:{{room.colorHex}}'>
+  <body class = "room {{ object.id }}" style='background-color:{{object.colorHex}}'>
     <sidebar>
       <ul class="exits">
-        {% for exit in room.exits %}
+        {% for exit in object.exits %}
           {{ exit }}
       </ul>
     </sidebar>
     <section class='description'>
-        <h1>{{room.colorName}} Room</h1>
+        <h1>{{object.colorName}} Room</h1>
         <p class="description"> {% block content %}
           <!-- Content Goes here -->
           {% endblock content %}</p>
