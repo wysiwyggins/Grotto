@@ -1,7 +1,10 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from .models import Room
+
+# import function to run
+from .room_generator import generateRoom
 
 # Create your views here.
 from django.http import HttpResponse
@@ -12,16 +15,9 @@ class Index(generic.ListView):
     queryset = Room.objects.filter(status=1).order_by('-pub_date')
     template_name = 'mapBuilder/index.html'
 
-    if request.method == 'POST' and 'generate_room' in request.POST:
-
-        # import function to run
-        from room_generator.py import generateRoom
-
-        # call function
-        generateRoom() 
-
-        # return user to required page
-        return HttpResponseRedirect(reverse(app_name:view_name)
+    def post(self, request):
+        generateRoom()
+        return redirect('.') # points the user right back where they came from
 
 class RoomList(generic.ListView):
     queryset = Room.objects.filter(status=1).order_by('-pub_date')

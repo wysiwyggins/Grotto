@@ -9,12 +9,9 @@
   </head>
   <body class = "characterBuilder">
         <p>Spread out on the bed is a map and the tumped contents of a junk drawer.</p> 
-        {% block content %}
-        <!-- Content Goes here -->
-        {% endblock content %}
         <form method="post">
           {% csrf_token %}
-            <button type="submit" name="generate_room">Add Room to Map</button>
+          <button type="submit" name="generate_room">Add Room to Map</button>
         </form>
     </body>
 </html>
