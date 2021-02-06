@@ -6,6 +6,7 @@ import random
 import webcolors
 from unidecode import unidecode
 from hashids import Hashids
+from mapBuilder.models import Room
 
 
 def generateRoom():
@@ -17,7 +18,7 @@ def generateRoom():
 
     nlp = spacy.load("en_core_web_sm")
     # since I moved this script to django it's not finding its txt files. I tried putting them in static too
-    with open("corpuses/rooms.txt") as f:
+    with open("mapBuilder/corpuses/rooms.txt") as f:
         text = f.read()
 
     text_model = markovify.Text(text)
@@ -32,7 +33,7 @@ def generateRoom():
             return sentence
 
     def getElaborateColor():
-        colorFO = io.open("word_lists/colors.txt", encoding="utf-8")
+        colorFO = io.open("mapBuilder/word_lists/colors.txt", encoding="utf-8")
         colorList = list(colorFO)
         selection = random.randint(0, len(colorList) - 1)
         elaborateColor = colorList[selection]
@@ -160,13 +161,15 @@ def generateRoom():
     # this script was standalone originally and just made a bunch of html files in a loop. I removed
     # the loop but I still need to figure out how to add Rooms to the db instead of making html pages
     myfile = "rooms/room-"+str(i)+id+".html" 
+    #with open(myfile, "a") as myfile:
+    #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
+    #    myfile.write("<body style='background-color:"+colorhex+";'>")
+    #    myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
+    for number in range(5):
+        roomDescription += "\n" + text_model.make_sentence() + " "
 
-    with open(myfile, "a") as myfile:
-        myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
-        myfile.write("<body style='background-color:"+colorhex+";'>")
-        myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
-        for number in range(5):
-            myfile.write("\n" + text_model.make_sentence() + " ")
-        myfile.write("</p></section>")
+    #    myfile.close()
 
-        myfile.close()
+        # new version
+
+    Room.objects.create( name = elaborateColor + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor )

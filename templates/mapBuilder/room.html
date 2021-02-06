@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,15 +9,16 @@
   <body class = "room {{ object.id }}" style='background-color:{{object.colorHex}}'>
     <sidebar>
       <ul class="exits">
-        {% for exit in object.exits %}
-          {{ exit }}
+        {% for exit in object.exits.all %}
+          <li><a href="{{ exit }}"></a></li>
+        {% endfor %}
       </ul>
     </sidebar>
     <section class='description'>
         <h1>{{object.colorName}} Room</h1>
-        <p class="description"> {% block content %}
-          <!-- Content Goes here -->
-          {% endblock content %}</p>
+        <p class="description"> 
+          {{ object.description }}
+        </p>
     </section>
     </body>
 </html>
