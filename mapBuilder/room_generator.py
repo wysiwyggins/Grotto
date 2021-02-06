@@ -6,13 +6,14 @@ import random
 import webcolors
 from unidecode import unidecode
 from hashids import Hashids
+import datetime
 from mapBuilder.models import Room
 
 
 def generateRoom():
     hashids = Hashids()
     title = " "
-
+    roomDescription = " "
     index = 0
     codexList = []
 
@@ -157,19 +158,18 @@ def generateRoom():
     except:
         title = text_model.make_short_sentence(120)
     hashids = Hashids(salt=title)
-    id= hashids.encode(i)
-    # this script was standalone originally and just made a bunch of html files in a loop. I removed
-    # the loop but I still need to figure out how to add Rooms to the db instead of making html pages
-    myfile = "rooms/room-"+str(i)+id+".html" 
-    #with open(myfile, "a") as myfile:
-    #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
-    #    myfile.write("<body style='background-color:"+colorhex+";'>")
-    #    myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
-    for number in range(5):
-        roomDescription += "\n" + text_model.make_sentence() + " "
+    for i in range(8):
+        id= hashids.encode(i)
+        myfile = "rooms/room-"+str(i)+id+".html" 
+        #with open(myfile, "a") as myfile:
+        #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
+        #    myfile.write("<body style='background-color:"+colorhex+";'>")
+        #    myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
+        for number in range(5):
+            roomDescription += "\n" + text_model.make_sentence() + " "
 
     #    myfile.close()
 
         # new version
 
-    Room.objects.create( name = elaborateColor + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor )
+    Room.objects.create( name = elaborateColor + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor, pub_date = '?', url = '?')
