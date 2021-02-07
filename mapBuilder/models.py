@@ -1,7 +1,8 @@
 import datetime
 from colorfield.fields import ColorField
 from django.db import models
-from django.utils import timezone
+import datetime
+from django.utils.timezone import now
 from characterBuilder.models import Character
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Room(models.Model):
     url = models.URLField(max_length=200)
  #  visits =
     exits = models.ManyToManyField('self', symmetrical=True)
-    pub_date = models.DateTimeField('date created')
+    pub_date = models.DateTimeField(default=now,blank=True)
     description = models.CharField(max_length=600)
     colorName = models.CharField(max_length=200)
     status = models.CharField(max_length=200)

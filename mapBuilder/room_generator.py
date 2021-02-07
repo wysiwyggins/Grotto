@@ -6,7 +6,6 @@ import random
 import webcolors
 from unidecode import unidecode
 from hashids import Hashids
-import datetime
 from mapBuilder.models import Room
 
 
@@ -158,18 +157,16 @@ def generateRoom():
     except:
         title = text_model.make_short_sentence(120)
     hashids = Hashids(salt=title)
-    for i in range(8):
-        id= hashids.encode(i)
-        myfile = "rooms/room-"+str(i)+id+".html" 
-        #with open(myfile, "a") as myfile:
-        #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
-        #    myfile.write("<body style='background-color:"+colorhex+";'>")
-        #    myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
-        for number in range(5):
-            roomDescription += "\n" + text_model.make_sentence() + " "
+    # myfile = "rooms/room-"+str(i)+id+".html" 
+    #with open(myfile, "a") as myfile:
+    #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
+    #    myfile.write("<body style='background-color:"+colorhex+";'>")
+    #    myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
+    for number in range(5):
+        roomDescription += "\n" + text_model.make_sentence() + " "
 
     #    myfile.close()
 
         # new version
 
-    Room.objects.create( name = elaborateColor + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor, pub_date = '?', url = '?')
+    Room.objects.create( name = elaborateColor + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor)
