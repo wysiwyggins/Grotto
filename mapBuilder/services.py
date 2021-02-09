@@ -14,7 +14,9 @@ class RoomAdjacencyService:
     While generating rooms call ``RoomAdjacencyService().add_room(<room>)``
     passing the newly generated room.
 
-    Alternately, if you have a set of rooms
+    Alternately, if rooms exist and you want the connections between them
+    to be shuffled use ``RoomAdjacencyService().reorgainize_rooms()``
+
     """
     max_adjacency = 4
     min_adjacency = 1
