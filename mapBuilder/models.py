@@ -13,6 +13,8 @@ class Room(models.Model):
  #  visits =
     exits = models.ManyToManyField('self', symmetrical=True)
     pub_date = models.DateTimeField(default=now,blank=True)
+    # PS: Possibly use a TextField for description unless you're sure that
+    #  the generator will come in under 600 chars
     description = models.CharField(max_length=600)
     colorName = models.CharField(max_length=200)
     status = models.CharField(max_length=200)

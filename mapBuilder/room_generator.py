@@ -7,6 +7,7 @@ import webcolors
 from unidecode import unidecode
 from hashids import Hashids
 from mapBuilder.models import Room
+from mapBuilder.services import RoomAdjacencyService
 
 
 def generateRoom():
@@ -46,13 +47,13 @@ def generateRoom():
         blue = random.randint(0, 255)
         color = []
         if "red" in elaborateColor:
-            red = random.randint(100, 255) 
+            red = random.randint(100, 255)
         if "green" in elaborateColor:
             green = random.randint(100, 255)
             red -= random.randint(100, 255)
             blue -= random.randint(100, 255)
         if "blue" in elaborateColor:
-            blue = random.randint(100, 255) 
+            blue = random.randint(100, 255)
             red -= random.randint(100, 255)
             green -= random.randint(100, 255)
         if "violet" in elaborateColor:
@@ -128,20 +129,10 @@ def generateRoom():
                 green += 200
             if(blue<255):
                 blue += 200
-        
-        #oh god I don't know how to clamp in python
-        if(red > 255): 
-            red = 255
-        if(green > 255):
-            green = 255
-        if(blue > 255):
-            blue = 255
-        if(red < 0): 
-            red = 0
-        if(green < 0):
-            green = 0
-        if(blue < 0):
-            blue = 0
+
+        red = max(min(red, 255), 0)
+        green = max(min(green, 255), 0)
+        blue = max(min(blue, 255), 0)
         color.append(red)
         color.append(green)
         color.append(blue)
@@ -157,7 +148,7 @@ def generateRoom():
     except:
         title = text_model.make_short_sentence(120)
     hashids = Hashids(salt=title)
-    # myfile = "rooms/room-"+str(i)+id+".html" 
+    # myfile = "rooms/room-"+str(i)+id+".html"
     #with open(myfile, "a") as myfile:
     #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
     #    myfile.write("<body style='background-color:"+colorhex+";'>")
@@ -169,4 +160,5 @@ def generateRoom():
 
         # new version
 
-    Room.objects.create( name = elaborateColor.capitalize() + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor)
+    room = Room.objects.create( name = elaborateColor.capitalize() + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor)
+    RoomAdjacencyService().add_room(room)

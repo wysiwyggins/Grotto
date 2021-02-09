@@ -18,13 +18,13 @@
         <h2>Exits:</h2>
         <ul class="exits">
           {% for exit in object.exits.all %}
-            <li><a href="{{ exit }}"></a></li>
+            <li><a href="{% url 'mapBuilder:room' exit.id %}">{{exit.name}}</a></li>
           {% endfor %}
         </ul>
       </sidebar>
       <section class='description'>
           <h1>{{object.name}}</h1>
-          <p class="description"> 
+          <p class="description">
             {{ object.description }}
           </p>
       </section>
