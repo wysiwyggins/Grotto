@@ -1,0 +1,12 @@
+/* line 2, static/main.scss */
+.room .main {
+  display: flex;
+  flex-direction: row;
+  align-content: center; }
+
+/* line 10, static/main.scss */
+.room section {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box; }

@@ -1,0 +1,9 @@
+/* line 2, static/main.scss */
+.room .main {
+  display: flex;
+  flex-direction: row;
+  align-content: center; }
+
+/* line 10, static/main.scss */
+.room section {
+  flex: 1; }

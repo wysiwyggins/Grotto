@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap");
+/* line 11, static/main.scss */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+/* line 20, static/main.scss */
+.room h1, .room h2 {
+  margin-top: 0;
+  font-family: 'UnifrakturMaguntia', cursive; }
+
+/* line 24, static/main.scss */
+.room .main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-content: center;
+  box-sizing: border-box; }
+
+/* line 31, static/main.scss */
+.room sidebar {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  min-width: 80px;
+  margin: 10px; }
+
+/* line 36, static/main.scss */
+.room section {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  flex: 1;
+  margin: 10px; }
+
+/* line 41, static/main.scss */
+.room footer {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box; }
+
+/* line 44, static/main.scss */
+.room header {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box; }

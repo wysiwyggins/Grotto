@@ -1,24 +1,36 @@
 {% load static %}
+{% load compress %}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{object.colorName}} Room</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'mapBuilder/style.css' %}">
+    <title>{{object.name}} Room</title>
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
+    {% endcompress %}
   </head>
-  <body class = "room {{ object.id }}" style='background-color:{{object.colorHex}}'>
-    <sidebar>
-      <ul class="exits">
-        {% for exit in object.exits.all %}
-          <li><a href="{{ exit }}"></a></li>
-        {% endfor %}
-      </ul>
-    </sidebar>
-    <section class='description'>
-        <h1>{{object.colorName}} Room</h1>
-        <p class="description"> 
-          {{ object.description }}
-        </p>
-    </section>
+  <body class = "room {{ object.colorName }}" style='background-color:{{object.colorHex}}'>
+    <header>
+
+    </header>
+    <div class="main">
+      <sidebar>
+        <h2>Exits:</h2>
+        <ul class="exits">
+          {% for exit in object.exits.all %}
+            <li><a href="{{ exit }}"></a></li>
+          {% endfor %}
+        </ul>
+      </sidebar>
+      <section class='description'>
+          <h1>{{object.name}}</h1>
+          <p class="description"> 
+            {{ object.description }}
+          </p>
+      </section>
+    </div>
+    <footer>
+
+    </footer>
     </body>
 </html>

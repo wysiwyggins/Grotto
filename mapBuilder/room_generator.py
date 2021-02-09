@@ -73,7 +73,7 @@ def generateRoom():
             blue -= random.randint(100, 255)
         if "gold" in elaborateColor:
             green = random.randint(220, 255)
-            red = random.randint(220, 255)
+            red = green + random.randint(10, 20)
             blue =random.randint(0, 20)
         if "cyan" in elaborateColor:
             red -= random.randint(100, 255)
@@ -169,4 +169,4 @@ def generateRoom():
 
         # new version
 
-    Room.objects.create( name = elaborateColor + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor)
+    Room.objects.create( name = elaborateColor.capitalize() + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor)

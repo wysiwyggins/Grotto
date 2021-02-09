@@ -1,0 +1,48 @@
+/* line 8, static/main.scss */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  box-sizing: border-box; }
+
+/* line 15, static/main.scss */
+.room h1, .room h2 {
+  margin-top: 0; }
+
+/* line 18, static/main.scss */
+.room .main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-content: center;
+  box-sizing: border-box; }
+
+/* line 25, static/main.scss */
+.room sidebar {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 10px;
+  min-width: 80px; }
+
+/* line 29, static/main.scss */
+.room section {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 10px;
+  flex: 1; }
+
+/* line 33, static/main.scss */
+.room footer {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 10px; }
+
+/* line 36, static/main.scss */
+.room header {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 10px; }

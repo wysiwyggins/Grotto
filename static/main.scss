@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap');
+@font-face {
+    font-family: 'courier_prime_coderegular';
+    src: url('static/fonts/courier_prime_code-webfont.woff2') format('woff2'),
+         url('static/fonts/courier_prime_code-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+@mixin room-div {
+    background-color: rgba(5,5,5,0.6);
+    padding: 20px;
+    box-sizing: border-box;
+    color: #fff;
+}
+html {
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'courier_prime_coderegular', Courier, monospace;
+    font-size: .9em;
+    font-weight: 100;
+    &.sparkly {
+        background-image: url('images/glitter.gif');
+    }
+    &.transparent {
+        background-image: url('images/checkerboard.png');
+    }
+}
+.room {
+    h1, h2 {
+        margin-top: 0;
+        font-family: 'Almendra Display', cursive;
+    }
+    h1 {
+        font-size: 5em;
+        margin-bottom: 10px;
+    }
+    h2 {
+        font-size: 5em;
+    }
+    .main {
+        display: flex;
+        flex:1;
+        flex-direction: row;
+        align-content: center;
+        box-sizing: border-box;
+    }
+    sidebar {
+        @include room-div;
+        min-width: 80px;
+        margin: 10px;
+    }
+    section {
+        @include room-div;
+        flex: 1;
+        margin: 10px;
+    }
+    footer {
+        @include room-div;
+    }
+    header {
+        @include room-div;
+    }
+}

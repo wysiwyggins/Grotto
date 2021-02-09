@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap");
+@font-face {
+  font-family: 'courier_prime_coderegular';
+  src: url("/static/static/fonts/courier_prime_code-webfont.woff2") format("woff2"), url("/static/static/fonts/courier_prime_code-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+/* line 21, static/main.scss */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'courier_prime_coderegular', Courier, monospace;
+  font-size: 1em; }
+
+/* line 32, static/main.scss */
+.room h1, .room h2 {
+  margin-top: 0;
+  font-family: 'Almendra Display', cursive; }
+
+/* line 36, static/main.scss */
+.room h1 {
+  font-size: 3em; }
+
+/* line 39, static/main.scss */
+.room h2 {
+  font-size: 3em; }
+
+/* line 42, static/main.scss */
+.room .main {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-content: center;
+  box-sizing: border-box; }
+
+/* line 49, static/main.scss */
+.room sidebar {
+  background-color: rgba(5, 5, 5, 0.6);
+  padding: 20px;
+  box-sizing: border-box;
+  color: #fff;
+  min-width: 80px;
+  margin: 10px; }
+
+/* line 54, static/main.scss */
+.room section {
+  background-color: rgba(5, 5, 5, 0.6);
+  padding: 20px;
+  box-sizing: border-box;
+  color: #fff;
+  flex: 1;
+  margin: 10px; }
+
+/* line 59, static/main.scss */
+.room footer {
+  background-color: rgba(5, 5, 5, 0.6);
+  padding: 20px;
+  box-sizing: border-box;
+  color: #fff; }
+
+/* line 62, static/main.scss */
+.room header {
+  background-color: rgba(5, 5, 5, 0.6);
+  padding: 20px;
+  box-sizing: border-box;
+  color: #fff; }
