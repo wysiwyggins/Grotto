@@ -133,6 +133,10 @@ def generateRoom():
                 green += 200
             if(blue<255):
                 blue += 200
+        if "hot" in elaborateColor:
+            red = 255
+        if "cold" in elaborateColor:
+            blue = 255
 
         red = max(min(red, 255), 0)
         green = max(min(green, 255), 0)
