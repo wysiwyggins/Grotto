@@ -11,13 +11,33 @@
 
 
 @mixin room-div {
-    background-color: rgba(5,5,5,0.6);
+    background-color: rgba(5,5,5,0.7);
     padding: 20px;
     box-sizing: border-box;
     color: #fff;
 }
 html {
 }
+
+a {
+    color: #eee;
+}
+ul {
+    list-style: none;
+    padding: 0px;
+    li:before {
+        content: "\1F6AA";
+        margin: 0 .2em; 
+        font-size: 24px;
+    }
+    li {
+        line-height: 24px;
+        vertical-align: middle;
+        margin-bottom: 10px;
+    }
+}
+
+
 body {
     display: flex;
     min-height: 100vh;
@@ -34,6 +54,7 @@ body {
     &.transparent {
         background-image: url('images/checkerboard.png');
     }
+
 }
 .room {
     h1, h2 {
@@ -45,7 +66,8 @@ body {
         margin-bottom: 10px;
     }
     h2 {
-        font-size: 5em;
+        font-size: 3em;
+        line-height: 74px;
     }
     .main {
         display: flex;
@@ -58,11 +80,15 @@ body {
         @include room-div;
         min-width: 80px;
         margin: 10px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
     }
     section {
         @include room-div;
         flex: 1;
         margin: 10px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
     }
     footer {
         @include room-div;

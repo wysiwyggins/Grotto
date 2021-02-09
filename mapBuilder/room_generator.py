@@ -115,6 +115,10 @@ def generateRoom():
             red = 100
             green = 100
             blue = 100
+        if "grey" in elaborateColor:
+            red = 100
+            green = 100
+            blue = 100
         if "black" in elaborateColor:
             if(red>0):
                 red -= 200
