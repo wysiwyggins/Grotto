@@ -56,6 +56,7 @@ class RoomAdjacencyService:
         # find rooms which can be neighbors
         candidates = self._adjacency_candidates(room=room)
 
+        neighbors = []
         if candidates:
             desired_adjacency_count = random.randint(
                 self.min_adjacency, min(self.max_adjacency, len(candidates)))
@@ -64,13 +65,23 @@ class RoomAdjacencyService:
         else:
             # are there no candidates because I'm the only room, or
             #  because the dance card is full?
-            if Room.objects.count() > 1:
+            room_count = Room.objects.count()
+            if room_count == 1:
+                # only room, no exit
+                pass
+            else:
                 # dance card full
                 # randomly choose a set of rooms to divorce and squeeze between
                 to_split = random.choice(list(Room.objects.exclude(id=room.id)))
-                also_to_split = random.choice(list(to_split.exits.all()))
-                to_split.exits.remove(also_to_split)
-                neighbors = [also_to_split, to_split]
+                neighbors = [to_split]
+                try:
+                    # is there a connection to split?
+                    also_to_split = random.choice(list(to_split.exits.all()))
+                    to_split.exits.remove(also_to_split)
+                except IndexError:
+                    pass
+                else:
+                    neighbors.append(also_to_split)
         # make room adjacent to them
         for neighbor in neighbors:
             self._make_adjacent(room, neighbor)

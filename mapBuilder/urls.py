@@ -6,5 +6,5 @@ app_name = 'mapBuilder'
 urlpatterns = [
     # ex: /polls/
     path('', views.Index.as_view(), name='index'),
-    path('<slug:pk>/', views.RoomDetailView.as_view(), name='room'),
+    path('<slug:colorSlug>/', views.RoomDetailView.as_view(), name='room'),
 ]

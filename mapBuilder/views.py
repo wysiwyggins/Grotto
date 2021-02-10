@@ -31,3 +31,6 @@ class Index(ListView):
 class RoomDetailView(DetailView):
     model = Room
     template_name = 'mapBuilder/room.html'
+    query_pk_and_slug = True
+    slug_url_kwarg = 'colorSlug'
+    slug_field = 'colorSlug'

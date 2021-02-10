@@ -8,6 +8,7 @@ from unidecode import unidecode
 from hashids import Hashids
 from mapBuilder.models import Room
 from mapBuilder.services import RoomAdjacencyService
+from django.utils.text import slugify
 
 
 def generateRoom():
@@ -18,7 +19,6 @@ def generateRoom():
     codexList = []
 
     nlp = spacy.load("en_core_web_sm")
-    # since I moved this script to django it's not finding its txt files. I tried putting them in static too
     with open("mapBuilder/corpuses/rooms.txt") as f:
         text = f.read()
 
@@ -35,9 +35,9 @@ def generateRoom():
 
     def getElaborateColor():
         colorFO = io.open("mapBuilder/word_lists/colors.txt", encoding="utf-8")
-        colorList = list(colorFO)
-        selection = random.randint(0, len(colorList) - 1)
-        elaborateColor = colorList[selection]
+        colorSet = set(colorFO)
+        colorSet -= set(Room.objects.all().values_list("colorName", flat=True))
+        elaborateColor = random.choice(list(colorSet))
         elaborateColor = elaborateColor.rstrip("\n")
         return elaborateColor
 
@@ -160,17 +160,16 @@ def generateRoom():
     except:
         title = text_model.make_short_sentence(120)
     hashids = Hashids(salt=title)
-    # myfile = "rooms/room-"+str(i)+id+".html"
-    #with open(myfile, "a") as myfile:
-    #    myfile.write("<html><head><meta charset='UTF-8'><link rel='stylesheet' href='stylesheet.css' type='text/css' media='screen' charset='utf-8'> <title>"+elaborateColor+" room</title></head>")
-    #    myfile.write("<body style='background-color:"+colorhex+";'>")
-    #    myfile.write("<section class='description'><h1>"+elaborateColor+" room</h1> <p>")
+
     for number in range(5):
         roomDescription += "\n" + text_model.make_sentence() + " "
 
-    #    myfile.close()
-
-        # new version
-
-    room = Room.objects.create( name = elaborateColor.capitalize() + " Room", description = roomDescription, colorHex = colorhex, colorName = elaborateColor)
+    room = Room.objects.create(
+        name=elaborateColor.capitalize() + " Room",
+        description=roomDescription,
+        colorHex=colorhex,
+        colorName=elaborateColor,
+        colorSlug=slugify(elaborateColor)
+    )
     RoomAdjacencyService().add_room(room)
+    return room

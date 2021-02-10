@@ -19,6 +19,8 @@ class Room(models.Model):
     colorName = models.CharField(max_length=200)
     status = models.CharField(max_length=200)
     colorHex = ColorField(default='#222222')
+    colorSlug = models.SlugField(null=True)
+
     class Meta:
         unique_together = ["id", "url"]
     def __str__(self):
