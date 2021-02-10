@@ -84,6 +84,10 @@ def generateRoom():
             red = 0
             green = random.randint(200, 255)
             blue = random.randint(200, 255)
+        if "turquoise" in elaborateColor:
+            red=64
+            green=224
+            blue=204
         if "azure" in elaborateColor:
             blue = random.randint(200, 255)
             red = 0
@@ -98,7 +102,7 @@ def generateRoom():
         if "pink" in elaborateColor:
             red = 255
             green = random.randint(100, 200)
-            blue = random.randint(100, 200)
+            blue = green
         if "coral" in elaborateColor:
             red = 255
             green = random.randint(100, 200)

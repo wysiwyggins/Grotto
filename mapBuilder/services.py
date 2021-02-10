@@ -67,8 +67,8 @@ class RoomAdjacencyService:
             if Room.objects.count() > 1:
                 # dance card full
                 # randomly choose a set of rooms to divorce and squeeze between
-                to_split = random.choose(list(Room.objects.exclude(id=room.id)))
-                also_to_split = random.choose(list(to_split.exits.all()))
+                to_split = random.choice(list(Room.objects.exclude(id=room.id)))
+                also_to_split = random.choice(list(to_split.exits.all()))
                 to_split.exits.remove(also_to_split)
                 neighbors = [also_to_split, to_split]
         # make room adjacent to them
