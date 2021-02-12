@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Room
 
 # import function to run
@@ -13,7 +14,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-class Index(ListView):
+class Index(LoginRequiredMixin, ListView):
     template_name = 'mapBuilder/index.html'
     model = Room
     paginate_by = 25
@@ -28,7 +29,7 @@ class Index(ListView):
         return redirect('.') # points the user right back where they came from
 
 
-class RoomDetailView(DetailView):
+class RoomDetailView(LoginRequiredMixin, DetailView):
     model = Room
     template_name = 'mapBuilder/room.html'
     query_pk_and_slug = True

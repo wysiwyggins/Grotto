@@ -3,9 +3,16 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+
+class User(AbstractUser):
+    """Placeholder User model in case we need to add fields in the future
+    https://docs.djangoproject.com/en/3.1/topics/auth/customizing/...
+      #using-a-custom-user-model-when-starting-a-project
+    """
+    pass
+
 
 class Character(models.Model):
     char_id = models.IntegerField(default=0)

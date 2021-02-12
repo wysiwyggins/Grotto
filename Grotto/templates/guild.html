@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+GUILD HALL HERE
+
+<ul>
+    {% for character in characters %}
+        <li>{{ character.charactername }}</li>
+    {% endfor%}
+</ul>
+{% endblock %}

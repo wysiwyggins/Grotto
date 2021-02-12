@@ -33,9 +33,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
     'mapBuilder.apps.MapBuilderConfig',
     'characterBuilder.apps.CharacterBuilderConfig',
+    'Grotto',
     'colorfield',
     'compressor',
     'django.contrib.admin',
@@ -122,12 +122,11 @@ USE_TZ = True
 
 
 COMPRESS_PRECOMPILERS = (
-    
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"), 
+    os.path.join(BASE_DIR, "staticfiles"),
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -136,3 +135,6 @@ STATICFILES_FINDERS = [
 ]
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+AUTH_USER_MODEL = 'characterBuilder.User'
+LOGIN_REDIRECT_URL = '/guild/'
