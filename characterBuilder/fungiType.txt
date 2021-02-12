@@ -1,0 +1,650 @@
+mushrooms
+puffballs
+stinkhorns
+bracket fungi
+jelly fungi
+boletes
+smuts
+bunts
+rusts
+chanterelles
+earth stars
+trichophyton
+indigo Milk Caps
+sheathed Woodtufts
+coral fungi
+bleeding tooth fungi
+mildew
+morels
+salty mushroom
+cultivated mushroom
+pavement mushroom
+field mushroom
+cluste mushroom
+rosy wood mushroom
+tufted wood mushroom
+scaly wood mushroom
+inky mushroom
+lilac mushroom
+blushing wood mushroom
+wood mushroom
+macro mushroom
+yellow stainer
+poplar fieldcap
+dark fieldcap
+bearded fieldcap
+common fieldcap
+spring fieldcap
+mulch fieldcap
+wrinkled fieldcap
+peel fungus
+stalked  peel fungus
+disco
+snakeskin grisette
+false deathcap
+grisette
+solitary amanita
+grey spotted amanita
+fragile amanita
+tawny grisette
+jewelled amanita
+pale grisette
+fly agaric
+mountain grisette
+bearded amanita
+panthercap
+deathcap
+grey veiled amanita
+blusher
+warted amanita
+grisette
+destroying angel
+barefoot amanita
+upper crust
+club foot
+charcoal goldeneye
+charcoal eyelash
+hair sedge smut
+honeycomb crust
+mullet honey fungus
+marsh honey fungus
+bulbous honey fungus
+honey fungus
+dark honey fungus
+ringless honey fungus
+moss oysterling
+verdigris navel
+small moss oysterling
+bog shadow
+purple jellydisc
+starfish fungus
+powdery piggyback
+silky piggyback
+barometer earthstar
+birch tarspot
+greasy bracket
+gilded bolete
+jelly ear
+tripe fungus
+earpick fungus
+conifercone cap
+drab tooth
+spruce tooth
+toothed crust
+sandy stiltball
+silver rust
+wood mulberry
+blister
+beech tarcrust
+lemon disco
+sulphur disco
+smoky bracket
+big smoky bracket
+blasia mosscap
+netted fieldcap
+yellow fieldcap
+false bolete
+bronze bolete
+oak bolete
+bay bolete
+ascot hat
+bitter beech bolete
+cracking bolete
+penny bun
+pale bolete
+fragrant bolete
+constant bolete
+iodine bolete
+false yellow bolete
+scarletina bolete
+lurid bolete
+tawny bolete
+uede bolete
+dwarf puffball
+least puffball
+puffball
+fen puffball
+puffball
+wood bolete
+bulgar
+netted crust
+mountain avens microdot
+nettle pox
+small stagshorn
+pale stagshorn
+gilded domecap
+St. George's mushroom
+golden cup
+giant puffball
+dotted fanvault
+stinking fanvault
+dark fanvault
+thick tarcrust
+marram oysterling
+aurora	golden chanterelle
+ashen chanterelle
+pale chanterelle
+chanterelle
+chanterelle
+trumpet chanterelle
+olive salver
+porecrust
+green porecrust
+luna crescent crust
+peppery bolete
+dewdrop dapperling
+flea's ear
+elfcup
+false parasol
+shaggy parasol
+silverleaf fungus
+golden navel
+crowberry rust
+wintergreen rust
+alder goblet
+devil's fingers
+pointed club
+straw club
+violet coral
+ergot
+candelabra coral
+yew club
+coral
+crested coral
+wrinkled club
+handsome club
+mealy frosted funnel
+fragrant funnel
+trooping funnel
+common funnel
+twotone funnel
+clouded funnel
+aniseed funnel
+piggyback shanklet
+splitpea shanklet
+lentil shanklet
+tiger's eye
+wet rot
+conecap
+milky conecap
+ringed conecap
+fool's conecap
+beautiful conecap
+Conocybe tenera	common conecap
+fairy inkcap
+magpie inkcap
+sawdust inkcap
+pied inkcap
+distinguished inkcap
+shaggy inkcap
+lawyer's wig
+midden inkcap
+cowpat gem
+drumstick truffleclub
+bug sputnik
+yellow waspclub
+scarlet caterpillarclub
+dwarf caterpillarclub
+sunset webcap
+wrinkled webcap
+slimy webcap
+cream webcap
+horn of plenty
+flat oysterling
+grounded oysterling
+common jelly spot
+weeping toothcrust
+oak mazegill
+blushing bracket
+cramp balls
+common mazegill
+birch cup
+branched shanklet
+crazed cap
+dark crazed cap
+willow barkspot
+mudwort smut
+anemone cup
+warty dapperling
+blushing crust
+snaketongue truffleclub
+false truffle
+fringed cup
+spring hazelcup
+green hazelcup
+gill
+gill
+navy gill
+big  gill
+oysterling gill
+sea holly smut
+brookweed smut
+bog asphodel smut
+moss rust
+choke
+salmon bracket
+willow mildew
+oak mildew
+burdock mildew
+umbellifer mildew
+spiral tarcrust
+witches' butter
+crystal brain
+amber jelly
+birch jelly
+pine jelly
+white brain
+beefsteak fungus
+velvet shank
+yellowpo bracket
+hoof fungus
+elbowpatch crust
+-belted bracket
+rose bracket
+cinnamon porecrust
+rusty porecrust
+tufted bracket
+hairy leg bell
+lined meadowcap
+flask earthstar
+tiny earthstar
+rayed earthstar
+dwarf earthstar
+striate earthstar
+colla earthstar
+sandy earthtongue
+dark-purple earthtongue
+elongate earthtongue
+earthtongue
+slimy earthtongue
+star earthtongue
+viscid earthtongue
+changeable false morel
+false morel
+pouched false morel
+fishtail cup
+chestnut bolete
+woolly oyster
+glazed cup
+maidenhair rust
+oak fern rust
+terracotta hedgehog
+whiskery milkcap
+honeysuckle rash
+woolly woodwart
+flowery blewit
+dripping slimecap
+ochre slimecap
+ivy leaf split
+dusky puffball
+common puffball
+Devil's puffball
+cucumber cap
+slender parasol
+contorted pipe club
+bristled parachute
+grass parachute
+leaf parachute
+warty cavalier
+rancid bonnet
+cryptic bonnet
+vulgar bonnet
+vampires bane
+dune cannon
+hare's ear
+veined ear
+porcelain fungus
+frothy porecrust
+midnight disco
+colchicum smut
+green hellebore smut
+meadow grass smut
+bird's-eye primrose smut
+chickweed wintergreen smut
+colchicum rust
+dead moll's fingers
+haw candlesnuff
+dead man's fingers
+Forest Lamb
+Albatrellus peckianus
+Peck's Polypore
+Amanita australis
+Southern Amanita
+Amanita caesarea
+Caesar's Amanita
+Amanita calyptroderma
+Pacific Amanita
+Amanita daucipes
+Carrot Amanita
+Amanita flavoconia
+Yellow Spotted Amanita
+Amanita jacksonii
+American Slender Caesar
+Amanita onusta
+Gunpowder Amanita
+Amauroderma rude
+ Staining Stalked Polypore
+Amparoina spinosissima
+Flaky Bonnet
+Ampulloclitocybe avellaneoalba
+Smoky  Funnel
+Anthracophyllum melanophyllum
+Cinnabar Fan Bracket
+Aurantiporus pulcherrimus
+Strawberry Bracket
+Auricularia cornea
+Rubber Ear
+Austropaxillus macnabbii
+ Rollrim
+Boletellus obscurococcineus
+Rhubarb Bolete
+Boletellus russellii
+Pitted Bolete
+Boletopsis grisea
+Grey Falsebolete
+Boletus firmus
+Firm Bolete
+Boletus flammans
+Flame Bolete
+Boletus frostii
+Frost's Bolete
+Boletus hortonii
+Corrugated Bolete
+Boletus reticuloceps
+Fishnet Bolete
+Boletus zelleri
+Zeller's Bolete
+Bondarzewia montana
+Mountain Polypore
+Calostoma cinnabarina
+Aspic Puffball
+Campanella aeruginea
+Turquoise Oysterling
+Cantharellus cinnabarinus
+Cinnabar Chanterelle
+Cantharellus ignicolor
+Flame Chanterelle
+Caripia montagnei
+Pod Parachute
+Catathelasma imperiale
+Imperial Mushroom
+Ceriporia tarda
+Mauve Waxpore
+Chlorophyllum agaricoides
+Puffball Parasol
+Chlorovibrissea phialophora
+Green Pinball
+Clavaria phoenicea
+Sunset Spindles
+Clavaria purpurea
+Purple Spindles
+Climacodon septentrionalis
+Northern Tooth Fungus
+Clitocybe amoenolens
+Paralysis Funnel
+Conocybe deliquescens
+Beansprout Conecap
+Cookeina tricholoma
+Hairy Tropical Goblet
+Cortinarius agathosmus
+Scented Webcap
+Cortinarius austrovenetus
+Green Skinhead
+Cortinarius iodes
+Viscid Violet Webcap
+Crinipellis zonata
+Zoned Hairy Parachute
+Cryptoporus volvatus
+Veiled Polypore
+Cymatoderma elegans
+Leathery Goblet
+Cyptotrama asprata
+Scruffy Scalycap
+Cystoagaricus trisulphuratus
+Scaly Tangerine Mushroom
+Cyttaria darwinii
+Darwin's Golfball
+Cyttaria gunnii
+ Golfball
+Dacryopinax spathularia
+Fan Shaped Jelly
+Deflexula subsimplex
+Pendant Coral
+Echinodontium tinctorium
+Indian Paint Fungus
+Entoloma glaucoroseum
+Jade gill
+Entoloma murrayi
+Unicorn gill
+Entoloma quadratum
+Salmon gill
+Entoloma violaceum
+Violet gill
+Entoloma virescens
+Sky gill
+Favolaschia calocera
+ Porecap
+Favolaschia pustulosa
+White Porecap
+Favolus tenuiculus
+Tropical White Polypore
+Filoboletus manipularis
+Luminous Porecap
+Floccularia luteovirens
+Yellow Bracelet
+Galiella rufa
+Hairy Rubber Cup
+Gallacea scleroderma
+Velvet Potato Fungus
+Glaziella aurantiaca
+ Bladder
+Gliophorus viridis
+Verdigris Waxcap
+Gomphus floccosus
+Woolly Chanterelle
+Gyromitra gigas
+Giants False Morel
+Heimioporus betula
+Shaggy Stalked Bolete
+Heliocybe sulcata
+Sunray Sawgill
+Hexagonia hydnoides
+Hexagon Bracket
+Humidicutis lewelliniae
+Mauve Splitting Waxcap
+Humidicutis marginata
+Gilled Waxcap
+Hydnellum auratile
+Gold Tooth
+Hydnopolyporus fimbriatus
+Poretooth Rosette
+Hygrocybe caespitosa
+Cluste Waxcap
+Hygrophorus speciosus
+Splendid Woodwax
+Hypomyces lactifluorum
+Lobster Fungus
+Hypsizygus marmoreus
+Beech Leech
+Inocybe caesariata
+Caesar's Fibrecap
+Lachnocladium denudatum
+Smooth Leather Coral
+Lactarius indigo
+Indigo Milkcap
+Lactarius lignyotus
+Velvet Milkcap
+Lactarius sanguifluus
+Bloody Milkcap
+Lactocollybia aurantiaca
+ Milkshank
+Leccinum eximium
+Lilac Bolete
+Lentinula edodes
+Shiitake
+Lentinus crinitus
+Fringed Sawgill
+Leotia viscosa
+Greencap Jellybaby
+Lepiota flammeatincta
+Flaming Parasol
+Leratiomyces erythrocephalus
+head Roundhead
+Leucoagaricus rubrotinctus
+Ruby Dapperling
+Leucocoprinus fragilissimus
+Fragile Dapperling
+Lignosus rhinocerus
+Tiger's Milk Fungus
+Longula texensis
+Texan Desert Mushroom
+Lysurus corallocephalus
+Coralhead Stinkhorn
+Lysurus mokusin
+Ribbed Lizard's Claw
+Macowanites luteolus
+Yellow Brittleball
+Macrocybe titans
+American Titan
+Marasmius crinisequi
+Rainforest Horsehair
+Marasmius haematocephalus
+Mauve Parachute
+Marasmius pulcherripes
+Rosy Parachute
+Marasmius zenkeri
+Striped Parachute
+Microglossum rufum
+Earthtongue
+Microporus xanthopus
+Yellow Stemmed Micropore
+Montagnea arenaria
+Desert Inkcap
+Mucronella pendula
+Icicle Spine
+Mutinus borneensis
+Yellow Dog Stinkhorn
+Mycena aurantiidisca
+Tangerine Bonnet
+Mycena interrupta
+Pixie's Parasol
+Mycena leaiana
+Golden Bonnet
+Mycena strobilinoides
+Flame Bonnet
+Mycena viscidocruenta
+Ruby Bonnet
+Nidula niveotomentosa
+Woolly Bird's Nest
+Omphalotus japonicus
+Moonlight Mushroom
+Onnia tomentosa
+Velvet Rosette
+Ophiocordyceps sinensis
+Chinese Caterpillar Fungus
+Peziza azureoides
+Azure Cup
+Phaeocollybia christinae
+Christina's Rootshank
+Phallus indusiatus
+Veiled Lady
+Phillipsia domingensis
+Mauve Elfcup
+Phlebia coccineofulva
+Scarlet Waxcrust
+Phylloporus rhodoxanthus
+Gilled Bolete
+Physalacria inflata
+Bladder Stalks
+Pleurotus citrinopileatus
+Golden Oyster
+Pleurotus djamor
+Tropical Oyster
+Pleurotus eryngii
+King Oyster
+Pluteus aurantiorugosus
+Flame Shield
+Podaxis pistillaris
+Desert Shaggy Mane
+Podoscypha petalodes
+Wine Glass Rosette
+Podoserpula pusio
+Pagoda Fungus
+Podostroma cornu-damae
+Poison Fire Coral
+Pseudocolus fusiformis
+Stinky Squid
+Psilocybe cubensis
+Golden ie
+Pterula subulata
+Angel Hair Coral
+Pulveroboletus ravenelii
+Sulphur Bolete
+Ramaria araiospora
+Coral
+Ramaria longispora
+Longspo  Coral
+Ramaria sanguinea
+Bloody Coral
+Rigidoporus sanguinolentus
+Bleeding Porecrust
+Sarcosoma globosum
+Witches Cauldron
+Sebacina sparassoidea
+White Coral Jelly
+Squamanita odorata
+Fragrant Strangler
+Staheliomyces cinctus
+Cummerbund Stinkhorn
+Suillus ochraceoroseus
+Rosy Larch Bolete
+Syzygospora mycetophila
+Toughshank Brain
+Terfezia arenaria
+Moroccan Desert Truffle
+Termitomyces robustus
+Robust Termite Fungus
+Tetrapyrgos nigripes
+foot Parachute
+Tremella fuciformis
+Silver Ear
+Tremellodendron schweinitzii
+Jellied False Coral
+Tricholoma caligatum
+True Booted Knight
+Tricholoma magnivelare
+American Matsutake
+Tricholoma pardinum
+Leopard Knight
+Tuber magnatum
+White Truffle
+Tylopilus alboater
+Velvet Bolete
+Tylopilus chromapes
+Yellowfoot Bolete
+Urnula craterium
+Devil's Urn
+Weraroa virescens
+Pouch Fungus
+Xylaria tentaculata
+Fairy Sparkler
