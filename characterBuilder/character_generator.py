@@ -432,6 +432,6 @@ class Character:
         characterName = name
         characterType = kind
         characterDescription = description
-        characterSkills = skills
+        # characterSkills = skills #these aren't in the datebase yet. They'll be a variable numbered list of words with numbers
     )
     return character
