@@ -22,20 +22,6 @@ html {
 a {
     color: #eee;
 }
-ul {
-    list-style: none;
-    padding: 0px;
-    li:before {
-        content: "\1F6AA";
-        margin: 0 .2em; 
-        font-size: 24px;
-    }
-    li {
-        line-height: 24px;
-        vertical-align: middle;
-        margin-bottom: 10px;
-    }
-}
 
 p {
     margin-bottom: 20px;
@@ -55,7 +41,15 @@ h2 {
     line-height: 74px;
 }
 
-
+header {
+    ul {
+        list-style: none;
+        li {
+            float: right;
+            margin-left: 20px;
+        }
+    }
+}
 body {
     display: flex;
     min-height: 100vh;
@@ -104,7 +98,21 @@ body {
 
 }
 .room {
-    
+}
+
+ul.exits {
+    list-style: none;
+    padding: 0px;
+    li:before {
+        content: "\1F6AA";
+        margin: 0 .2em; 
+        font-size: 24px;
+    }
+    li {
+        line-height: 24px;
+        vertical-align: middle;
+        margin-bottom: 10px;
+    }
 }
 
 

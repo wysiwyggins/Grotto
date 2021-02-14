@@ -11,9 +11,7 @@
     {% endcompress %}
   </head>
   <body class = "{% block body_class %}{% endblock %}">
-    <header>
-
-    </header>
+    {% include "header.html" %} 
     <div class="main">
       <section class='description'>
       {% block content %}

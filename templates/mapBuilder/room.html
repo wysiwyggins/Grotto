@@ -10,9 +10,7 @@
     {% endcompress %}
   </head>
   <body class = "room {{ object.colorName }}" style='background-color:{{object.colorHex}}'>
-    <header>
-
-    </header>
+    {% include "header.html" %} 
     <div class="main">
       <sidebar>
         <h2>Exits:</h2>
