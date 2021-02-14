@@ -1,27 +1,4 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Room Generator</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'characterBuilder/style.css' %}">
-  </head>
-  <body class = "characterBuilder">
-        <p>Spread out on the bed is a map and the tumped-out contents of a junk drawer.</p>
-
-        <ul>
-          {% for room in object_list %}
-              <li>{{ room.pub_date|date }} - <a href="{% url 'mapBuilder:room' room.colorSlug %}">{{ room.name }}</a></li>
-          {% empty %}
-              <li>No rooms yet.</li>
-          {% endfor %}
-          </ul>
-
-
-        <form method="post">
-          {% csrf_token %}
-          <button type="submit" name="generate_room">Add Room to Map</button>
-        </form>
-    </body>
-</html>
+{% block content %}
+{% endblock %}

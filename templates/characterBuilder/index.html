@@ -1,13 +1,31 @@
 {% load static %}
+{% load compress %}
 
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>The Adventurer's Guild</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'characterBuilder/style.css' %}">
+    <title>{% block page_title %}{% endblock %}</title>
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
+    {% endcompress %}
   </head>
-  <body class = "characterBuilder">
-        <p>This is the waiting area outside of the maze. Seated at a table in a darkened corner is a smiling crone. She gestures towards an empty seat and shuffles a tarot deck.</p> 
+  <body class = "{% block body_class %}{% endblock %}">
+    <header>
+
+    </header>
+    <div class="main">
+      <section class='description'>
+      <h1>The Adventurer's Guild</h1>
+      <p>This is the waiting area outside of the maze. Seated at a table in a darkened corner is a smiling crone. She gestures towards an empty seat and shuffles a tarot deck.</p> 
+
+      <ul>
+       
+      </ul>
+      </section>
+    </div>
+    <footer>
+
+    </footer>
     </body>
 </html>

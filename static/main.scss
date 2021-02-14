@@ -37,6 +37,24 @@ ul {
     }
 }
 
+p {
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+h1, h2 {
+    margin-top: 0;
+    font-family: 'Almendra Display', cursive;
+}
+h1 {
+    font-size: 5em;
+    margin-bottom: 10px;
+}
+h2 {
+    font-size: 3em;
+    line-height: 74px;
+}
+
 
 body {
     display: flex;
@@ -55,20 +73,6 @@ body {
         background-image: url('images/checkerboard.png');
     }
 
-}
-.room {
-    h1, h2 {
-        margin-top: 0;
-        font-family: 'Almendra Display', cursive;
-    }
-    h1 {
-        font-size: 5em;
-        margin-bottom: 10px;
-    }
-    h2 {
-        font-size: 3em;
-        line-height: 74px;
-    }
     .main {
         display: flex;
         flex:1;
@@ -96,4 +100,8 @@ body {
     header {
         @include room-div;
     }
+
+}
+.room {
+    
 }
