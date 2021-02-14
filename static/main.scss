@@ -94,6 +94,7 @@ body {
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
     }
+   
     footer {
         @include room-div;
     }
@@ -104,4 +105,22 @@ body {
 }
 .room {
     
+}
+
+
+.center-block {
+    max-width: 400px;
+    margin: auto;
+    font-size: 1.3em;
+    text-align: center;
+    form {
+        margin: 20px;
+        box-sizing: border-box;
+    }
+    input {
+        padding: 5px;
+        font-size: 1em;
+        margin: 10px;
+        box-sizing: border-box;
+    }
 }
