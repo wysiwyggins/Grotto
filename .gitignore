@@ -24,3 +24,4 @@ mapBuilder/.DS_Store
 CACHE/
 characterBuilder/.DS_Store
 .DS_Store
+Grotto/__pycache__/urls.cpython-38.pyc
