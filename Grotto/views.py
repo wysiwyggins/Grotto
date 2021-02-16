@@ -2,7 +2,10 @@ from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.views.generic import FormView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
 
+def index(request):
+    return render(request, 'static_pages/index.html')
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:

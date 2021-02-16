@@ -1,13 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap');
 @font-face {
     font-family: 'courier_prime_coderegular';
-    src: url('static/fonts/courier_prime_code-webfont.woff2') format('woff2'),
-         url('static/fonts/courier_prime_code-webfont.woff') format('woff');
+    src: url('fonts/courier_prime_code-webfont.woff2') format('woff2'),
+         url('fonts/courier_prime_code-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
+@font-face {
+    font-family: 'kern_mansionregular';
+    src: url('fonts/kernmansion-regular-webfont.woff2') format('woff2'),
+         url('fonts/kernmansion-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 
+}
 
 
 @mixin room-div {
@@ -31,19 +38,34 @@ p {
 
 h1, h2 {
     margin-top: 0;
-    font-family: 'Almendra Display', cursive;
+    
 }
 
-span.yellow {
+.yellow {
     color: #ffff11;
 }
+.orange {
+    color: #e99f20;
+}
+.pink {
+    color:  #df8895;
+}
+.small {
+    font-size:small;
+}
+
 h1 {
-    font-size: 5em;
+    font-size: 6em;
     margin-bottom: 10px;
+    font-family: kern_mansionregular, cursive;
+    color:  #df8895;
+    text-align: center;
 }
 h2 {
-    font-size: 3em;
+    font-size: 4em;
     line-height: 74px;
+    font-family: 'Almendra Display', cursive;
+    padding-left: 10px;
 }
 
 header {
@@ -103,6 +125,35 @@ body {
 
 }
 .room {
+}
+
+.index {
+    h1 {
+        text-align: center;
+
+    }
+    img {
+        width: 420px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    section.welcome {
+        background-color:rgba(63, 20, 186, 0.91);
+        border-radius: 80px;
+    }
+    .login {
+        text-align: center;
+    }
+    .login,.news {
+        background-color: rgba(0,0,0,0.3);
+        display: grid;
+        max-width: 400px;
+        margin: auto;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 4px double #fff;
+    }
 }
 
 ul.exits {

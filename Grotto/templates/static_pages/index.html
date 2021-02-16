@@ -1,0 +1,38 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block page_title %}{% endblock %}</title>
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
+    {% endcompress %}
+  </head>
+  <body class = "index">
+    <header>
+
+    </header>
+    <div class="main">
+      <section class='welcome'>
+      <h1 class="pink">Grotto (0.1<span class="small">⍺</span>)</h1>
+        <img src="static/images/bard.gif"/ alt="an animated fantasy bard playing a stringed instrument">
+
+        <div class="login"><a href="/guild/">ENTER</a></div>
+        
+        <div class="news">
+          Instance info:
+          <ul>
+            <li>some kind of stats here</li>
+            <li>more important stats</li>
+          </ul>
+        </div>
+      </section>
+      
+    </div>
+    <footer>
+
+    </footer>
+    </body>
+</html>

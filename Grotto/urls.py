@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from . import views
 
 from Grotto.views import GuildView, RegisterView
 
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('rooms/', include('mapBuilder.urls')),
     path('characterBuilder/', include('characterBuilder.urls')),
