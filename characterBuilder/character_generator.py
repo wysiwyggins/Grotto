@@ -1,11 +1,11 @@
 import random
 import io
 import markovify
+from characterBuilder.models import Character
+from django.utils.text import slugify
 
 
-#in the pre-pyglet version you were able to type in a seed number and consistently get the same output from the same seed. That hasn't been exposed in the new pyglet UI yet.
-
-class Character:
+#in the pre-pyglet version you were able to type in a seed number and consistently get the same output from the same seed.
     def __init__(self):
         self.seed = 0
         self.name = "Wiley Wiggins"
@@ -432,6 +432,6 @@ class Character:
         characterName = name
         characterType = kind
         characterDescription = description
-        # characterSkills = skills #these aren't in the datebase yet. They'll be a variable numbered list of words with numbers
+        characterSkills = skills
     )
     return character
