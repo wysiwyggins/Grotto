@@ -6,4 +6,13 @@ from django.http import HttpResponse
 
 def index(request):
     context = {}
-    return render(request, 'characterBuilder/index.html', context)
+    return render(request, '/guild/', context)
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['now'] = timezone.now()
+    return context
+
+def post(self, request):
+    generateCharacter()
+    return redirect('.') # points the user right back where they came from
