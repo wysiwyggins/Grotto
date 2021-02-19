@@ -3,9 +3,10 @@ import io
 import markovify
 from characterBuilder.models import Character
 from django.utils.text import slugify
-
+from .character_generator import Character
 
 #in the pre-pyglet version you were able to type in a seed number and consistently get the same output from the same seed.
+class Character:
     def __init__(self):
         self.seed = 0
         self.name = "Wiley Wiggins"
