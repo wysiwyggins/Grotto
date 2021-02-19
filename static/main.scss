@@ -122,6 +122,7 @@ header {
     .description {
         margin-left: 0;
         margin-bottom: 0;
+        padding-right: 20px;
     }
     .actions-panel {
         ul.actions {
@@ -219,7 +220,7 @@ ul.exits {
     
     // desktop view
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 640px) {
     .main {
         margin-bottom: 0px;
         flex-direction: row;
