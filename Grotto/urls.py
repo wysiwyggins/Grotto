@@ -24,8 +24,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('rooms/', include('mapBuilder.urls')),
-    path('characterBuilder/', include('characterBuilder.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', RegisterView.as_view(), name='register'),
-    path('guild/', GuildView.as_view(), name='guild'),
+    path('guild/', include('characterBuilder.urls')),
 ]
