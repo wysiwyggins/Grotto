@@ -19,9 +19,10 @@
 
 @mixin room-div {
     background-color: rgba(5,5,5,0.7);
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     color: #fff;
+    
 }
 html {
 }
@@ -87,44 +88,71 @@ body {
     font-family: 'courier_prime_coderegular', Courier, monospace;
     font-size: .9em;
     font-weight: 100;
+}
+
+
+
+
+.main {
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    align-content: center;
+    box-sizing: border-box;
+    
+}
+
+sidebar {
+    @include room-div;
+    
+}
+section {
+    @include room-div;
+    flex: 1;
+}
+
+footer {
+    @include room-div;
+}
+header {
+    @include room-div;
+}
+
+
+.room {
+    .description {
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+    .actions-panel {
+        ul.actions {
+            list-style: none;
+            border: 4px double #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+            li {
+                line-height: 2em;
+                min-width: 200px;
+                margin: auto;
+                text-align: center;
+            }
+        }
+    }
+    sidebar {
+        margin-bottom: 0;
+        border-bottom-left-radius: 0;
+        padding-right: 20px;
+    }
     &.sparkly {
         background-image: url('images/glitter.gif');
     }
     &.transparent {
         background-image: url('images/checkerboard.png');
     }
-
-    .main {
-        display: flex;
-        flex:1;
-        flex-direction: row;
-        align-content: center;
-        box-sizing: border-box;
-    }
-    sidebar {
-        @include room-div;
-        min-width: 80px;
-        margin: 10px;
-        border-top-left-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-    section {
-        @include room-div;
-        flex: 1;
-        margin: 10px;
-        border-top-right-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-   
-    footer {
-        @include room-div;
-    }
-    header {
-        @include room-div;
-    }
-
-}
-.room {
 }
 
 .index {
@@ -186,5 +214,30 @@ ul.exits {
         font-size: 1em;
         margin: 10px;
         box-sizing: border-box;
+    }
+}
+
+    
+    // desktop view
+
+@media only screen and (min-width: 768px) {
+    .main {
+        margin: 5px;
+        margin-bottom: 0px;
+        flex-direction: row;
+        section, sidebar {
+            
+        }
+        sidebar {
+            border-top-left-radius: 5px;
+        }
+        section {border-top-right-radius: 5px;}
+    }
+    .actions-panel {
+        margin: 5px;
+        margin-top: 0px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        flex: 0;
     }
 }
