@@ -161,7 +161,7 @@ def generateRoom():
         title = text_model.make_short_sentence(120)
     hashids = Hashids(salt=title)
 
-    for number in range(5):
+    for number in range(3):
         roomDescription += "\n" + text_model.make_sentence() + " "
 
     room = Room.objects.create(

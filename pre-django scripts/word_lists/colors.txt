@@ -25,7 +25,6 @@ LightSalmon
 Salmon
 DarkSalmon
 LightCoral
-IndianRed 
 Crimson
 Red
 FireBrick
@@ -63,7 +62,6 @@ goldenrod
 green-yellow
 honeydew
 hot pink
-indian red
 ivory
 lavender
 lavender blush

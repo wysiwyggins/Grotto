@@ -25,7 +25,6 @@ LightSalmon
 Salmon
 DarkSalmon
 LightCoral
-IndianRed 
 Crimson
 Red
 FireBrick
