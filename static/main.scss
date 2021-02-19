@@ -1,3 +1,14 @@
+//resets
+
+h1, h2, h3, h4, h5, h6 { /*reset for mobile browsers */
+
+    font-weight: normal;
+
+}
+
+//webfonts
+
+
 @import url('https://fonts.googleapis.com/css2?family=Almendra+Display&display=swap');
 @font-face {
     font-family: 'courier_prime_coderegular';
@@ -16,6 +27,7 @@
 
 }
 
+//mixins
 
 @mixin room-div {
     background-color: rgba(5,5,5,0.7);
@@ -24,6 +36,9 @@
     color: #fff;
     
 }
+
+//base
+
 html {
 }
 
@@ -56,6 +71,7 @@ h1, h2 {
     font-size:small;
 }
 
+// typography
 h1 {
     font-size: 6em;
     margin-bottom: 10px;
@@ -66,6 +82,8 @@ h1 {
 h2 {
     font-family: 'Almendra Display', cursive;
 }
+
+//features
 
 header {
     ul {
@@ -90,6 +108,23 @@ body {
 }
 
 
+
+.center-block {
+    max-width: 400px;
+    margin: auto;
+    font-size: 1.3em;
+    text-align: center;
+    form {
+        margin: 20px;
+        box-sizing: border-box;
+    }
+    input, button {
+        padding: 5px;
+        font-size: 1em;
+        margin: 10px;
+        box-sizing: border-box;
+    }
+}
 
 
 .main {
@@ -117,12 +152,13 @@ header {
     @include room-div;
 }
 
+//views
 
 .room {
     .description {
         margin-left: 0;
         margin-bottom: 0;
-        padding-right: 20px;
+        
     }
     .actions-panel {
         ul.actions {
@@ -147,12 +183,29 @@ header {
         border-bottom-left-radius: 0;
         padding-right: 20px;
     }
+
+    ul.exits {
+        list-style: none;
+        padding: 0px;
+        li:before {
+            content: "\1F6AA";
+            margin: 0 .2em; 
+            font-size: 24px;
+        }
+        li {
+            line-height: 24px;
+            vertical-align: middle;
+            margin-bottom: 10px;
+        }
+    }
+
     &.sparkly {
         background-image: url('images/glitter.gif');
     }
     &.transparent {
         background-image: url('images/checkerboard.png');
     }
+
 }
 
 .index {
@@ -184,41 +237,11 @@ header {
     }
 }
 
-ul.exits {
-    list-style: none;
-    padding: 0px;
-    li:before {
-        content: "\1F6AA";
-        margin: 0 .2em; 
-        font-size: 24px;
-    }
-    li {
-        line-height: 24px;
-        vertical-align: middle;
-        margin-bottom: 10px;
-    }
-}
 
 
-.center-block {
-    max-width: 400px;
-    margin: auto;
-    font-size: 1.3em;
-    text-align: center;
-    form {
-        margin: 20px;
-        box-sizing: border-box;
-    }
-    input, button {
-        padding: 5px;
-        font-size: 1em;
-        margin: 10px;
-        box-sizing: border-box;
-    }
-}
 
-    
-    // desktop view
+    //responsive
+    // desktop view 
 
 @media only screen and (min-width: 640px) {
     .main {
@@ -244,6 +267,9 @@ ul.exits {
         line-height: 74px;
         font-family: 'Almendra Display', cursive;
         padding-left: 15px;
+    }
+    .description {
+        padding-right: 20px;
     }
     
 }
