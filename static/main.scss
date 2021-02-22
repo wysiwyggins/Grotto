@@ -107,7 +107,24 @@ body {
     font-weight: 100;
 }
 
-
+.actions-panel {
+    ul.actions {
+        list-style: none;
+        border: 4px double #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        li {
+            line-height: 2em;
+            min-width: 200px;
+            margin: auto;
+            text-align: center;
+        }
+    }
+}
 
 .center-block {
     max-width: 400px;
@@ -160,24 +177,7 @@ header {
         margin-bottom: 0;
         
     }
-    .actions-panel {
-        ul.actions {
-            list-style: none;
-            border: 4px double #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: row;
-            flex-wrap: wrap;
-            li {
-                line-height: 2em;
-                min-width: 200px;
-                margin: auto;
-                text-align: center;
-            }
-        }
-    }
+    
     sidebar {
         margin-bottom: 0;
         border-bottom-left-radius: 0;
