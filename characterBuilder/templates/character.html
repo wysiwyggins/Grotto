@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  {{ object.name }}
+{% endblock %}
+
+{% block body_class %}
+  character {{ object.name }}
+{% endblock %}
+
+{% block content %}
+  <h2>{{object.name}}</h2>
+  <p class="description">
+    {{ object.description }}
+  </p>
+  <p class="skills">
+    <h3>Skills</h3>
+    <ul>
+      {% for skill in object.skills.all %}
+        <li>{{ skill.name }}: {{ skill.level }}</li>
+      {% endfor %}
+    </ul>
+  </p>
+{% endblock %}

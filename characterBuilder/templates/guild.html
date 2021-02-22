@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>The Adventurer's Guild</h2>
+  <p>This is the waiting area outside of the maze. Seated at a table in a darkened corner is a smiling crone. She gestures towards an empty seat and shuffles a tarot deck.</p>
+
+  <ul>
+    {% for character in object_list %}
+        <li><a href="{% url 'characterBuilder:character' character.pk %}">{{ character.name }}</a> (created {{ character.pub_date|date }})</li>
+    {% empty %}
+        <li>No Characters yet.</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'characterBuilder:character-test' %}">Create Character</a>
+{% endblock %}

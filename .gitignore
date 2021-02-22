@@ -5,6 +5,7 @@
 *.egg-info
 *.pot
 *.py[co]
+*.pyc
 *DS_Store
 .tox/
 __pycache__

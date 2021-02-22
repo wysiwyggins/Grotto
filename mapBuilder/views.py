@@ -1,17 +1,15 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Room
 
+from Grotto.views import ActionMixin
+
+from .models import Room
 # import function to run
 from .room_generator import generateRoom
-
-# Create your views here.
-from django.http import HttpResponse
-# Create your views here.
 
 
 class Index(LoginRequiredMixin, ListView):
@@ -29,9 +27,20 @@ class Index(LoginRequiredMixin, ListView):
         return redirect('.') # points the user right back where they came from
 
 
-class RoomDetailView(LoginRequiredMixin, DetailView):
+class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     model = Room
     template_name = 'mapBuilder/room.html'
     query_pk_and_slug = True
     slug_url_kwarg = 'colorSlug'
     slug_field = 'colorSlug'
+    actions = [{
+        "url": "#",
+        "text": "real action 1",
+    }, {
+        "url": "#",
+        "text": "real action 2",
+    }, {
+        "url": "#",
+        "text": "real action 3",
+    }, ]
+

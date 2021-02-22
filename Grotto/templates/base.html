@@ -10,15 +10,27 @@
     <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
     {% endcompress %}
   </head>
-  <body class = "{% block body_class %}{% endblock %}">
-    {% include "header.html" %} 
+  <body class="{% block body_class %}{% endblock %}" style="{% block body_style %}{% endblock %}">
+    {% include "header.html" %}
     <div class="main">
+      {% block sidebar %}
+      {% endblock %}
       <section class='description'>
       {% block content %}
 
       {% endblock %}
       </section>
     </div>
-    {% include "footer.html" %} 
+    <section class="actions-panel">
+      <ul class="actions">
+        {% if actions %}
+          {% for action in actions %}
+            <li><a href="{{ action.url }}">{{ action.text }}</a></li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </section>
+
+    {% include "footer.html" %}
     </body>
 </html>

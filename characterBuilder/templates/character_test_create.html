@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if errors %}
+    <ul>
+      {% for error in errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="question" id="question" /><label for="question">What is your question?</label><br />
+    <input type="text" name="answer" id="answer-1" /><label for="answer-1">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-2" /><label for="answer-2">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-3" /><label for="answer-3">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-4" /><label for="answer-4">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-5" /><label for="answer-5">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-6" /><label for="answer-6">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-7" /><label for="answer-7">Answer choice</label><br />
+    <input type="text" name="answer" id="answer-8" /><label for="answer-8">Answer choice</label><br />
+    <button type="submit" name="create_test">Create Test</button>
+  </form>
+
+{% endblock %}

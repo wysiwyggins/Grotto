@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if question %}
+    {% if another %}
+    <p>Unsatisfied, the crone demands you answer another</p>
+    {% endif %}
+    <p>The crone penetrates you with her all-seeing eye and asks:</p>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ question }}
+      <br />
+
+      {% for choice in answer_choices %}
+        <input id="choice-{{ choice.pk}}" type="radio" name="choice" value="{{ choice.pk }}"><label for="choice-{{ choice.pk}}">{{ choice.choice }}</label><br />
+      {% endfor %}
+
+      <button type="submit" name="generate_character">Answer</button>
+    </form>
+  {% else %}
+    <p>The Crone says:</p>
+    <p>You have answered my questions and I can see clearly what sort of a being you are. Now... know thyself!</p>
+  {% endif %}
+
+{% endblock %}

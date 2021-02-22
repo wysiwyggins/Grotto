@@ -1,36 +1,31 @@
-{% load static %}
-{% load compress %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>{{object.name}} Room</title>
-    {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
-    {% endcompress %}
-  </head>
-  <body class = "room {{ object.colorName }}" style='background-color:{{object.colorHex}}'>
-    {% include "header.html" %} 
-    <div class="main">
-      <sidebar>
-        <h2>Exits:</h2>
-        <ul class="exits">
-          {% for exit in object.exits.all %}
-            <li><a href="{% url 'mapBuilder:room' exit.colorSlug %}">{{exit.name}}</a></li>
-          {% endfor %}
-        </ul>
-      </sidebar>
-      <section class='description'>
-          <h2>{{object.name}}</h2>
-          <p class="description">
-            {{ object.description }}
-          </p>
-      </section>
-      
-    </div>
-    {% include "actions.html" %} 
-    <footer>
+{% extends "base.html" %}
 
-    </footer>
-    </body>
-</html>
+{% block page_title %}
+  {{object.name}} Room
+{% endblock %}
+
+{% block body_class %}
+  room {{ object.colorName }}
+{% endblock %}
+
+{% block body_style %}
+  background-color:{{object.colorHex}}
+{% endblock %}
+
+{% block sidebar %}
+  <sidebar>
+    <h2>Exits:</h2>
+    <ul class="exits">
+      {% for exit in object.exits.all %}
+        <li><a href="{% url 'mapBuilder:room' exit.colorSlug %}">{{exit.name}}</a></li>
+      {% endfor %}
+    </ul>
+  </sidebar>
+{% endblock %}
+
+{% block content %}
+  <h2>{{object.name}}</h2>
+  <p class="description">
+    {{ object.description }}
+  </p>
+{% endblock %}

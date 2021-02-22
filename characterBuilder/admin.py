@@ -1,6 +1,15 @@
 from django.contrib import admin
-from mapBuilder.models import Character
+from characterBuilder.models import Character, CharacterTest, CharacterTestChoice
+
+
+class CharacterTestChoiceInline(admin.StackedInline):
+    model = CharacterTestChoice
+
+
+@admin.register(CharacterTest)
+class CharacterTestAdmin(admin.ModelAdmin):
+    list_display = ("question",)
+    inlines = (CharacterTestChoiceInline,)
+
 
 admin.site.register(Character)
-# Register your models here.
-from .models import Character

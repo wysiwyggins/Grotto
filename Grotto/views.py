@@ -27,13 +27,20 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-class GuildView(LoginRequiredMixin, TemplateView):
-    template_name = 'guild.html'
+class ActionMixin():
+    """Puts action details on bottom of template"""
+    actions = [{
+        "url": "#",
+        "text": "demo action 1",
+    }, {
+        "url": "#",
+        "text": "demo action 2",
+    }, {
+        "url": "#",
+        "text": "demo action 3",
+    }]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        characters = self.request.user.character_set.all()
-        context.update({
-            'characters': characters
-        })
+        context.update({"actions": self.actions})
         return context

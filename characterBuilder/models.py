@@ -15,16 +15,29 @@ class User(AbstractUser):
 
 
 class Character(models.Model):
-    char_id = models.IntegerField(default=0)
-    characterName = models.CharField(max_length=200)
-    characterSkills = models.CharField(max_length=200)
-    characterType = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date created')
-    characterDescription = models.TextField()
+    name = models.CharField(max_length=200)
+    kind = models.CharField(max_length=200)
+    description = models.TextField()
+    pub_date = models.DateTimeField('date created', default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+#   active = models.Bool(default=false)
+
     def __str__(self):
-        return self.characterName
+        return self.name
+
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-#   active = models.Bool(default=false)
-#   skills = ???
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+
+class Skill(models.Model):
+    name = models.CharField(max_length=50)
+    level = models.IntegerField()
+    character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='skills')
+
+class CharacterTest(models.Model):
+    question = models.CharField(max_length=240)
+
+
+class CharacterTestChoice(models.Model):
+    character_test = models.ForeignKey(CharacterTest, on_delete=models.CASCADE, related_name='choices')
+    choice = models.CharField(max_length=240)
