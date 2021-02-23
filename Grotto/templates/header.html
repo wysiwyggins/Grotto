@@ -1,5 +1,5 @@
 <header>
-   <span class="header-title"><!-- Character Name if logged in--></span>
+   <span class="header-title">{% if character %}"{{ character.name }}"{% endif %}</span>
     <ul class="nav">
         <li><a href="#">Log Out</a></li>
         <li><a href="/admin/">Admin</a></li>

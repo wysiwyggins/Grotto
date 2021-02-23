@@ -4,13 +4,14 @@ from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 from Grotto.views import ActionMixin
 
-from .models import Room
+from characterBuilder.models import Character
+from mapBuilder.models import Room
 # import function to run
-from .room_generator import generateRoom
-
+from mapBuilder.room_generator import generateRoom
 
 class Index(LoginRequiredMixin, ListView):
     template_name = 'mapBuilder/index.html'
@@ -44,3 +45,12 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         "text": "real action 3",
     }, ]
 
+    def get(self, request, *args, **kwargs):
+        if request.character is None:
+            if not request.user.is_superuser:
+                # send them back to the guild hall
+                return redirect("/guild/")
+        else:
+            if request.character.room.colorSlug != kwargs["colorSlug"]:
+                return redirect(reverse("mapBuilder:room", kwargs={"colorSlug": request.character.room.colorSlug}))
+        return super().get(request, *args, **kwargs)

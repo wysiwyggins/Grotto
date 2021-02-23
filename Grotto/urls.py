@@ -27,4 +27,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', RegisterView.as_view(), name='register'),
     path('guild/', include('characterBuilder.urls')),
+    path('game/', include('Grotto.game.urls')),
 ]

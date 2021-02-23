@@ -38,12 +38,16 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     template_name = 'character.html'
     query_pk_and_slug = True
     actions = [{
-        "text": "Return to guild hall",
-        "url": "/guild/",
+        "text": "Enter the Grotto",
+        "url": "/game/enter/",
     }, {
         "text": "Reroll Character",
         "url": "/guild/test/",
     }]
+
+    def get(self, request, *args, **kwargs):
+        request.session["character_pk"] = kwargs["pk"]
+        return super().get(request, *args, **kwargs)
 
 
 class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):

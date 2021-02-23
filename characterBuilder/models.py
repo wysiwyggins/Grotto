@@ -4,6 +4,7 @@ from django.db import models
 from django.utils import timezone
 
 from django.contrib.auth.models import AbstractUser
+from mapBuilder.models import Room
 
 
 class User(AbstractUser):
@@ -20,6 +21,7 @@ class Character(models.Model):
     description = models.TextField()
     pub_date = models.DateTimeField('date created', default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, related_name="occupants")
 #   active = models.Bool(default=false)
 
     def __str__(self):
@@ -41,3 +43,9 @@ class CharacterTest(models.Model):
 class CharacterTestChoice(models.Model):
     character_test = models.ForeignKey(CharacterTest, on_delete=models.CASCADE, related_name='choices')
     choice = models.CharField(max_length=240)
+
+
+class Visit(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
+    character = models.ForeignKey(Character, on_delete=models.SET_NULL, null=True)
+    stamp_date = models.DateTimeField('date created', default=timezone.now)

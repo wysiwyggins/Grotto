@@ -3,7 +3,6 @@ from colorfield.fields import ColorField
 from django.db import models
 import datetime
 from django.utils.timezone import now
-from characterBuilder.models import Character
 # Create your models here.
 
 
@@ -25,9 +24,3 @@ class Room(models.Model):
         unique_together = ["id", "url"]
     def __str__(self):
         return self.name
-
-
-""" class Visit(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
-    character = models.ForeignKey(Character, on_delete=models.SET_NULL, null=True)
-    stamp_date = models.DateTimeField('date created') """

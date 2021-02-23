@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block page_title %}
-  {{object.name}} Room
-{% endblock %}
+{% load humanize %}
 
-{% block body_class %}
-  room {{ object.colorName }}
-{% endblock %}
+{% block page_title %}{{object.name}} Room{% endblock %}
 
-{% block body_style %}
-  background-color:{{object.colorHex}}
-{% endblock %}
+{% block body_class %}room {{ object.colorName }}{% endblock %}
+
+{% block body_style %}background-color:{{object.colorHex}}{% endblock %}
 
 {% block sidebar %}
   <sidebar>
     <h2>Exits:</h2>
     <ul class="exits">
       {% for exit in object.exits.all %}
-        <li><a href="{% url 'mapBuilder:room' exit.colorSlug %}">{{exit.name}}</a></li>
+        {% if character %}
+          <li><a href="{% url 'game:move' exit.colorSlug %}">{{exit.name}}</a></li>
+        {% else %}
+          <li><a href="{% url 'mapBuilder:room' exit.colorSlug %}">{{exit.name}}</a></li>
+        {% endif %}
       {% endfor %}
     </ul>
   </sidebar>
@@ -28,4 +28,22 @@
   <p class="description">
     {{ object.description }}
   </p>
+  <ul class="here">
+    {% for occupant in object.occupants.all %}
+      {% if occupant == character %}
+        <li>You are here!</li>
+      {% else %}
+        <li>{{ occupant.name }} is here!</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  <ul class="visits">
+    {% for visit in object.visit_set.all %}
+      {% if visit.character == character %}
+        <li>You were here {{ visit.stamp_date | naturaltime }}</li>
+      {% else %}
+        <li>An unknown {{ visit.character.kind }} was here {{ visit.stamp_date | naturaltime }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
 {% endblock %}
