@@ -189,8 +189,9 @@ class Character:
         item = self.addAorAn(item)
         self.kind = "Human"
         self.name = humanName
-        self.description = "A bipedal mammal with smooth skin and " + hairStyle + " hair on its head. It is wearing " + clothingItem + ". " + humanName + " worked as " + career + " before embarking on their " + adjective + " quest to find the legendary " + obeliskSubstance + " obelisk." + " They are followed by their faithful companion " + petName + " the " + petAdjective + " " + petType + ". " + humanName + " is carrying " + item + "."
+        self.description = "A bipedal mammal with smooth skin and " + hairStyle + " hair on its head. It is wearing " + clothingItem + ". " + humanName + " worked as " + career + " before embarking on their " + adjective + " quest to find the legendary " + obeliskSubstance + " obelisk." + " They are followed by their faithful companion " + petName + " the " + petAdjective + " " + petType + ". "
         self.skills = self.getSkills()
+        self.items = self.getItem()
 
     # here's the animal functions
     def getAnimalName(self):
@@ -429,6 +430,7 @@ class Character:
         self.name = "nameless"
         self.description = "A " + str(someNumber) + " foot high obelisk made of " + substance + "."
         self.skills = {}
+        
 
     def __str__(self):
         skillsString = "\n".join(self.skills)

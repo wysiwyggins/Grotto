@@ -36,6 +36,11 @@ class Skill(models.Model):
     level = models.IntegerField()
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='skills')
 
+class Item(models.Model):
+    name = models.CharField(max_length=50)
+    character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='items')
+
+
 class CharacterTest(models.Model):
     question = models.CharField(max_length=240)
 
