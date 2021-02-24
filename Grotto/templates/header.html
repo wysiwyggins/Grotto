@@ -1,5 +1,5 @@
 <header>
-   <span class="header-title">{% if character %}"{{ character.name }}"{% endif %}</span>
+   <span class="header-title">{% if character %}<a href="/guild/new-character/">{% if character.kind == 'fungus' %}🍄{% endif %}{% if character.kind == 'robot' %}🤖{% endif %}{% if character.kind == 'human' %}🤨{% endif %}{% if character.kind == 'ghost' %}👻{% endif %}{% if character.kind == 'vegetable' %}🥕{% endif %} "{{ character.name }}"{% endif %}</a></span>
     <ul class="nav">
         <li><a href="#">Log Out</a></li>
         <li><a href="/admin/">Admin</a></li>
