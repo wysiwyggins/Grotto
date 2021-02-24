@@ -9,16 +9,32 @@
 {% endblock %}
 
 {% block content %}
-  <h2>{{object.name}}</h2>
-  <p class="description">
-    {{ object.description }}
-  </p>
-  <p class="skills">
-    <h3>Skills</h3>
-    <ul>
-      {% for skill in object.skills.all %}
-        <li>{{ skill.name }}: {{ skill.level }}</li>
-      {% endfor %}
-    </ul>
-  </p>
+  <div class="character_sheet">
+    <h2>{{object.name}} the {{object.kind}}</h2>
+    <p>Name: {{object.name}}</p>
+    <p>Kind: {{object.kind}}</p>
+    <p class="description">
+      Description: {{ object.description }}
+    </p>
+    <p class="skills">
+      Skills:
+      <ul>
+        {% for skill in object.skills.all %}
+          <li>{{ skill.name }}: {{ skill.level }}</li>
+          {% empty %}
+          (None)
+          {% endfor %}
+      </ul>
+    </p>
+    <p class="inventory">
+      Inventory:
+      <ul>
+        {% for item in object.items.all %}
+          <li>{{ item.name }}</li>
+          {% empty %}
+          (No items)
+          {% endfor %}
+      </ul>
+    </p>
+  </div>
 {% endblock %}
