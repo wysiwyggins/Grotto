@@ -21,7 +21,11 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
     template_name = 'guild.html'
     model = Character
     paginate_by = 25
-
+    actions = [{
+    }, {
+        "text": "Speak to Crone (Create Character)",
+        "url": "/guild/test/",
+    }]
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(user=self.request.user)

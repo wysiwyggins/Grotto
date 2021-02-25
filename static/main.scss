@@ -129,7 +129,7 @@ body {
     }
 }
 
-.center-block {
+.center-block, {
     max-width: 400px;
     margin: auto;
     font-size: 1.3em;
@@ -211,11 +211,15 @@ header {
 
 }
 
-.character_sheet {
+.character_sheet, .poll {
     max-width: 600px;
     margin: auto;
     box-sizing: border-box;
     padding: 50px;
+}
+
+.poll form {
+    line-height: 200%;
 }
 
 .index {
