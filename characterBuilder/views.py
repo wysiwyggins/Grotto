@@ -22,7 +22,6 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
     model = Character
     paginate_by = 25
     actions = [{
-    }, {
         "text": "Speak to Crone (Create Character)",
         "url": "/guild/test/",
     }]
