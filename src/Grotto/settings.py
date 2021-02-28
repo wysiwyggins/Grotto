@@ -15,17 +15,18 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
+TEMPLATES_DIRS = BASE_DIR / 'templates'
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!^07pnp7zp9fr$$a98zq1w8@ls=vih(sy*3&z%om6rywh$6+tn'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', '!^07pnp7zp9fr$$a98zq1w8@ls=vih(sy*3&z%om6rywh$6+tn')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() == "true"
 
 ALLOWED_HOSTS = []
 
@@ -129,7 +130,7 @@ COMPRESS_PRECOMPILERS = (
 )
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "staticfiles"),
+    BASE_DIR / "staticfiles",
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -137,7 +138,7 @@ STATICFILES_FINDERS = [
     'compressor.finders.CompressorFinder'
 ]
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = BASE_DIR / 'static/'
 
 AUTH_USER_MODEL = 'characterBuilder.User'
 LOGIN_REDIRECT_URL = '/guild/'
