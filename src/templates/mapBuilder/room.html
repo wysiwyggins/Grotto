@@ -38,11 +38,13 @@
     {% endfor %}
   </ul>
   <ul class="visits">
-    {% for visit in object.visit_set.all %}
+    {% for visit in visits %}
       {% if visit.character == character %}
         <li>You were here {{ visit.stamp_date | naturaltime }}</li>
+      {% elif not visit.character %}
+        <li>Something strange was here {{ visit.stamp_date | naturaltime }}</li>
       {% else %}
-        <li>An unknown {{ visit.character.kind }} was here {{ visit.stamp_date | naturaltime }}</li>
+        <li>An unknown {{ visit.character.kind | lower }} was here {{ visit.stamp_date | naturaltime }}</li>
       {% endif %}
     {% endfor %}
   </ul>

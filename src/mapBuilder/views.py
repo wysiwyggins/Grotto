@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from Grotto.views import ActionMixin
 
-from characterBuilder.models import Character
+from characterBuilder.models import Character, Visit
 from mapBuilder.models import Room
 # import function to run
 from mapBuilder.room_generator import generateRoom
@@ -44,6 +44,20 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         "url": "#",
         "text": "real action 3",
     }, ]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        deduped_visits = []
+        visitors = []
+        visits = Visit.objects.filter(room=self.object).order_by("stamp_date")
+        for visit in visits:
+            if visit.character not in visitors:
+                deduped_visits.append(visit)
+                visitors.append(visit.character)
+        context.update({
+            "visits": deduped_visits,
+        })
+        return context
 
     def get(self, request, *args, **kwargs):
         if request.character is None:

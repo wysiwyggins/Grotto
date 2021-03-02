@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM thismatters/grotto-deps:latest
 
 RUN apk add --no-cache libffi-dev build-base
 

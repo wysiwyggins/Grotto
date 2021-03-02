@@ -1,3 +1,5 @@
+#### DO NOT CHANGE THIS WITHOUT ALSO CHANGING THE `grotto-deps` REPO
+
 Django==3.1.4
 django-appconf==1.0.4
 django-colorfield==0.4.1
