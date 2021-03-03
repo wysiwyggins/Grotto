@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="center-block">
+    {% if form.errors %}
+    {# <p>Your passwords didn't match. Please try again.</p> #}
+    {{form.errors}}
+    {% endif %}
+    <p>Here are my terms. Take them or leave them.</p>
+    <form method="post" action="{% url 'terms' %}">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="Play!">
+    <input type="hidden" name="next" value="{{ next }}">
+    </form>
+</div>
+{% endblock %}

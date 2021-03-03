@@ -12,7 +12,7 @@ class User(AbstractUser):
     https://docs.djangoproject.com/en/3.1/topics/auth/customizing/...
       #using-a-custom-user-model-when-starting-a-project
     """
-    pass
+    accepts_terms = models.BooleanField(default=False)
 
 
 class Character(models.Model):

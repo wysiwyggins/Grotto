@@ -1,7 +1,11 @@
 <header>
-   <span class="header-title">{% if character %}<a href="/guild/new-character/">{% if character.kind == 'fungus' %}🍄{% endif %}{% if character.kind == 'robot' %}🤖{% endif %}{% if character.kind == 'human' %}🤨{% endif %}{% if character.kind == 'ghost' %}👻{% endif %}{% if character.kind == 'vegetable' %}🥕{% endif %} "{{ character.name }}"{% endif %}</a></span>
+   <span class="header-title">{% if character %}<a href="/guild/new-character/">{% if character.kind.lower == 'fungus' %}🍄{% endif %}{% if character.kind.lower == 'robot' %}🤖{% endif %}{% if character.kind.lower == 'human' %}🤨{% endif %}{% if character.kind.lower == 'ghost' %}👻{% endif %}{% if character.kind.lower == 'vegetable' %}🥕{% endif %} "{{ character.name }}"{% endif %}</a></span>
     <ul class="nav">
-        <li><a href="#">Log Out</a></li>
-        <li><a href="/admin/">Admin</a></li>
+        {% if request.user.is_anonymous %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+        {% else %}
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            <li><a href="/admin/">Admin</a></li>
+        {% endif %}
     </ul>
 </header>

@@ -7,9 +7,8 @@ from django.utils import timezone
 from django.views.generic import TemplateView, FormView, RedirectView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django import forms
-from Grotto.views import ActionMixin
+from Grotto.views import ActionMixin, LoginRequiredMixin
 
 from .character_generator import Character as CharacterGenerator
 from .models import Character, CharacterTest, CharacterTestChoice

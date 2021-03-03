@@ -3,10 +3,9 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 
-from Grotto.views import ActionMixin
+from Grotto.views import ActionMixin, LoginRequiredMixin
 
 from characterBuilder.models import Character, Visit
 from mapBuilder.models import Room

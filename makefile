@@ -5,12 +5,12 @@ run:
 stop:
 	@docker-compose -p grotto down
 migrations:
-	@docker-compose -p grotto exec python manage.py makemigrations
+	@docker-compose -p grotto exec app python manage.py makemigrations
 logs:
-	@docker-compose -p grotto logs app -f
+	@docker-compose -p grotto logs -f app
 superuser:
-	@docker-compose -p grotto exec python manage.py createsuperuser
+	@docker-compose -p grotto exec app python manage.py createsuperuser
 django-shell:
-	@docker-compose -p grotto exec python manage.py shell
+	@docker-compose -p grotto exec app python manage.py shell
 shell:
-	@docker-compose -p grotto exec sh
+	@docker-compose -p grotto exec app sh

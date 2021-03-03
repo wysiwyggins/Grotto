@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from . import views
 
-from Grotto.views import RegisterView
+from Grotto.views import RegisterView, TermsAcceptView
 
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     path('rooms/', include('mapBuilder.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', RegisterView.as_view(), name='register'),
+    path('terms/', TermsAcceptView.as_view(), name='terms'),
     path('guild/', include('characterBuilder.urls')),
     path('game/', include('Grotto.game.urls')),
 ]

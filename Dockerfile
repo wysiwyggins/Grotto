@@ -11,13 +11,17 @@ RUN python -m pip install -r requirements.txt
 
 RUN rm /app/src/requirements.txt
 
-COPY src /app/src
-
 COPY entrypoint.sh /app/
 RUN chmod -x /app/entrypoint.sh
 
+COPY src /app/src
+
 RUN adduser -D worker -u 1000
+RUN chown worker:worker -R /app/src
 USER worker
+
+RUN python manage.py collectstatic --no-input
+RUN rm -rf static/
 
 EXPOSE 8000
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
