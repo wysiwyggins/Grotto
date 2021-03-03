@@ -136,7 +136,7 @@ goldenly
 greenvested
 greens
 indigoblue
-violet.
+violet
 yellowly
 blackened
 bronzegold
@@ -153,7 +153,7 @@ lemonyellow
 whitehot
 oranges
 coloured
-(yellow
+yellow
 discoloured
 goldskinned
 bloodcoloured
@@ -189,13 +189,11 @@ blues
 baldpink
 whitelined
 dunducketymudcoloured
-girlwhite
+gluewhite
 milkwhite
-blacks
-colours
 multicoloured
 orangeblossoms
-shoeblacks
+shoeblack
 orangeflower
 johnyellows
 goldring
@@ -258,7 +256,6 @@ whiteflattened
 whitemaned
 blackdraped
 whitewashed
-violets
 blackguards
 blacknailed
 snotgreen
@@ -271,7 +268,7 @@ blueeyed
 seagreen
 greeneyed
 sausagepink
-Fuseblue
+fuseblue
 whitened
 yellowkitefaced
 goldsmith
