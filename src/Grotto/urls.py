@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 from . import views
 
 from Grotto.views import RegisterView, TermsAcceptView
@@ -27,6 +28,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', RegisterView.as_view(), name='register'),
     path('terms/', TermsAcceptView.as_view(), name='terms'),
+    path('privacy/', TemplateView.as_view(template_name="privacy.html"), name="privacy"),
     path('guild/', include('characterBuilder.urls')),
     path('game/', include('Grotto.game.urls')),
 ]

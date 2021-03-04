@@ -6,7 +6,7 @@
     {# <p>Your passwords didn't match. Please try again.</p> #}
     {{form.errors}}
     {% endif %}
-    <p>Here are my terms. Take them or leave them.</p>
+    <p>This site uses cookies to track your progress, <a href="{% url 'privacy' %}">for full privacy disclosure view our privacy statement</a></p>
     <form method="post" action="{% url 'terms' %}">
     {% csrf_token %}
     {{ form.as_table }}
