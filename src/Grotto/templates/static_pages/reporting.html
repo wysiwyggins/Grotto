@@ -1,0 +1,22 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block page_title %}{% endblock %}</title>
+    {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
+    {% endcompress %}
+  </head>
+  <body class = "reporting">
+    <header>
+
+    </header>
+    <div class="main">
+      <section class='agreement'>
+          This Grotto has not yet configured a reporting form. 
+      </section>
+    </div>
+</body>

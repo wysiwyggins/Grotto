@@ -42,12 +42,12 @@ class Item(models.Model):
 
 
 class CharacterTest(models.Model):
-    question = models.CharField(max_length=240)
+    question = models.CharField(max_length=2000)
 
 
 class CharacterTestChoice(models.Model):
     character_test = models.ForeignKey(CharacterTest, on_delete=models.CASCADE, related_name='choices')
-    choice = models.CharField(max_length=240)
+    choice = models.CharField(max_length=400)
 
 
 class Visit(models.Model):
