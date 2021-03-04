@@ -314,7 +314,7 @@ class Character:
             veggieType = veggieType.rstrip("\n")
             vegetablesFO.close()
 
-        self.name = "nameless"
+        self.name = "nameless vegetable"
         self.kind = "Vegetable"
         color = self.addAorAn(color)
         self.description = color + " " + veggieType + ". " + vegetableDescription
@@ -427,7 +427,7 @@ class Character:
         someNumber = random.randint(0, 10000)
         substance = self.getSubstance()
         self.kind = "Obelisk"
-        self.name = "nameless"
+        self.name = "nameless obelisk"
         self.description = "A " + str(someNumber) + " foot high obelisk made of " + substance + "."
         self.skills = {}
         
