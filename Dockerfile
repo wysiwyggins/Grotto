@@ -20,6 +20,9 @@ RUN adduser -D worker -u 1000
 RUN chown worker:worker -R /app/src
 USER worker
 
+## setting debug triggers certain build behavior
+ENV DEBUG=False
+## https://stackoverflow.com/q/58712195/2754587
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compress --force
 RUN python manage.py collectstatic --no-input

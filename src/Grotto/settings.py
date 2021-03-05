@@ -125,20 +125,20 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
+## Whitenoise config
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-]
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder'
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
+## django-libsass config
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder'
+]
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
@@ -151,10 +151,11 @@ else:
 COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
 COMPRESS_URL = STATIC_URL
 
+## Login setup
 AUTH_USER_MODEL = 'characterBuilder.User'
 LOGIN_REDIRECT_URL = '/guild/'
 
 ## debugging the 500 error
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-ADMINS = [("paul", "paul@somewhere.net")]
+ADMINS = [("whoever", "whoever@somewhere.net")]
