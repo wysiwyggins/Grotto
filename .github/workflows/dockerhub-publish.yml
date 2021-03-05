@@ -31,5 +31,5 @@ jobs:
         with:
           command: cd prod && docker pull thismatters/grotto:latest && docker-compose up -d
           host: ${{ secrets.HOST }}
-          username: grott
+          username: grotto
           privateKey: ${{ secrets.PROD_SSH_KEY }}
