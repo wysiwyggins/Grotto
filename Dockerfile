@@ -21,6 +21,8 @@ RUN chown worker:worker -R /app/src
 USER worker
 
 RUN python manage.py collectstatic --no-input
+RUN python manage.py compress --force
+RUN python manage.py collectstatic --no-input
 RUN rm -rf static/
 
 EXPOSE 8000

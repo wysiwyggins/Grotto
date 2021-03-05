@@ -7,29 +7,32 @@
     <meta charset="utf-8">
     <title>{% block page_title %}{% endblock %}</title>
     {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'main.scss' %}">
     {% endcompress %}
   </head>
   <body class="{% block body_class %}{% endblock %}" style="{% block body_style %}{% endblock %}">
-    {% include "header.html" %}
+    {% block header %}
+      {% include "header.html" %}
+    {% endblock %}
     <div class="main">
       {% block sidebar %}
       {% endblock %}
-      <section class='description'>
-      {% block content %}
 
-      {% endblock %}
+      <section class='{% block main_section_class %}description{% endblock %}'>
+        {% block content %}
+
+        {% endblock %}
       </section>
     </div>
-    <section class="actions-panel">
-      <ul class="actions">
-        {% if actions %}
+    {% if actions %}
+      <section class="actions-panel">
+        <ul class="actions">
           {% for action in actions %}
             <li><a href="{{ action.url }}">{{ action.text }}</a></li>
           {% endfor %}
-        {% endif %}
-      </ul>
-    </section>
+        </ul>
+      </section>
+    {% endif %}
 
     {% include "footer.html" %}
     </body>

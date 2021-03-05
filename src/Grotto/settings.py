@@ -126,9 +126,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -142,5 +139,22 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+COMPRESS_CACHEABLE_PRECOMPILERS = (("text/x-scss", "django_libsass.SassCompiler"),)
+COMPRESS_ENABLED = True
+if DEBUG == True:
+    COMPRESS_OFFLINE = False
+else:
+    COMPRESS_OFFLINE = True
+COMPRESS_STORAGE = "compressor.storage.GzipCompressorFileStorage"
+COMPRESS_URL = STATIC_URL
+
 AUTH_USER_MODEL = 'characterBuilder.User'
 LOGIN_REDIRECT_URL = '/guild/'
+
+## debugging the 500 error
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+ADMINS = [("paul", "paul@somewhere.net")]

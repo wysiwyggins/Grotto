@@ -27,8 +27,10 @@ urlpatterns = [
     path('rooms/', include('mapBuilder.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', RegisterView.as_view(), name='register'),
-    path('terms/', TermsAcceptView.as_view(), name='terms'),
-    path('privacy/', TemplateView.as_view(template_name="privacy.html"), name="privacy"),
     path('guild/', include('characterBuilder.urls')),
     path('game/', include('Grotto.game.urls')),
+    path('terms/', TermsAcceptView.as_view(), name='terms'),
+    path('privacy/', TemplateView.as_view(template_name="static_pages/privacy.html"), name="privacy"),
+    path('agreement/', TemplateView.as_view(template_name="static_pages/agreement.html"), name='agreement'),
+    path('reporting/', TemplateView.as_view(template_name="static_pages/reporting.html"), name="reporting"),
 ]

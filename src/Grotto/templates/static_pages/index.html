@@ -1,40 +1,27 @@
+{% extends "base.html" %}
+
 {% load static %}
-{% load compress %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>{% block page_title %}{% endblock %}</title>
-    {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static '/main.scss' %}">
-    {% endcompress %}
-  </head>
-  <body class = "index">
-    <header>
+{% block page_title %}Grotto{% endblock %}
+{% block body_class %}index{% endblock %}
 
-    </header>
-    <div class="main">
-      <section class='welcome'>
-      <h1 class="pink">Grotto (0.1<span class="small">⍺</span>)</h1>
-        <img src="static/images/bard.gif"/ alt="an animated fantasy bard playing a stringed instrument">
+{% block header %}<header></header>{% endblock %}
 
-        <div class="login"><a href="/guild/">ENTER</a></div>
-        
-        <div class="news">
-          Instance info:
-          <ul>
-            <li><a href="http://wileywiggins.com/grotto.html">About Grotto</a></li>
-            <li><a href="/agreement.html">Code of Conduct</a></li>
-            <li><a href="/reporting.html">Conduct Reporting</a></li>
-          </ul>
-          
-        </div>
-      </section>
-      
+{% block main_section_class %}welcome{% endblock %}
+
+{% block content %}
+  <h1 class="pink">Grotto (0.1<span class="small">⍺</span>)</h1>
+    <img src="{% static 'images/bard.gif' %}"/ alt="an animated fantasy bard playing a stringed instrument">
+
+    <div class="login"><a href="{% url 'characterBuilder:index' %}">ENTER</a></div>
+
+    <div class="news">
+      Instance info:
+      <ul>
+        <li><a href="http://wileywiggins.com/grotto.html">About Grotto</a></li>
+        <li><a href="{% url 'agreement' %}">Code of Conduct</a></li>
+        <li><a href="{% url 'reporting' %}">Conduct Reporting</a></li>
+      </ul>
+
     </div>
-    <footer>
-
-    </footer>
-    </body>
-</html>
+{% endblock %}
