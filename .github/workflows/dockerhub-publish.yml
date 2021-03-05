@@ -25,3 +25,11 @@ jobs:
           IMAGE_NAME: "thismatters/grotto"
           TAG_NAME: "v0.0.1"
           LATEST: "true"
+
+      - name: Deploy to Prod
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: cd prod && docker pull thismatters/grotto:latest && docker-compose up -d
+          host: ${{ secrets.HOST }}
+          username: grott
+          privateKey: ${{ secrets.PROD_SSH_KEY }}
