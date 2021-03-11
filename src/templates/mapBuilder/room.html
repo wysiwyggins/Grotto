@@ -33,7 +33,7 @@
       {% if occupant == character %}
         <li>You are here!</li>
       {% else %}
-        <li>{{ occupant.name }} is here!</li>
+        <li><a href="{% url 'characterBuilder:character' occupant.pk %}">{{ occupant.name }}</a> is here!</li>
       {% endif %}
     {% endfor %}
   </ul>
