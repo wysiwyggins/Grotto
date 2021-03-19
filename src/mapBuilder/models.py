@@ -14,7 +14,7 @@ class Room(models.Model):
     pub_date = models.DateTimeField(default=now,blank=True)
     # PS: Possibly use a TextField for description unless you're sure that
     #  the generator will come in under 600 chars
-    description = models.CharField(max_length=600)
+    description = models.TextField()
     colorName = models.CharField(max_length=200)
     status = models.CharField(max_length=200, blank=True)
     colorHex = ColorField(default='#222222')
