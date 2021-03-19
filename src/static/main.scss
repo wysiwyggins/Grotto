@@ -114,8 +114,9 @@ body {
     ul.actions {
         list-style: none;
         border: 4px double #fff;
-        padding: 10px;
+        padding: 20px;
         display: flex;
+        background-color: rgba(255, 255, 255, 0.3);
         justify-content: space-between;
         align-items: center;
         flex-direction: row;
