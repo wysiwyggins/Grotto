@@ -202,8 +202,6 @@ nightblue
 saltblue
 bluestreaked
 yellowjohns
-black
-blackguardism
 whitest
 oceangreen
 yellowed
@@ -230,7 +228,6 @@ goldbronze
 blueglancing
 tabbywhite
 whitearsed
-blackspectacled
 saltwhite
 greyedauburn
 orangepeels
@@ -273,17 +270,15 @@ whitened
 yellowkitefaced
 goldsmith
 Wavewhite
-blackbuttocker
 coralpink
 evergreen
-blacked
+black
 greenroom
 elephantgrey
 whitegaitered
 whitewax
 colouring
 shellcocoacoloured
-blacker
 gigglegold
 orangetainted
 bluecircled
