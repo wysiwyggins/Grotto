@@ -27,7 +27,7 @@
   <h2>{{object.name}}</h2>
     {% if vimeo_id != nil or youtube_id != nil or hosted-video-link != nil%}
       {% include videoplayer.html %}
-    {% else %}
+    {% endif %}
   <p class="description">
     {{ object.description }}
   </p>
