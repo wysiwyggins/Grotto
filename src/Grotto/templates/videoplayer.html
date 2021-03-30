@@ -1,20 +1,20 @@
-{% if vimeo_id %}
+{% if object.vimeo_id %}
     <div class="player iframe-container">
-        <iframe src="https://player.vimeo.com/video/{{ page.vimeo_id }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe src="https://player.vimeo.com/video/{{ object.vimeo_id }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     </div>
 {% endif %}
 {% if youtube_id != nil %}
     <div class="player iframe-container">
-        <iframe src="https://www.youtube.com/embed/{{ page.youtube_id }}" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/{{ object.youtube_id }}" frameborder="0" allowfullscreen></iframe>
     </div>
 {% endif %}
 {% if hosted-video-link != nil %}
     <div class="player">
     <video controls>
-        <source src="{{ hosted-video-link }}" type="video/mp4"></source>
-        {% for subtitle in video.subtitles %}
+        <source src="{{ object.hosted-video-link }}" type="video/mp4"></source>
+        <!-- {% for subtitle in video.subtitles %}
             <track label="{{subtitle.name}}" kind="subtitles" srclang="{{subtitle.language}}" src="{{subtitle.path}}" default>
-        {% endfor %}
+        {% endfor %} -->
     </video>
     </div>
 {% endif %}
