@@ -8,10 +8,10 @@
         <iframe src="https://www.youtube.com/embed/{{ object.youtube_id }}" frameborder="0" allowfullscreen></iframe>
     </div>
 {% endif %}
-{% if hosted-video-link != nil %}
+{% if hosted_video_link != nil %}
     <div class="player">
     <video controls>
-        <source src="{{ object.hosted-video-link }}" type="video/mp4"></source>
+        <source src="{{ object.hosted_video_link }}" type="video/mp4"></source>
         <!-- {% for subtitle in video.subtitles %}
             <track label="{{subtitle.name}}" kind="subtitles" srclang="{{subtitle.language}}" src="{{subtitle.path}}" default>
         {% endfor %} -->

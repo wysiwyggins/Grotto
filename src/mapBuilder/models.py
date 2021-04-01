@@ -8,7 +8,7 @@ from django.utils.timezone import now
 
 class Room(models.Model):
     name = models.CharField(max_length=200)
- #  visits =
+    url = models.URLField(max_length=200, blank=True)
     exits = models.ManyToManyField('self', symmetrical=True)
     pub_date = models.DateTimeField(default=now,blank=True)
     description = models.TextField()
@@ -17,9 +17,9 @@ class Room(models.Model):
     colorHex = ColorField(default='#222222')
     colorSlug = models.SlugField(null=True)
     #video embeds
-    hosted-video-link = models.URLField(max_length=200, blank=True)
+    hosted_video_link = models.URLField(max_length=200, blank=True)
     vimeo_id = models.CharField(max_length=200, blank=True)
-    youtube_id = models.CharField(max_length=200, blank=True
+    youtube_id = models.CharField(max_length=200, blank=True)
 
     class Meta:
         unique_together = ["id", "url"]

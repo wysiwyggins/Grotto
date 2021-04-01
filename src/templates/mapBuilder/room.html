@@ -25,7 +25,7 @@
 
 {% block content %}
   <h2>{{object.name}}</h2>
-    {% if object.vimeo_id != nil or object.youtube_id != nil or object.hosted-video-link != nil%}
+    {% if object.vimeo_id != nil or object.youtube_id != nil or object.hosted_video_link != nil%}
       {% include videoplayer.html %}
     {% endif %}
   <p class="description">
