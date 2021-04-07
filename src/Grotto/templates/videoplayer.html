@@ -3,12 +3,12 @@
         <iframe src="https://player.vimeo.com/video/{{ object.vimeo_id }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
     </div>
 {% endif %}
-{% if youtube_id != nil %}
+{% if object.youtube_id %}
     <div class="player iframe-container">
         <iframe src="https://www.youtube.com/embed/{{ object.youtube_id }}" frameborder="0" allowfullscreen></iframe>
     </div>
 {% endif %}
-{% if hosted_video_link != nil %}
+{% if object.hosted_video_link %}
     <div class="player">
     <video controls>
         <source src="{{ object.hosted_video_link }}" type="video/mp4"></source>

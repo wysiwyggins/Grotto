@@ -7,9 +7,9 @@
   overflow: hidden;
   padding-top: 56.25%;
   position: relative;
-  @include media-query($on-palm) {
+  // @include media-query($on-palm) {
     //min-width: 680px;
-  }
+  // }
 }
 
 .iframe-container iframe {
