@@ -16,6 +16,7 @@ class Room(models.Model):
     status = models.CharField(max_length=200, blank=True)
     colorHex = ColorField(default='#222222')
     colorSlug = models.SlugField(null=True)
+    arrow_count = models.IntegerField(default=0)
     #video embeds
     hosted_video_link = models.URLField(max_length=200, blank=True)
     vimeo_id = models.CharField(max_length=200, blank=True)

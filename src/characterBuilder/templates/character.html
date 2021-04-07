@@ -10,7 +10,7 @@
 
 {% block content %}
   <div class="character_sheet">
-    <h2>{{object.name}} the {{object.kind}}</h2>
+    <h2>{{object.name}} the {% if object.dead %}dead {% endif %}{{object.kind}}</h2>
     <p>Name: {{object.name}}</p>
     <p>Kind: {{object.kind}}</p>
     <p class="description">

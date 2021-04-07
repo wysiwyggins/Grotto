@@ -1,3 +1,5 @@
+from random import sample
+
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -55,6 +57,13 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
                 visitors.append(visit.character)
         context.update({
             "visits": deduped_visits,
+        })
+        warnings = []
+        for exit in self.object.exits.all():
+            for npc in exit.npcs.all():
+                warnings.append(npc.warning_text)
+        context.update({
+            "warnings": sample(warnings, k=len(warnings)),
         })
         return context
 

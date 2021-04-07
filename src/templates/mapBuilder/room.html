@@ -14,10 +14,20 @@
     <ul class="exits">
       {% for exit in object.exits.all %}
         {% if character %}
-          <li><a href="{% url 'game:move' exit.colorSlug %}">{{exit.name}}</a></li>
+          <li><a href="{% url 'game:move' exit.colorSlug %}">{{exit.name}}</a>{% if character.arrow_count > 0 %} -- <a href="{% url 'game:fire' exit.colorSlug %}">Fire Arrow into room</a>{% endif %}</li>
         {% else %}
           <li><a href="{% url 'mapBuilder:room' exit.colorSlug %}">{{exit.name}}</a></li>
         {% endif %}
+      {% endfor %}
+    </ul>
+    <h2>Inventory:</h2>
+    <ul>
+      {% if character.arrow_count > 0 %}
+        <li>{{ character.arrow_count | apnumber }} arrow{{ character.arrow_count | pluralize }}</li>
+      {% endif %}
+      {# deal with other items too #}
+      {% for item in character.items.all %}
+        <li>{{ item.name }} &mdash; <a href="#">use</a></li>
       {% endfor %}
     </ul>
   </sidebar>
@@ -51,4 +61,16 @@
       {% endif %}
     {% endfor %}
   </ul>
+  <ul class="warnings">
+    {% for warning in warnings %}
+      <li>{{ warning | safe }}</li>
+    {% endfor %}
+  </ul>
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 {% endblock %}
