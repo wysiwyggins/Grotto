@@ -3,8 +3,7 @@ from urllib.parse import urlparse
 from django import forms
 from django.contrib.auth import authenticate, get_user_model, login
 from django.contrib.auth.forms import UserCreationForm, UsernameField
-from django.contrib.auth.mixins import \
-    LoginRequiredMixin as BaseLoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin as BaseLoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect, render, resolve_url

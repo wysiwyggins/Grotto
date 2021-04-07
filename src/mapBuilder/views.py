@@ -10,6 +10,7 @@ from django.views.generic.list import ListView
 from characterBuilder.models import Character, Visit
 from Grotto.views import ActionMixin, LoginRequiredMixin
 from mapBuilder.models import Room
+
 # import function to run
 from mapBuilder.room_generator import generateRoom
 

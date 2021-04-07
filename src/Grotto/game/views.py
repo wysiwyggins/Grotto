@@ -5,9 +5,11 @@ from django.http import Http404
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from characterBuilder.models import Character, NonPlayerCharacter, Visit
-from Grotto.game.services import (NonPlayerCharacterDeathService,
-                                  NonPlayerCharacterMovementService,
-                                  PlayerCharacterDeathService)
+from Grotto.game.services import (
+    NonPlayerCharacterDeathService,
+    NonPlayerCharacterMovementService,
+    PlayerCharacterDeathService,
+)
 from mapBuilder.models import Room
 
 

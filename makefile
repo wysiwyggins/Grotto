@@ -17,4 +17,4 @@ shell:
 lint:
 	@docker-compose -p grotto exec app python -m pip install black==20.8b1 isort==5.8.0
 	@docker-compose -p grotto exec app python -m black .
-	@docker-compose -p grotto exec app python -m isort .
+	@docker-compose -p grotto exec app python -m isort . --profile black
