@@ -1,29 +1,32 @@
 from random import choice, randint
 
-from django.http import Http404
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.utils import timezone
-from django.views.generic import TemplateView, FormView, RedirectView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django import forms
+from django.http import Http404, HttpResponse
+from django.shortcuts import redirect, render
+from django.utils import timezone
+from django.views.generic import FormView, RedirectView, TemplateView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+
 from Grotto.views import ActionMixin, LoginRequiredMixin
 
 from .character_generator import Character as CharacterGenerator
 from .models import Character, CharacterTest, CharacterTestChoice
 
-
 # Create your views here.
 
+
 class Index(LoginRequiredMixin, ActionMixin, ListView):
-    template_name = 'guild.html'
+    template_name = "guild.html"
     model = Character
     paginate_by = 25
-    actions = [{
-        "text": "Speak to Crone (Create Character)",
-        "url": "/guild/test/",
-    }]
+    actions = [
+        {
+            "text": "Speak to Crone (Create Character)",
+            "url": "/guild/test/",
+        }
+    ]
+
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.filter(user=self.request.user)
@@ -31,21 +34,24 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
+        context["now"] = timezone.now()
         return context
 
 
 class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     model = Character
-    template_name = 'character.html'
+    template_name = "character.html"
     query_pk_and_slug = True
-    actions = [{
-        "text": "Enter the Grotto",
-        "url": "/game/enter/",
-    }, {
-        "text": "Reroll Character",
-        "url": "/guild/test/",
-    }]
+    actions = [
+        {
+            "text": "Enter the Grotto",
+            "url": "/game/enter/",
+        },
+        {
+            "text": "Reroll Character",
+            "url": "/guild/test/",
+        },
+    ]
 
     def get(self, request, *args, **kwargs):
         request.session["character_pk"] = kwargs["pk"]
@@ -54,25 +60,30 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
 
 class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
     template_name = "character_test.html"
-    actions = [{
-        "url": "/guild/test/",
-        "text": "Take a different test",
-    }, {
-        "url": "/guild/write-test/",
-        "text": "Create a test",
-    }, ]
+    actions = [
+        {
+            "url": "/guild/test/",
+            "text": "Take a different test",
+        },
+        {
+            "url": "/guild/write-test/",
+            "text": "Create a test",
+        },
+    ]
 
     def get_context_data(self, empty=False, another=False, **kwargs):
         context = super().get_context_data(**kwargs)
         if not empty:
-            pks =  CharacterTest.objects.values_list('id', flat=True).order_by('id')
+            pks = CharacterTest.objects.values_list("id", flat=True).order_by("id")
             random_pk = choice(pks)
             character_test = CharacterTest.objects.get(id=random_pk)
-            context.update({
-                "question": character_test.question,
-                "answer_choices": character_test.choices.all(),
-                "another": another,
-            })
+            context.update(
+                {
+                    "question": character_test.question,
+                    "answer_choices": character_test.choices.all(),
+                    "another": another,
+                }
+            )
         return context
 
     def post(self, request, *args, **kwargs):
@@ -118,4 +129,4 @@ class CharacterTestCreateView(LoginRequiredMixin, ActionMixin, TemplateView):
         test = CharacterTest.objects.create(question=question)
         for answer in answers:
             CharacterTestChoice.objects.create(character_test=test, choice=answer)
-        return redirect('/guild/test/')
+        return redirect("/guild/test/")

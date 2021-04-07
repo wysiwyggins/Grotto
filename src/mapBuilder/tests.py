@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from mapBuilder.room_generator import generateRoom
 from mapBuilder.models import Room
+from mapBuilder.room_generator import generateRoom
 from mapBuilder.services import RoomAdjacencyService
 
 
@@ -25,4 +25,3 @@ class RoomAdjacencyServiceTestCase(TestCase):
     def test_adjacency_reroll(self):
         [generateRoom() for i in range(20)]
         RoomAdjacencyService().reorganize_rooms()
-

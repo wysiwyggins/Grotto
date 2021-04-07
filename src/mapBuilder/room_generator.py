@@ -1,14 +1,16 @@
-import markovify
-import spacy
-import re
 import io
 import random
+import re
+
+import markovify
+import spacy
 import webcolors
-from unidecode import unidecode
+from django.utils.text import slugify
 from hashids import Hashids
+from unidecode import unidecode
+
 from mapBuilder.models import Room
 from mapBuilder.services import RoomAdjacencyService
-from django.utils.text import slugify
 
 
 def generateRoom():
@@ -75,7 +77,7 @@ def generateRoom():
         if "gold" in elaborateColor:
             green = random.randint(220, 255)
             red = green + random.randint(10, 20)
-            blue =random.randint(0, 20)
+            blue = random.randint(0, 20)
         if "cyan" in elaborateColor:
             red -= random.randint(100, 255)
             green = random.randint(200, 255)
@@ -85,9 +87,9 @@ def generateRoom():
             green = random.randint(200, 255)
             blue = random.randint(200, 255)
         if "turquoise" in elaborateColor:
-            red=64
-            green=224
-            blue=204
+            red = 64
+            green = 224
+            blue = 204
         if "azure" in elaborateColor:
             blue = random.randint(200, 255)
             red = 0
@@ -124,18 +126,18 @@ def generateRoom():
             green = 100
             blue = 100
         if "black" in elaborateColor:
-            if(red>0):
+            if red > 0:
                 red -= 200
-            if(green>0):
+            if green > 0:
                 green -= 200
-            if(blue>0):
+            if blue > 0:
                 blue -= 200
         if "white" in elaborateColor:
-            if(red<255):
+            if red < 255:
                 red += 200
-            if(green<255):
+            if green < 255:
                 green += 200
-            if(blue<255):
+            if blue < 255:
                 blue += 200
         if "hot" in elaborateColor:
             red = 255
@@ -153,7 +155,7 @@ def generateRoom():
     print("generating...")
 
     elaborateColor = getElaborateColor()
-    colorhex= webcolors.rgb_to_hex(getColor(elaborateColor))
+    colorhex = webcolors.rgb_to_hex(getColor(elaborateColor))
     try:
         title = text_model.make_short_sentence(60)
         title = title[:-1]
@@ -169,7 +171,7 @@ def generateRoom():
         description=roomDescription,
         colorHex=colorhex,
         colorName=elaborateColor,
-        colorSlug=slugify(elaborateColor)
+        colorSlug=slugify(elaborateColor),
     )
     RoomAdjacencyService().add_room(room)
     return room

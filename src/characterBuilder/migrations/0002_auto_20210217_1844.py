@@ -6,18 +6,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('characterBuilder', '0001_initial'),
+        ("characterBuilder", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='character',
-            old_name='charactername',
-            new_name='characterName',
+            model_name="character",
+            old_name="charactername",
+            new_name="characterName",
         ),
         migrations.AddField(
-            model_name='character',
-            name='characterSkills',
-            field=models.ManyToManyField(related_name='_character_characterSkills_+', to='characterBuilder.Character'),
+            model_name="character",
+            name="characterSkills",
+            field=models.ManyToManyField(
+                related_name="_character_characterSkills_+",
+                to="characterBuilder.Character",
+            ),
         ),
     ]

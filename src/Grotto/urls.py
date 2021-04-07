@@ -16,21 +16,33 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
-from . import views
 
 from Grotto.views import RegisterView, TermsAcceptView
 
+from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('admin/', admin.site.urls),
-    path('rooms/', include('mapBuilder.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('register/', RegisterView.as_view(), name='register'),
-    path('guild/', include('characterBuilder.urls')),
-    path('game/', include('Grotto.game.urls')),
-    path('terms/', TermsAcceptView.as_view(), name='terms'),
-    path('privacy/', TemplateView.as_view(template_name="static_pages/privacy.html"), name="privacy"),
-    path('agreement/', TemplateView.as_view(template_name="static_pages/agreement.html"), name='agreement'),
-    path('reporting/', TemplateView.as_view(template_name="static_pages/reporting.html"), name="reporting"),
+    path("", views.index, name="index"),
+    path("admin/", admin.site.urls),
+    path("rooms/", include("mapBuilder.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("register/", RegisterView.as_view(), name="register"),
+    path("guild/", include("characterBuilder.urls")),
+    path("game/", include("Grotto.game.urls")),
+    path("terms/", TermsAcceptView.as_view(), name="terms"),
+    path(
+        "privacy/",
+        TemplateView.as_view(template_name="static_pages/privacy.html"),
+        name="privacy",
+    ),
+    path(
+        "agreement/",
+        TemplateView.as_view(template_name="static_pages/agreement.html"),
+        name="agreement",
+    ),
+    path(
+        "reporting/",
+        TemplateView.as_view(template_name="static_pages/reporting.html"),
+        name="reporting",
+    ),
 ]

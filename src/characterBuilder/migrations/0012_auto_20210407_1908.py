@@ -6,28 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('characterBuilder', '0011_auto_20210407_1854'),
+        ("characterBuilder", "0011_auto_20210407_1854"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='character',
-            name='items',
-            field=models.ManyToManyField(blank=True, to='characterBuilder.Item'),
+            model_name="character",
+            name="items",
+            field=models.ManyToManyField(blank=True, to="characterBuilder.Item"),
         ),
         migrations.AlterField(
-            model_name='item',
-            name='name',
+            model_name="item",
+            name="name",
             field=models.CharField(max_length=200),
         ),
         migrations.AlterField(
-            model_name='nonplayercharacter',
-            name='loot',
-            field=models.ManyToManyField(blank=True, to='characterBuilder.Item'),
+            model_name="nonplayercharacter",
+            name="loot",
+            field=models.ManyToManyField(blank=True, to="characterBuilder.Item"),
         ),
         migrations.AlterField(
-            model_name='skill',
-            name='name',
+            model_name="skill",
+            name="name",
             field=models.CharField(max_length=200),
         ),
     ]

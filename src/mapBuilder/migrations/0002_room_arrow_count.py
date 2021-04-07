@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mapBuilder', '0001_initial'),
+        ("mapBuilder", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='room',
-            name='arrow_count',
+            model_name="room",
+            name="arrow_count",
             field=models.IntegerField(default=0),
         ),
     ]

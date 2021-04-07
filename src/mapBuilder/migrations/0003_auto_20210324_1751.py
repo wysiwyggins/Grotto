@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mapBuilder', '0002_room_arrow_count'),
+        ("mapBuilder", "0002_room_arrow_count"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='room',
-            name='description',
+            model_name="room",
+            name="description",
             field=models.TextField(),
         ),
         migrations.AlterField(
-            model_name='room',
-            name='status',
+            model_name="room",
+            name="status",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AlterField(
-            model_name='room',
-            name='url',
+            model_name="room",
+            name="url",
             field=models.URLField(blank=True),
         ),
     ]

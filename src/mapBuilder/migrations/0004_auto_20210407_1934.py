@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mapBuilder', '0003_auto_20210324_1751'),
+        ("mapBuilder", "0003_auto_20210324_1751"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='room',
-            name='hosted_video_link',
+            model_name="room",
+            name="hosted_video_link",
             field=models.URLField(blank=True),
         ),
         migrations.AddField(
-            model_name='room',
-            name='vimeo_id',
+            model_name="room",
+            name="vimeo_id",
             field=models.CharField(blank=True, max_length=200),
         ),
         migrations.AddField(
-            model_name='room',
-            name='youtube_id',
+            model_name="room",
+            name="youtube_id",
             field=models.CharField(blank=True, max_length=200),
         ),
     ]

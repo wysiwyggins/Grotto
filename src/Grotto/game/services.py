@@ -34,8 +34,9 @@ class NonPlayerCharacterMovementService:
             for unlucky in future.occupants.all():
                 PlayerCharacterDeathService(
                     character=unlucky,
-                    deathnote=f"{unlucky.name} was killed by {npc.name}"
+                    deathnote=f"{unlucky.name} was killed by {npc.name}",
                 )
+
 
 class NonPlayerCharacterDeathService:
     def __init__(self, *, npc, killer, **kwargs):

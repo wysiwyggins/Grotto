@@ -6,27 +6,27 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('characterBuilder', '0010_auto_20210324_1751'),
+        ("characterBuilder", "0010_auto_20210324_1751"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='item',
-            name='character',
+            model_name="item",
+            name="character",
         ),
         migrations.AddField(
-            model_name='character',
-            name='items',
-            field=models.ManyToManyField(to='characterBuilder.Item'),
+            model_name="character",
+            name="items",
+            field=models.ManyToManyField(to="characterBuilder.Item"),
         ),
         migrations.AddField(
-            model_name='item',
-            name='persistent',
+            model_name="item",
+            name="persistent",
             field=models.BooleanField(default=True),
         ),
         migrations.AddField(
-            model_name='nonplayercharacter',
-            name='loot',
-            field=models.ManyToManyField(to='characterBuilder.Item'),
+            model_name="nonplayercharacter",
+            name="loot",
+            field=models.ManyToManyField(to="characterBuilder.Item"),
         ),
     ]
