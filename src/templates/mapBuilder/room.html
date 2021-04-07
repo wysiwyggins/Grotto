@@ -14,7 +14,7 @@
     <ul class="exits">
       {% for exit in object.exits.all %}
         {% if character %}
-          <li><a href="{% url 'game:move' exit.colorSlug %}">{{exit.name}}</a>{% if character.arrow_count > 0 %} -- <a href="{% url 'game:fire' exit.colorSlug %}">Fire Arrow into room</a>{% endif %}</li>
+          <li><a href="{% url 'game:move' exit.colorSlug %}">{{exit.name}}</a>{% if character.arrow_count > 0 %} -- <a class="arrow" href="{% url 'game:fire' exit.colorSlug %}">Fire Arrow into room</a>{% endif %}</li>
         {% else %}
           <li><a href="{% url 'mapBuilder:room' exit.colorSlug %}">{{exit.name}}</a></li>
         {% endif %}
