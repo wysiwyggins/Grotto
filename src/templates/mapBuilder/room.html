@@ -26,6 +26,9 @@
         <li>{{ character.arrow_count | apnumber }} arrow{{ character.arrow_count | pluralize }}</li>
       {% endif %}
       {# deal with other items too #}
+      {% for item in character.items.all %}
+        <li>{{ item.name }} &mdash; <a href="#">use</a></li>
+      {% endfor %}
     </ul>
   </sidebar>
 {% endblock %}
@@ -53,6 +56,11 @@
       {% else %}
         <li>An unknown {{ visit.character.kind | lower }} was here {{ visit.stamp_date | naturaltime }}</li>
       {% endif %}
+    {% endfor %}
+  </ul>
+  <ul class="warnings">
+    {% for warning in warnings %}
+      <li>{{ warning | safe }}</li>
     {% endfor %}
   </ul>
   {% if messages %}

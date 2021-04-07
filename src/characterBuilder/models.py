@@ -15,8 +15,17 @@ class User(AbstractUser):
     accepts_terms = models.BooleanField(default=False)
 
 
-class Character(models.Model):
+class NamedModel(models.Model):
     name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class Character(NamedModel):
     kind = models.CharField(max_length=200)
     description = models.TextField()
     pub_date = models.DateTimeField('date created', default=timezone.now)
@@ -25,19 +34,14 @@ class Character(models.Model):
     arrow_count = models.IntegerField(default=1)
     dead = models.BooleanField(default=False)
     deathnote = models.CharField(max_length=200, null=True, blank=True)
-    # player_character = models.BooleanField(default=False)
-    # active = models.Bool(default=false)
-
-    def __str__(self):
-        return self.name
+    items = models.ManyToManyField("Item", blank=True)
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 
-class NonPlayerCharacter(models.Model):
-    name = models.CharField(max_length=200)
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, related_name="occupants")
+class NonPlayerCharacter(NamedModel):
+    room = models.ForeignKey(Room, on_delete=models.PROTECT, related_name="npcs")
     mobile = models.BooleanField(default=True)
     deadly = models.BooleanField(default=True)
     mortal = models.BooleanField(default=True)
@@ -46,17 +50,20 @@ class NonPlayerCharacter(models.Model):
     movement_threshold = models.IntegerField(
         default=100,
         help_text="When Movement Entropy exceeds this threshold the NPC will move")
+    warning_text = models.CharField(max_length=200)
+    loot = models.ManyToManyField("Item", blank=True)
 
 
-class Skill(models.Model):
-    name = models.CharField(max_length=50)
+class Skill(NamedModel):
     level = models.IntegerField()
     character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='skills')
 
 
-class Item(models.Model):
-    name = models.CharField(max_length=50)
-    character = models.ForeignKey(Character, on_delete=models.CASCADE, related_name='items')
+class Item(NamedModel):
+    # permissions = ...
+    # Eventually items could imbue the carrier with some special powers which
+    #   can be faciliated using django permissions.
+    persistent = models.BooleanField(default=True)
 
 
 class CharacterTest(models.Model):
