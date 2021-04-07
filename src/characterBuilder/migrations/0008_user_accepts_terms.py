@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('characterBuilder', '0007_auto_20210223_1900'),
+        ("characterBuilder", "0007_auto_20210223_1900"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='accepts_terms',
+            model_name="user",
+            name="accepts_terms",
             field=models.BooleanField(default=False),
         ),
     ]

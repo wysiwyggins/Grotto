@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('characterBuilder', '0002_auto_20210217_1844'),
+        ("characterBuilder", "0002_auto_20210217_1844"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='character',
-            name='characterSkills',
+            model_name="character",
+            name="characterSkills",
         ),
         migrations.AddField(
-            model_name='character',
-            name='characterSkills',
-            field=models.CharField(default='poopiness: 1', max_length=200),
+            model_name="character",
+            name="characterSkills",
+            field=models.CharField(default="poopiness: 1", max_length=200),
             preserve_default=False,
         ),
     ]

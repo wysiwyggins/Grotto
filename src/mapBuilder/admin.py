@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from mapBuilder.models import Room
 
 admin.site.register(Room)

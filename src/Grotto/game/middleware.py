@@ -1,5 +1,6 @@
 from characterBuilder.models import Character
 
+
 def character_middleware(get_response):
     # One-time configuration and initialization.
 

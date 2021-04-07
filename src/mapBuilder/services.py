@@ -18,6 +18,7 @@ class RoomAdjacencyService:
     to be shuffled use ``RoomAdjacencyService().reorgainize_rooms()``
 
     """
+
     max_adjacency = 4
     min_adjacency = 1
 
@@ -29,9 +30,11 @@ class RoomAdjacencyService:
         room.exits.add(neighbor)
 
     def _adjacency_candidates(self, room):
-        candidates = Room.objects.exclude(id=room.id).annotate(
-            num_exits=Count("exits")
-        ).filter(num_exits__lt=self.max_adjacency, num_exits__gt=0)
+        candidates = (
+            Room.objects.exclude(id=room.id)
+            .annotate(num_exits=Count("exits"))
+            .filter(num_exits__lt=self.max_adjacency, num_exits__gt=0)
+        )
         return list(candidates)
 
     def reorganize_rooms(self):
@@ -59,7 +62,8 @@ class RoomAdjacencyService:
         neighbors = []
         if candidates:
             desired_adjacency_count = random.randint(
-                self.min_adjacency, min(self.max_adjacency, len(candidates)))
+                self.min_adjacency, min(self.max_adjacency, len(candidates))
+            )
             # randomly choose some rooms
             neighbors = random.sample(candidates, k=desired_adjacency_count)
         else:

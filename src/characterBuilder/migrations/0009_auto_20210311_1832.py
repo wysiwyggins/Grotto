@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('characterBuilder', '0008_user_accepts_terms'),
+        ("characterBuilder", "0008_user_accepts_terms"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='character',
-            name='arrow_count',
+            model_name="character",
+            name="arrow_count",
             field=models.IntegerField(default=1),
         ),
         migrations.AlterField(
-            model_name='charactertest',
-            name='question',
+            model_name="charactertest",
+            name="question",
             field=models.CharField(max_length=2000),
         ),
         migrations.AlterField(
-            model_name='charactertestchoice',
-            name='choice',
+            model_name="charactertestchoice",
+            name="choice",
             field=models.CharField(max_length=400),
         ),
     ]
