@@ -11,12 +11,14 @@
       {% endfor %}
     </ul>
   {% endif %}
-
+  <p>
+    You take a moment and glance around the rest of the room and see:
+  </p>
   <ul>
     {% for character in object_list %}
         <li><a href="{% url 'characterBuilder:character' character.pk %}">{{ character.name }}</a> (created {{ character.pub_date|date }})</li>
     {% empty %}
-        <li>No Characters yet.</li>
+        <li>nobody.</li>
     {% endfor %}
   </ul>
   <!-- <a href="{% url 'characterBuilder:character-test' %}">Create Character</a> -->

@@ -83,6 +83,16 @@ h2 {
     font-family: 'Almendra Display', cursive;
 }
 
+ul.warnings {
+    li {
+        color:rgb(255, 0, 0);
+    }
+}
+ul.messages {
+    li {
+        color:rgb(255, 183, 0);
+    }
+}
 //features
 
 header {
