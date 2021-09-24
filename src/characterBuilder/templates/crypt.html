@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>TThe Crypt</h2>
+  <p>A musty stone chamber in whose chiseled coffers rest the brittle remains of the moribund.</p>
+
+  {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <ul>
+    {% for character in object_list %} 
+        <li><a href="{% url 'characterBuilder:character' character.pk %}">{{ character.name }}</a> (created {{ character.pub_date|date }})</li>
+    {% empty %}
+        <li>nobody.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
