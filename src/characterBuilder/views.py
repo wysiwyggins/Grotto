@@ -25,6 +25,11 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
             "text": "Speak to Crone (Create Character)",
             "url": "/guild/test/",
         }
+
+        {
+            "text": "Visit the Crypt",
+            "url": "/crypt/",
+        }
     ]
 
     def get_queryset(self):

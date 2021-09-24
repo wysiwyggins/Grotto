@@ -37,7 +37,7 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     slug_url_kwarg = "colorSlug"
     slug_field = "colorSlug"
     actions = [
-        {
+       """  {
             "url": "#",
             "text": "real action 1",
         },
@@ -48,7 +48,7 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         {
             "url": "#",
             "text": "real action 3",
-        },
+        }, """
     ]
 
     def get_context_data(self, **kwargs):

@@ -94,6 +94,10 @@ def getColor(elaborateColor):
         red = 255
         green = random.randint(100, 200)
         blue = random.randint(100, 200)
+    if "salmon" in elaborateColor:
+        red = 255
+        green = random.randint(100, 200)
+        blue = random.randint(100, 200)
     if "coral" in elaborateColor:
         red = 255
         green = random.randint(100, 200)
