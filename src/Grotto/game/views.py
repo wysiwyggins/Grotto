@@ -22,7 +22,7 @@ class LivingCharacterBaseView(RedirectView):
         # is this character alive
         if request.character.dead:
             # send the plater back to the grotto
-            self.pattern_name = "characterBuilder:index"
+            self.pattern_name = "characterBuilder:crypt"
             # message about death
             messages.add_message(request, messages.INFO, request.character.deathnote)
             return super().get(request)
@@ -44,7 +44,7 @@ class LivingCharacterBaseView(RedirectView):
         request.character.refresh_from_db()
         if request.character.dead:
             # send the plater back to the grotto
-            self.pattern_name = "characterBuilder:index"
+            self.pattern_name = "characterBuilder:crypt"
             # message about death
             messages.add_message(request, messages.INFO, request.character.deathnote)
             return super().get(request)
@@ -67,7 +67,8 @@ class EnterGrottoView(LivingCharacterBaseView):
             request.character.room = room
             request.character.save()
             # redirect user to appropriate room
-        return super().get(request, colorSlug=request.character.room.colorSlug)
+        kwargs.update({"colorSlug": request.character.room.colorSlug})
+        return super().get(request, *args, **kwargs)
 
 
 class MoveView(LivingCharacterBaseView):
@@ -100,7 +101,8 @@ class MoveView(LivingCharacterBaseView):
         request.character.room = room
         request.character.save()
         Visit.objects.create(room=old_room, character=request.character)
-        return super().get(request, colorSlug=request.character.room.colorSlug)
+        kwargs.update({"colorSlug": request.character.room.colorSlug})
+        return super().get(request, *args, **kwargs)
 
 
 class FireArrowView(LivingCharacterBaseView):
@@ -137,4 +139,17 @@ class FireArrowView(LivingCharacterBaseView):
         else:
             target_room.arrow_count += 1
             target_room.save()
-        return super().get(request, colorSlug=character.room.colorSlug, dice_count=5)
+        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 5})
+        return super().get(request, *args, **kwargs)
+
+
+class BecomeCharacterView(EnterGrottoView):
+    def dispatch(self, request, *args, character_pk, **kwargs):
+        request.session["character_pk"] = character_pk
+        character = None
+        try:
+            character = Character.objects.get(pk=request.session.get("character_pk"))
+        except Character.DoesNotExist:
+            raise Http404("Character doesn't exist")
+        request.character = character
+        return super().dispatch(request, *args, **kwargs)

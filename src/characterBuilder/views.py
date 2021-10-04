@@ -28,13 +28,13 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
 
         {
             "text": "Visit the Crypt",
-            "url": "/crypt/",
+            "url": "/guild/crypt/",
         }
     ]
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.filter(user=self.request.user)
+        queryset = queryset.filter(user=self.request.user, dead=False)
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -49,8 +49,12 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     query_pk_and_slug = True
     actions = [
         {
+            "text": "Go to Guild Hall",
+            "url": "/guild/",
+        },
+        {
             "text": "Enter the Grotto",
-            "url": "/game/enter/",
+            "url": "/game/become/{character_pk}/",
         },
         {
             "text": "Reroll Character",
@@ -58,8 +62,18 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         },
     ]
 
+    def formatted_actions(self):
+        _formatted = []
+        for action in self.actions:
+            _formatted.append({
+                "text": action["text"],
+                "url": action["url"].format(character_pk=self.character_pk),
+            })
+        return _formatted
+
     def get(self, request, *args, **kwargs):
-        request.session["character_pk"] = kwargs["pk"]
+        self.character_pk = kwargs["pk"]
+        # request.session["character_pk"] = kwargs["pk"]
         return super().get(request, *args, **kwargs)
 
 
@@ -78,8 +92,12 @@ class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
 
     def get_context_data(self, empty=False, another=False, **kwargs):
         context = super().get_context_data(**kwargs)
-        if not empty:
-            pks = CharacterTest.objects.values_list("id", flat=True).order_by("id")
+        asked = []
+        _asked = self.request.session.get("questions_asked")
+        if _asked:
+            asked = [int(q) for q in _asked.split(",")]
+        pks = CharacterTest.objects.exclude(id__in=asked).values_list("id", flat=True).order_by("id")
+        if pks and not empty:
             random_pk = choice(pks)
             character_test = CharacterTest.objects.get(id=random_pk)
             context.update(
@@ -89,6 +107,8 @@ class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
                     "another": another,
                 }
             )
+            asked.append(random_pk)
+            self.request.session["questions_asked"] = ",".join([str(q) for q in asked])
         return context
 
     def post(self, request, *args, **kwargs):
@@ -99,6 +119,7 @@ class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
             # enough questions answered
             self.actions = [{"text": "View Character", "url": "/guild/new-character/"}]
             context = self.get_context_data(empty=True)
+            request.session["questions_asked"] = ""
             return self.render_to_response(context)
         # otherwise ask another question
         context = self.get_context_data(another=True)
@@ -135,3 +156,19 @@ class CharacterTestCreateView(LoginRequiredMixin, ActionMixin, TemplateView):
         for answer in answers:
             CharacterTestChoice.objects.create(character_test=test, choice=answer)
         return redirect("/guild/test/")
+
+
+class CryptView(LoginRequiredMixin, ActionMixin, ListView):
+    template_name = "crypt.html"
+    model = Character
+    actions = [{
+            "url": "/guild/",
+            "text": "Return to guild hall",
+        }]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(dead=True)
+        return queryset
+
+

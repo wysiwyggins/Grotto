@@ -73,9 +73,13 @@ class ActionMixin:
         },
     ]
 
+    def formatted_actions(self):
+        """Hook for doing whatever mutation on actions that might be necessary"""
+        return self.actions
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({"actions": self.actions})
+        context.update({"actions": self.formatted_actions()})
         return context
 
 
@@ -86,7 +90,6 @@ class UserAcceptsTermsMixin(UserPassesTestMixin):
         return self.request.user.is_anonymous or self.request.user.accepts_terms
 
     def handle_no_permission(self):
-
         path = self.request.build_absolute_uri()
         resolved_login_url = resolve_url(self.get_login_url())
         # If the login url is the same scheme and net location then use the

@@ -14,4 +14,5 @@ urlpatterns = [
         name="character-test-create",
     ),
     path("new-character/", views.NewCharacterView.as_view(), name="new-character"),
+    path("crypt/", views.CryptView.as_view(), name="crypt"),
 ]
