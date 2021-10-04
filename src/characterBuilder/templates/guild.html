@@ -16,7 +16,7 @@
   </p>
   <ul>
     {% for character in object_list %}
-        <li><a href="{% url 'characterBuilder:character' character.pk %}">{{ character.name }}</a> (created {{ character.pub_date|date }})</li>
+        <li><a href="{% url 'characterBuilder:character' character.pk %}">{{ character.name }}</a> &mdash; <a href="{% url 'game:become' character.pk %}">become</a> (created {{ character.pub_date|date }})</li>
     {% empty %}
         <li>nobody.</li>
     {% endfor %}
