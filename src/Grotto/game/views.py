@@ -148,7 +148,7 @@ class BecomeCharacterView(EnterGrottoView):
         request.session["character_pk"] = character_pk
         character = None
         try:
-            character = Character.objects.get(pk=request.session.get("character_pk"))
+            character = Character.objects.get(user=request.user, pk=request.session.get("character_pk"))
         except Character.DoesNotExist:
             raise Http404("Character doesn't exist")
         request.character = character

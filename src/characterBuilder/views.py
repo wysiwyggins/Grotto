@@ -55,9 +55,10 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         {
             "text": "Enter the Grotto",
             "url": "/game/become/{character_pk}/",
+            "become": True,
         },
         {
-            "text": "Reroll Character",
+            "text": "Roll New Character",
             "url": "/guild/test/",
         },
     ]
@@ -65,6 +66,9 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     def formatted_actions(self):
         _formatted = []
         for action in self.actions:
+            if action.get("become", False) and not self.is_players_character:
+                # Don't put a link to enter the grotto unless this is your character
+                continue
             _formatted.append({
                 "text": action["text"],
                 "url": action["url"].format(character_pk=self.character_pk),
@@ -73,7 +77,7 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.character_pk = kwargs["pk"]
-        # request.session["character_pk"] = kwargs["pk"]
+        self.is_players_character = Character.objects.filter(user=request.user, id=kwargs["pk"]).exists()
         return super().get(request, *args, **kwargs)
 
 
@@ -89,18 +93,22 @@ class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
             "text": "Create a test",
         },
     ]
+    alt_actions = [{"text": "View Character", "url": "/guild/new-character/"}]
 
-    def get_context_data(self, empty=False, another=False, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, satisfied=False, another=False, **kwargs):
         asked = []
         _asked = self.request.session.get("questions_asked")
         if _asked:
             asked = [int(q) for q in _asked.split(",")]
         pks = CharacterTest.objects.exclude(id__in=asked).values_list("id", flat=True).order_by("id")
-        if pks and not empty:
+        ctx = {}
+        if not pks or satisfied:
+            self.actions = self.alt_actions
+            self.request.session["questions_asked"] = None
+        else:
             random_pk = choice(pks)
             character_test = CharacterTest.objects.get(id=random_pk)
-            context.update(
+            ctx.update(
                 {
                     "question": character_test.question,
                     "answer_choices": character_test.choices.all(),
@@ -109,6 +117,9 @@ class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
             )
             asked.append(random_pk)
             self.request.session["questions_asked"] = ",".join([str(q) for q in asked])
+
+        context = super().get_context_data(**kwargs)
+        context.update(ctx)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -117,9 +128,7 @@ class CharacterTestView(LoginRequiredMixin, ActionMixin, TemplateView):
         roll = randint(1, 20)
         if roll > 12:
             # enough questions answered
-            self.actions = [{"text": "View Character", "url": "/guild/new-character/"}]
-            context = self.get_context_data(empty=True)
-            request.session["questions_asked"] = ""
+            context = self.get_context_data(satisfied=True)
             return self.render_to_response(context)
         # otherwise ask another question
         context = self.get_context_data(another=True)
