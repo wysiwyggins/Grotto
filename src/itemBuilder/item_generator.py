@@ -16,12 +16,13 @@ class Item(DefaultObject):
     
     def lightIncense(self):
         self.active = True
-        # A room can be sanctified or mundane, placing lit incense in the room makes the room sanctified
+        # A room can be honored or neglected, placing lit incense in the room makes the room honored
     
     def useScrubBrush(self):
         self.active = True
-        # A room can be clean or dirty. Using a Scrub brush in a room cleans it. 
+        # A room can be clean, dirty or profane. Using a Scrub brush in a room cleans it. 
         # When a room is clean it has an inscription that appears with the name and dates of the deceased
+        # when a room is profane ???
     
     def burnJunk(self):
         self.active = True

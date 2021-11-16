@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+  {{ object.name }}
+{% endblock %}
+
+{% block body_class %}
+  item {{ object.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="item_sheet">
+    <h2>{{object.name}}</h2>
+    <p class="description">
+      Description: {{ object.description }}
+    </p>
+    
+    <p class="actions">
+      Actions:
+      <ul>
+        {% for action in object.actions.all %}
+          <li>{{ item.name }}</li>
+          {% empty %}
+          (No actions)
+          {% endfor %}
+      </ul>
+    </p>
+    <p class="attachments">
+        {% for file in object.files.all %}
+          <li>{{ file.name }}</li>
+          {% empty %}
+          (No attachments)
+          {% endfor %}
+    </p>
+  </div>
+{% endblock %}
