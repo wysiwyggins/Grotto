@@ -7,6 +7,13 @@ from characterBuilder import models
 
 class Item(DefaultObject):
 
+    # Items! Player characters all start with a random item and an arrow. 
+    # Items can be given to characters, put in rooms and taken from rooms, they cannot be taken from characters
+    # Items also have an action function depending on their type
+    # It's a bad (awesome) idea but they could also have a file attachment
+
+    # some of these items suggest new room attributes too: lit, dirty and honored, these could be used for fun stuff
+
     def lightCandle(self):
         self.active = True
         # light candle action
@@ -34,6 +41,7 @@ class Item(DefaultObject):
         self.action = Item().lightCandle
         self.description = "A wax candle"
         self.active = False #yeah I dunno about this, this is all pseudocode right now
+        # could have file attachments too if we wanted to live really dangerously!
 
     def generateItem(self, *, user=None):
         random.seed(self.seed)
