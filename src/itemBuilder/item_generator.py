@@ -13,6 +13,9 @@ class Item(DefaultObject):
     # It's a bad (awesome) idea but they could also have a file attachment
 
     # some of these items suggest new room attributes too: lit, dirty and honored, these could be used for fun stuff
+    # items like rooms could possibly be edited with a magic item taken from the wumpus (amulet?)
+
+    # I added the burn action to junk since it would show how to eventually have actions that use up an item
 
     def lightCandle(self):
         self.active = True
