@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ["localhost", "grotto.wileywiggins.com"]
 # Application definition
 
 INSTALLED_APPS = [
+    "itemBuilder.apps.ItemBuilderConfig",
     "mapBuilder.apps.MapBuilderConfig",
     "characterBuilder.apps.CharacterBuilderConfig",
     "Grotto",

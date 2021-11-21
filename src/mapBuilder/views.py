@@ -10,6 +10,7 @@ from django.views.generic.list import ListView
 from characterBuilder.models import Character, Visit
 from Grotto.views import ActionMixin, LoginRequiredMixin
 from mapBuilder.models import Room
+from itemBuilder.models import ItemType
 
 # import function to run
 from mapBuilder.room_generator import generateRoom
@@ -51,6 +52,21 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         }, 
     ]
 
+    def get_illumination_level(self):
+        room = self.request.character.room
+        # check items in room
+        candle_count = room.items.filter(abstract_item__itemType=ItemType.CANDLE, active__isnull=False).count()
+        # candle_count = 1
+        if candle_count > 0:
+            return 2
+        # check characters in room
+        for character in room.occupants.all():
+            # see if character has a candle
+            candle_count = character.character_items.filter(abstract_item__itemType=ItemType.CANDLE, active__isnull=False).count()
+            if candle_count > 0:
+                return 1
+        pass
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         deduped_visits = []
@@ -63,6 +79,7 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         context.update(
             {
                 "visits": deduped_visits,
+                "illumination_level": self.get_illumination_level(),
             }
         )
         warnings = []

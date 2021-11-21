@@ -1,10 +1,20 @@
 from django.contrib import admin
 
-from characterBuilder.models import (
-    Character,
-    CharacterTest,
-    CharacterTestChoice,
+from itemBuilder.models import (
+    AbstractItem,
     Item,
-    NonPlayerCharacter,
-    Visit,
 )
+
+
+@admin.register(AbstractItem)
+class AbstractItemAdmin(admin.ModelAdmin):
+    # list_display = ()
+    pass
+
+
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    # list_display = ()
+    pass
+
+
