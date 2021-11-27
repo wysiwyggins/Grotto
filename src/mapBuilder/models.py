@@ -23,6 +23,8 @@ class Room(models.Model):
     vimeo_id = models.CharField(max_length=200, blank=True)
     youtube_id = models.CharField(max_length=200, blank=True)
     # illumination_level = models.IntegerField(default=0)
+    # cleanliness_level = models.IntegerField(default=0)
+    # sanctity_level = models.IntegerField(default=0)
 
 
     class Meta:

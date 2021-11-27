@@ -17,7 +17,7 @@ class ItemType(enum.Enum):
     PENTAGRAM = 4
     FECES = 5
     ARROW = 6
-    pass
+
 
 
 class ItemAction(enum.Enum):
@@ -25,14 +25,14 @@ class ItemAction(enum.Enum):
     GIVE = 1
     PLACE = 2
     TAKE = 3
-    pass
+
 
 
 class AbstractItem(models.Model):
     itemType = enum.EnumField(ItemType)
     itemName = models.CharField(max_length=64)
     itemDescription = models.CharField(max_length=256)
-    pass
+
 
 
 class Item(models.Model):
@@ -54,15 +54,23 @@ class ItemService:
         # validate that the item type exists
         if candle:
             self._use_candle()
+        elif incense:
+            self._use_incense()
         pass
 
     def give(self, item, character, recipient):
         pass
 
     def _use_candle(self, item, character):
-        pass
+        self.active = True
 
     def _use_scrubbrush(self, item, character):
+        pass
+
+    def _use_incense(self, item, character):
+        pass
+
+    def _use_amulet(self, item, character):
         pass
 
 
