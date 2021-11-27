@@ -19,7 +19,7 @@ class ItemType(enum.Enum):
     PENTAGRAM = 4
     FECES = 5
     ARROW = 6
-    pass
+
 
 
 class ItemAction(enum.Enum):
@@ -27,13 +27,14 @@ class ItemAction(enum.Enum):
     GIVE = 1
     PLACE = 2
     TAKE = 3
-    pass
+
 
 
 class AbstractItem(models.Model):
     itemType = enum.EnumField(ItemType)
     itemName = models.CharField(max_length=64)
     itemDescription = models.CharField(max_length=256)
+
     active_days = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
@@ -102,6 +103,12 @@ class ItemService:
         room = character.room
         room.cleanliness = min(2, room.cleanliness + 1)
         room.save()
+
+    def _use_incense(self, item, character):
+        pass
+
+    def _use_amulet(self, item, character):
+        pass
 
 
 """
