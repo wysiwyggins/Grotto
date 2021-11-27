@@ -22,8 +22,8 @@ class Room(models.Model):
     hosted_video_link = models.URLField(max_length=200, blank=True)
     vimeo_id = models.CharField(max_length=200, blank=True)
     youtube_id = models.CharField(max_length=200, blank=True)
-    # illumination_level = models.IntegerField(default=0)
-
+    cleanliness = models.IntegerField(default=1)
+    is_cursed = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ["id", "url"]

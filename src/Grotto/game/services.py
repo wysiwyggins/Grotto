@@ -28,6 +28,9 @@ class NonPlayerCharacterMovementService:
         npc.room = future
         npc.movement_entropy = 0
         npc.save()
+        if npc.demonic:
+            npc.room.is_cursed = True
+            npc.room.save()
         # does it kill?
         if npc.deadly:
             # kill any player characters in the room

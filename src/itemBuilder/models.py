@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.db.models.fields import NullBooleanField
 from colorfield.fields import ColorField
 from django.db import models
@@ -32,7 +34,10 @@ class AbstractItem(models.Model):
     itemType = enum.EnumField(ItemType)
     itemName = models.CharField(max_length=64)
     itemDescription = models.CharField(max_length=256)
-    pass
+    active_days = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.itemName
 
 
 class Item(models.Model):
@@ -47,23 +52,56 @@ class Item(models.Model):
     colorName = models.CharField(max_length=200)
     colorHex = ColorField(default="#222222")
 
+    @property
+    def is_active(self):
+        if self.active is None:
+            return False
+        if self.abstract_item.active_days is None:
+            return True
+        if self.active > now() - timedelta(days=self.abstract_item.active_days):
+            return True
+        return False
+
 
 # service
 class ItemService:
-    def use(self, item, character):  # Item model instance
+    def use(self, *, item, character):  # Item model instance
         # validate that the item type exists
-        if candle:
-            self._use_candle()
+        if item.abstract_item.itemType == ItemType.CANDLE:
+            self._use_burnable(item, character)
+        if item.abstract_item.itemType == ItemType.INCENSE:
+            self._use_burnable(item, character)
+            self.place(item, character)
+        if item.abstract_item.itemType == ItemType.SCRUBBRUSH:
+            self._use_scrubbrush(item, character)
+
+    def place(self, item, character):
+        item.current_owner = None
+        item.current_room = character.room
+        item.save()
+        if item.abstract_item.itemType == ItemType.INCENSE and item.is_active:
+            character.room.is_cursed = False
+            character.room.save()
+
+    def take(self, item, character):
+        if item.abstract_item.itemType == ItemType.CANDLE and item.is_active:
+            # cannot pick up an active candle
+            return
         pass
 
     def give(self, item, character, recipient):
         pass
 
-    def _use_candle(self, item, character):
-        pass
+    def _use_burnable(self, item, character):
+        if item.active:
+            return
+        item.active = now()
+        item.save()
 
     def _use_scrubbrush(self, item, character):
-        pass
+        room = character.room
+        room.cleanliness = min(2, room.cleanliness + 1)
+        room.save()
 
 
 """

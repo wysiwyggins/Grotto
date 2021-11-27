@@ -11,6 +11,7 @@ from Grotto.game.services import (
     PlayerCharacterDeathService,
 )
 from mapBuilder.models import Room
+from itemBuilder.models import ItemService, Item
 
 
 class LivingCharacterBaseView(RedirectView):
@@ -29,6 +30,22 @@ class LivingCharacterBaseView(RedirectView):
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, dice_count=1, **kwargs):
+        # get current room
+        colorSlug = kwargs.get("colorSlug")
+        if colorSlug:
+            try:
+                room = Room.objects.get(colorSlug=colorSlug)
+            except Room.DoesNotExist:
+                pass
+            else:
+                _dirtier = False
+                for x in range(dice_count):
+                    if randint(1, 20) == 1:
+                        _dirtier = True
+                        break
+                if _dirtier:
+                    room.cleanliness = max(1, room.cleanliness - 1)
+                    room.save()
         for npc in NonPlayerCharacter.objects.filter(mobile=True):
             entropy = 0
             # roll appropriate number of dice
@@ -144,6 +161,8 @@ class FireArrowView(LivingCharacterBaseView):
 
 
 class BecomeCharacterView(EnterGrottoView):
+    pattern_name = "mapBuilder:room"
+
     def dispatch(self, request, *args, character_pk, **kwargs):
         request.session["character_pk"] = character_pk
         character = None
@@ -153,3 +172,27 @@ class BecomeCharacterView(EnterGrottoView):
             raise Http404("Character doesn't exist")
         request.character = character
         return super().dispatch(request, *args, **kwargs)
+
+
+class UseItemView(LivingCharacterBaseView):
+    def get(self, request, *args, item_pk, **kwargs):
+        try:
+            item = Item.objects.get(pk=item_pk, current_owner=request.character)
+        except Item.DoesNotExist:
+            raise Http404("Item doesn't exist")
+        ItemService().use(item=item, character=request.character)
+
+        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
+        return super().get(request, *args, **kwargs)
+
+
+class PlaceItemView(LivingCharacterBaseView):
+    def get(self, request, *args, item_pk, **kwargs):
+        try:
+            item = Item.objects.get(pk=item_pk, current_owner=request.character)
+        except Item.DoesNotExist:
+            raise Http404("Item doesn't exist")
+        ItemService().place(item=item, character=request.character)
+
+        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
+        return super().get(request, *args, **kwargs)

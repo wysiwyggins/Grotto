@@ -1,11 +1,15 @@
 from random import sample
+from datetime import timedelta
 
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
+from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+
+from django.db.models import F
 
 from characterBuilder.models import Character, Visit
 from Grotto.views import ActionMixin, LoginRequiredMixin
@@ -37,6 +41,8 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     query_pk_and_slug = True
     slug_url_kwarg = "colorSlug"
     slug_field = "colorSlug"
+    sanctity_adjectives = ("Cursed", "Mundane", "Sacred")
+    cleanliness_adjectives = ("Profane", "Dirty", "Clean")
     actions = [
         {
             "url": "#",
@@ -49,23 +55,50 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         {
             "url": "#",
             "text": "real action 3",
-        }, 
+        },
     ]
 
-    def get_illumination_level(self):
+
+    def _room_level(self, item_type):
         room = self.request.character.room
         # check items in room
-        candle_count = room.items.filter(abstract_item__itemType=ItemType.CANDLE, active__isnull=False).count()
-        # candle_count = 1
-        if candle_count > 0:
+        _item = room.items.filter(abstract_item__itemType=item_type, active__isnull=False)
+
+        active_item_count = sum([1 for candle in _item if candle.is_active])
+        # active_item_count = 1
+        if active_item_count > 0:
             return 2
         # check characters in room
         for character in room.occupants.all():
             # see if character has a candle
-            candle_count = character.character_items.filter(abstract_item__itemType=ItemType.CANDLE, active__isnull=False).count()
-            if candle_count > 0:
+            _item = character.character_items.filter(abstract_item__itemType=item_type, active__isnull=False)
+            active_item_count = sum([1 for candle in _item if candle.is_active])
+            if active_item_count > 0:
                 return 1
-        pass
+        return 0
+
+
+    def get_room_level(self, descriptor="illumination"):
+        room = self.request.character.room
+        if descriptor == "cleanliness":
+            return room.cleanliness
+        if descriptor == "illumination":
+            return self._room_level(ItemType.CANDLE)
+        if descriptor == "sanctity":
+            if room.is_cursed:
+                return 0
+            if self._room_level(ItemType.INCENSE) == 2:
+                return 2
+            return 1
+
+
+    def get_room_adjective(self, descriptor):
+        _level = self.get_room_level(descriptor)
+        adjectives = getattr(self, f"{descriptor}_adjectives")
+        try:
+            return adjectives[_level]
+        except IndexError:
+            return "what?"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,7 +112,9 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         context.update(
             {
                 "visits": deduped_visits,
-                "illumination_level": self.get_illumination_level(),
+                "illumination_level": self.get_room_level("illumination"),
+                "sanctity_adjective": self.get_room_adjective("sanctity"),
+                "cleanliness_adjective": self.get_room_adjective("cleanliness"),
             }
         )
         warnings = []

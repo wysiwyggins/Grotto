@@ -48,6 +48,7 @@ class NonPlayerCharacter(NamedModel):
     mobile = models.BooleanField(default=True)
     deadly = models.BooleanField(default=True)
     mortal = models.BooleanField(default=True)
+    demonic = models.BooleanField(default=False)
     movement_entropy = models.IntegerField(
         default=0, help_text="See Movement Threshold"
     )

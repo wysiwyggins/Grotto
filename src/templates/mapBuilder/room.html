@@ -26,6 +26,10 @@
         <li>{{ character.arrow_count | apnumber }} arrow{{ character.arrow_count | pluralize }}</li>
       {% endif %}
       {# deal with other items too #}
+
+      {% for item in character.character_items.all %}
+        <li>{{ item.abstract_item.itemName }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %}</li>
+      {% endfor %}
       {% for item in character.items.all %}
         <li>{{ item.name }} &mdash; <a href="#">use</a></li>
       {% endfor %}
@@ -35,6 +39,7 @@
 
 {% block content %}
   <h2>{% if illumination_level > 0 %}{{object.name}}{% else %}Dark Room{% endif %}</h2>
+  Room is {{ sanctity_adjective }} and {{ cleanliness_adjective }}. {% if illumination_level == 1 %}The candle holder is empty.{% endif %}
   {% if illumination_level > 0 %}
       {% if object.vimeo_id or object.youtube_id or object.hosted_video_link %}
         {% include "videoplayer.html" %}
@@ -43,6 +48,13 @@
       <p class="description">
         {{ object.description }}
       </p>
+      <div class="room-inventory">
+        <ul>
+          {% for room_item in object.items.all %}
+            <li>{{ room_item.abstract_item.itemName }}</li>
+          {% endfor %}
+        </ul>
+      </div>
     {% endif %}
     <ul class="here">
       {% for occupant in object.occupants.all %}
