@@ -39,7 +39,7 @@
 
 {% block content %}
   <h2>{% if illumination_level > 0 %}{{object.name}}{% else %}Dark Room{% endif %}</h2>
-  Room is {{ sanctity_adjective }} and {{ cleanliness_adjective }}. {% if illumination_level == 1 %}A candle-holder on the wall is empty.{% else %}A burning candle lights the room.{% endif %}
+  Room is {{ sanctity_adjective }} and {{ cleanliness_adjective }}. {% if illumination_level == 1 %}A candle-holder on the wall is empty.{% elif illumination_level == 2%}A burning candle lights the room.{% endif %}
   {% if illumination_level > 0 %}
       {% if object.vimeo_id or object.youtube_id or object.hosted_video_link %}
         {% include "videoplayer.html" %}
