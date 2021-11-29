@@ -17,7 +17,7 @@
       Description: {{ object.description }}
     </p>
     <p class="skills">
-      Skills:
+      <h3>Skills:</h3>
       <ul>
         {% for skill in object.skills.all %}
           <li>{{ skill.name }}: {{ skill.level }}</li>
@@ -27,14 +27,20 @@
       </ul>
     </p>
     <p class="inventory">
-      Inventory:
-      <ul>
-        {% for item in object.items.all %}
-          <li>{{ item.name }}</li>
-          {% empty %}
-          (No items)
-          {% endfor %}
-      </ul>
+      <h3>Inventory:</h3>
+    <ul>
+      {% if character.arrow_count > 0 %}
+        <li>{{ character.arrow_count }} arrow{{ character.arrow_count | pluralize }}</li>
+      {% endif %}
+      {# deal with other items too #}
+
+      {% for item in character.character_items.all %}
+        <li>{{ item.abstract_item.itemName }}</li>
+      {% endfor %}
+      {% for item in character.items.all %}
+        <li>{{ item.name }}
+      {% endfor %}
+    </ul>
     </p>
   </div>
 {% endblock %}
