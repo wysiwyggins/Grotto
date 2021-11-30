@@ -16,7 +16,7 @@ class ItemType(enum.Enum):
     SCRUBBRUSH = 1
     INCENSE = 2
     AMULET = 3
-    PENTAGRAM = 4
+    CENOTAPH = 4
     FECES = 5
     ARROW = 6
 
