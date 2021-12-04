@@ -90,4 +90,16 @@
       {% endfor %}
     </ul>
   {% endif %}
+
+{% endblock %}
+{% block page_script %}
+  <script type="text/javascript">
+    async function doit() {
+
+      let response = await window.fetch("/api/v1/tableau/", {method: "GET"});
+      console.log(response.text());
+    }
+
+    doit();
+  </script>
 {% endblock %}
