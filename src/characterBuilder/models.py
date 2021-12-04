@@ -37,7 +37,7 @@ class Character(NamedModel):
     arrow_count = models.IntegerField(default=1)
     dead = models.BooleanField(default=False)
     deathnote = models.CharField(max_length=200, null=True, blank=True)
-    items = models.ManyToManyField("Item", blank=True)
+    # items = models.ManyToManyField("Item", blank=True)
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
@@ -57,7 +57,7 @@ class NonPlayerCharacter(NamedModel):
         help_text="When Movement Entropy exceeds this threshold the NPC will move",
     )
     warning_text = models.CharField(max_length=200)
-    loot = models.ManyToManyField("Item", blank=True)
+    # loot = models.ManyToManyField("Item", blank=True)
 
 
 class Skill(NamedModel):
@@ -67,11 +67,11 @@ class Skill(NamedModel):
     )
 
 
-class Item(NamedModel):
-    # permissions = ...
-    # Eventually items could imbue the carrier with some special powers which
-    #   can be faciliated using django permissions.
-    persistent = models.BooleanField(default=True)
+# class Item(NamedModel):
+#     # permissions = ...
+#     # Eventually items could imbue the carrier with some special powers which
+#     #   can be faciliated using django permissions.
+#     persistent = models.BooleanField(default=True)
 
 
 class CharacterTest(models.Model):

@@ -4,7 +4,6 @@ from characterBuilder.models import (
     Character,
     CharacterTest,
     CharacterTestChoice,
-    Item,
     NonPlayerCharacter,
     Visit,
 )
@@ -28,11 +27,5 @@ class VisitAdmin(admin.ModelAdmin):
 @admin.register(NonPlayerCharacter)
 class NonPlayerCharacterAdmin(admin.ModelAdmin):
     list_display = ("name", "room", "mobile")
-
-
-@admin.register(Item)
-class ItemAdmin(admin.ModelAdmin):
-    pass
-
 
 admin.site.register(Character)

@@ -8,26 +8,10 @@ from django_enumfield import enum
 from mapBuilder.models import Room
 from characterBuilder.models import Character
 
+from itemBuilder.enum import ItemType, ItemAction
+
 # Create your models here.
-
-
-class ItemType(enum.Enum):
-    CANDLE = 0
-    SCRUBBRUSH = 1
-    INCENSE = 2
-    AMULET = 3
-    CENOTAPH = 4
-    FECES = 5
-    ARROW = 6
-
-
-
-class ItemAction(enum.Enum):
-    USE = 0
-    GIVE = 1
-    PLACE = 2
-    TAKE = 3
-
+from Grotto.game.services import RandomColorService
 
 
 class AbstractItem(models.Model):
@@ -44,7 +28,7 @@ class AbstractItem(models.Model):
 class Item(models.Model):
     abstract_item = models.ForeignKey(AbstractItem, on_delete=models.CASCADE)
     current_owner = models.ForeignKey(
-        Character, on_delete=models.SET_NULL, null=True, blank=True, related_name="character_items"
+        Character, on_delete=models.SET_NULL, null=True, blank=True, related_name="inventory"
     )
     current_room = models.ForeignKey(
         Room, on_delete=models.CASCADE, null=True, blank=True, related_name="items"
@@ -64,8 +48,22 @@ class Item(models.Model):
         return False
 
 
+class UselessItemException(Exception):
+    pass
+
+
 # service
 class ItemService:
+    def create(self, *, abstract_item, character=None, room=None):
+        color_name, color_hex = RandomColorService().get_color()
+        return Item.objects.create(
+            abstract_item=abstract_item,
+            current_owner=character,
+            current_room=room,
+            colorName=color_name,
+            colorHex=color_hex,
+        )
+
     def use(self, *, item, character):  # Item model instance
         # validate that the item type exists
         if item.abstract_item.itemType == ItemType.CANDLE:
@@ -75,6 +73,8 @@ class ItemService:
             self.place(item, character)
         if item.abstract_item.itemType == ItemType.SCRUBBRUSH:
             self._use_scrubbrush(item, character)
+        if item.abstract_item.itemType == ItemType.JUNK:
+            raise UselessItemException
 
     def place(self, item, character):
         item.current_owner = None

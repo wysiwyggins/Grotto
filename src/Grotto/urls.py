@@ -29,6 +29,7 @@ urlpatterns = [
     path("register/", RegisterView.as_view(), name="register"),
     path("guild/", include("characterBuilder.urls")),
     path("game/", include("Grotto.game.urls")),
+    path("api/v1/", include("Grotto.api.urls")),
     path("terms/", TermsAcceptView.as_view(), name="terms"),
     path(
         "privacy/",

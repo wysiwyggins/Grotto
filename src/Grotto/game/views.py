@@ -11,7 +11,7 @@ from Grotto.game.services import (
     PlayerCharacterDeathService,
 )
 from mapBuilder.models import Room
-from itemBuilder.models import ItemService, Item
+from itemBuilder.models import ItemService, Item, UselessItemException
 
 
 class LivingCharacterBaseView(RedirectView):
@@ -180,7 +180,10 @@ class UseItemView(LivingCharacterBaseView):
             item = Item.objects.get(pk=item_pk, current_owner=request.character)
         except Item.DoesNotExist:
             raise Http404("Item doesn't exist")
-        ItemService().use(item=item, character=request.character)
+        try:
+            ItemService().use(item=item, character=request.character)
+        except UselessItemException:
+            messages.add_message(request, messages.INFO, "You're not sure how to use this.")
 
         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
         return super().get(request, *args, **kwargs)

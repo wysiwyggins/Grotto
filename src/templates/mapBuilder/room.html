@@ -27,7 +27,7 @@
       {% endif %}
       {# deal with other items too #}
 
-      {% for item in character.character_items.all %}
+      {% for item in character.inventory.all %}
         <li>{{ item.abstract_item.itemName }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %}</li>
       {% endfor %}
       {% for item in character.items.all %}

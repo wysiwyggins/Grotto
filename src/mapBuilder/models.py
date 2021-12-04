@@ -4,7 +4,7 @@ from colorfield.fields import ColorField
 from django.db import models
 from django.utils.timezone import now
 
-# Create your models here.
+from itemBuilder.enum import ItemType
 
 
 class Room(models.Model):
@@ -30,3 +30,30 @@ class Room(models.Model):
 
     def __str__(self):
         return self.name
+
+    def _room_level(self, *, item_type):
+        # check items in room
+        _item = self.items.filter(abstract_item__itemType=item_type, active__isnull=False)
+
+        active_item_count = sum([1 for candle in _item if candle.is_active])
+        # active_item_count = 1
+        if active_item_count > 0:
+            return 2
+        # check characters in self
+        for character in self.occupants.all():
+            # see if character has a candle
+            _item = character.inventory.filter(abstract_item__itemType=item_type, active__isnull=False)
+            active_item_count = sum([1 for candle in _item if candle.is_active])
+            if active_item_count > 0:
+                return 1
+        return 0
+
+    def get_attributes(self):
+        sanctity = 0
+        if not self.is_cursed:
+            sanctity = self._room_level(item_type=ItemType.INCENSE)
+        return {
+            "cleanliness": self.cleanliness,
+            "brightness": self._room_level(item_type=ItemType.CANDLE),
+            "sanctity": sanctity,
+        }

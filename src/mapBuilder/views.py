@@ -14,7 +14,7 @@ from django.db.models import F
 from characterBuilder.models import Character, Visit
 from Grotto.views import ActionMixin, LoginRequiredMixin
 from mapBuilder.models import Room
-from itemBuilder.models import ItemType
+from itemBuilder.enum import ItemType
 
 # import function to run
 from mapBuilder.room_generator import generateRoom
@@ -71,7 +71,7 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         # check characters in room
         for character in room.occupants.all():
             # see if character has a candle
-            _item = character.character_items.filter(abstract_item__itemType=item_type, active__isnull=False)
+            _item = character.inventory.filter(abstract_item__itemType=item_type, active__isnull=False)
             active_item_count = sum([1 for candle in _item if candle.is_active])
             if active_item_count > 0:
                 return 1
