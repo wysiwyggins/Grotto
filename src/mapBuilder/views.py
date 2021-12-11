@@ -58,11 +58,12 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         },
     ]
 
-
     def _room_level(self, item_type):
         room = self.request.character.room
         # check items in room
-        _item = room.items.filter(abstract_item__itemType=item_type, active__isnull=False)
+        _item = room.items.filter(
+            abstract_item__itemType=item_type, active__isnull=False
+        )
 
         active_item_count = sum([1 for candle in _item if candle.is_active])
         # active_item_count = 1
@@ -71,12 +72,13 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         # check characters in room
         for character in room.occupants.all():
             # see if character has a candle
-            _item = character.inventory.filter(abstract_item__itemType=item_type, active__isnull=False)
+            _item = character.inventory.filter(
+                abstract_item__itemType=item_type, active__isnull=False
+            )
             active_item_count = sum([1 for candle in _item if candle.is_active])
             if active_item_count > 0:
                 return 1
         return 0
-
 
     def get_room_level(self, descriptor="illumination"):
         room = self.request.character.room
@@ -91,7 +93,6 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
                 return 2
             return 1
 
-
     def get_room_adjective(self, descriptor):
         _level = self.get_room_level(descriptor)
         adjectives = getattr(self, f"{descriptor}_adjectives")
@@ -104,7 +105,11 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         context = super().get_context_data(**kwargs)
         deduped_visits = []
         visitors = []
-        visits = Visit.objects.filter(room=self.object).order_by("stamp_date")
+        visits = (
+            Visit.objects.filter(room=self.object)
+            .exclude(stamp_date__lt=timezone.now() - timedelta(days=7))
+            .order_by("-stamp_date")
+        )
         for visit in visits:
             if visit.character not in visitors:
                 deduped_visits.append(visit)

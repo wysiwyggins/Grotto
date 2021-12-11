@@ -9,5 +9,6 @@ urlpatterns = [
     path("fire/<slug:colorSlug>/", views.FireArrowView.as_view(), name="fire"),
     path("become/<int:character_pk>/", views.BecomeCharacterView.as_view(), name="become"),
     path("itemActions/use/<int:item_pk>/", views.UseItemView.as_view(), name="use"),
+    path("itemActions/take/<int:item_pk>/", views.TakeItemView.as_view(), name="take"),
     path("itemActions/place/<int:item_pk>/", views.PlaceItemView.as_view(), name="place"),
 ]

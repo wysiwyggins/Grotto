@@ -11,7 +11,8 @@ from Grotto.game.services import (
     PlayerCharacterDeathService,
 )
 from mapBuilder.models import Room
-from itemBuilder.models import ItemService, Item, UselessItemException
+from itemBuilder.models import Item
+from Grotto.game.services import ItemService
 
 
 class LivingCharacterBaseView(RedirectView):
@@ -180,10 +181,9 @@ class UseItemView(LivingCharacterBaseView):
             item = Item.objects.get(pk=item_pk, current_owner=request.character)
         except Item.DoesNotExist:
             raise Http404("Item doesn't exist")
-        try:
-            ItemService().use(item=item, character=request.character)
-        except UselessItemException:
-            messages.add_message(request, messages.INFO, "You're not sure how to use this.")
+        service_return = ItemService().use(item=item, character=request.character)
+        if service_return.message is not None:
+            messages.add_message(request, messages.INFO, service_return.message)
 
         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
         return super().get(request, *args, **kwargs)
@@ -196,6 +196,18 @@ class PlaceItemView(LivingCharacterBaseView):
         except Item.DoesNotExist:
             raise Http404("Item doesn't exist")
         ItemService().place(item=item, character=request.character)
+
+        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
+        return super().get(request, *args, **kwargs)
+
+
+class TakeItemView(LivingCharacterBaseView):
+    def get(self, request, *args, item_pk, **kwargs):
+        try:
+            item = Item.objects.get(pk=item_pk, current_room=request.character.room)
+        except Item.DoesNotExist:
+            raise Http404("Item doesn't exist")
+        ItemService().take(item=item, character=request.character)
 
         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
         return super().get(request, *args, **kwargs)

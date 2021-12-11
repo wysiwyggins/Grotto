@@ -5,7 +5,9 @@ import markovify
 from django.utils.text import slugify
 
 from characterBuilder import models
-from itemBuilder.models import AbstractItem, ItemType, ItemService
+from itemBuilder.models import AbstractItem
+from itemBuilder.enum import ItemType
+from Grotto.game.services import ItemService
 
 
 # in the pre-pyglet version you were able to type in a seed number and consistently get the same output from the same seed.

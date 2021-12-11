@@ -2,10 +2,10 @@ import io
 import random
 from django.utils.text import slugify
 
-from characterBuilder import models
+from itemBuilder.enum import ItemType
 
 
-class Item(DefaultObject):
+class ItemGeneratorService:
 
     # Items! Player characters all start with a random item and an arrow. 
     # Items can be given to characters, put in rooms and taken from rooms, they cannot be taken from characters
@@ -17,31 +17,22 @@ class Item(DefaultObject):
 
     # I added the "burn" action stub to junk since it would show how to eventually have actions that use up an item
 
-    def lightCandle(self):
-        self.active = True
-        # light candle action
-        # this sets the candle to lit, putting a lit candle in a room changes the room's light value
-        # rooms can be dim, lit or dark. Dark rooms can't be traversed at all, you could be eaten by a wumpus
-        # carrying a lit candle makes whatever room you are in dim, placing a lit candle in a room makes the room lit
-    
-    def lightIncense(self):
-        self.active = True
-        # A room can be honored or neglected, placing lit incense in the room makes the room honored
-    
-    def useScrubBrush(self):
-        self.active = True
-        # A room can be clean, dirty or profane. Using a Scrub brush in a room cleans it. 
-        # When a room is clean it has an inscription that appears with the name and dates of the deceased
-        # when a room is profane ???
-    
-    def burnJunk(self):
-        self.active = True
-        # maybe the default action of junk is to burn it
+    _item_types = {
+        ItemType.JUNK: "generateJunk",
+        ItemType.CANDLE: "generateCandle",
+        ItemType.INCENSE: "generateIncense",
+        ItemType.SCRUBBRUSH: "generateScrubBrush",
+        ItemType.AMULET: "generateJunk",
+    }
+
+    def generate(self, item_type):
+        if item_type not in self._item_types:
+            return "boring", "standard"
+        return getattr(self, self._item_types[item_type])()
 
     def __init__(self, *, seed=None):
         self.seed = seed or random.randint(0, 999999)
         self.name = "Candle"
-        self.action = Item().lightCandle
         self.description = "A wax candle"
         self.active = False #yeah I dunno about this, this is all pseudocode right now
         # could have file attachments too if we wanted to live really dangerously!
@@ -59,7 +50,7 @@ class Item(DefaultObject):
             self.generateJunk()
 
     def getItemName(self):
-        itemFO = open("/word_lists/items.txt")
+        itemFO = open("word_lists/items.txt")
         itemList = list(itemFO)
         selection = random.randint(0, len(itemList) - 1)
         item = itemList[selection]
@@ -68,7 +59,7 @@ class Item(DefaultObject):
         return item
 
     def getColor(self):
-        colorsFO = open("/word_lists/colors.txt")
+        colorsFO = open("word_lists/colors.txt")
         colorsList = list(colorsFO)
         colorsSelection = random.randint(0, len(colorsList) - 1)
         color = colorsList[colorsSelection]
@@ -79,7 +70,7 @@ class Item(DefaultObject):
     def getSubstance(self):
         random.seed(self.seed)
         substanceFO = io.open(
-            f"{self.base_dir}word_lists/substances.txt", encoding="utf-8"
+            "word_lists/substances.txt", encoding="utf-8"
         )
         substanceList = list(substanceFO)
         selection = random.randint(0, len(substanceList) - 1)
@@ -88,7 +79,7 @@ class Item(DefaultObject):
         return substance
     
     def getAdjective(self):
-        adjectiveFO = open("typeclasses/itemator/word_lists/adjectives.txt")
+        adjectiveFO = open("word_lists/adjectives.txt")
         adjectiveList = list(adjectiveFO)
         selection = random.randint(0, len(adjectiveList) - 1)
         adjective = adjectiveList[selection]
@@ -100,8 +91,7 @@ class Item(DefaultObject):
         name = "candle"
         self.item_name = name
         self.item_description = "a pure " + color + " wax " + name
-        self.action = Item().lightCandle
-        return self.createModelInstance()
+        return self.item_name, self.item_description
     
     def generateIncense(self):
         color = self.getColor()
@@ -109,25 +99,26 @@ class Item(DefaultObject):
         name = "incense"
         self.item_name = name
         self.item_description = substance + name
-        self.action = Item().lightIncense
-        return self.createModelInstance()
+        return self.item_name, self.item_description
     
     def generateScrubBrush(self):
         color = self.getColor()
         name = "scrub brush"
         self.item_name = name
         self.item_description = color + name
-        self.action = Item().useScrubBrush
-        return self.createModelInstance()
+        return self.item_name, self.item_description
 
-    def generateJunk(self):
+    def generateJunk(self, name=None):
         color = self.getColor()
         substance = self.getSubstance()
-        adjective = self.getAdjective()
         name = self.getItemName()
         self.item_name = name
-        anAdjective = self.addAorAn(adjective)
-        self.item_description = anAdjective + " " + \
-            name + " made of " + color + " " + substance + "."
-        self.action = Item().burnJunk
-        return self.createModelInstance()
+        self.item_description = name + " made of " + color + " " + substance
+        return self.item_name, self.item_description
+
+    def generateAmulet(self, name=None):
+        color = self.getColor()
+        substance = self.getSubstance()
+        self.item_name = "Amulet"
+        self.item_description = name + " made of " + color + " " + substance
+        return self.item_name, self.item_description

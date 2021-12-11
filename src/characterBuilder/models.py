@@ -44,7 +44,7 @@ class Character(NamedModel):
 
 
 class NonPlayerCharacter(NamedModel):
-    room = models.ForeignKey(Room, on_delete=models.PROTECT, related_name="npcs")
+    room = models.ForeignKey(Room, on_delete=models.PROTECT, related_name="npcs", null=True, blank=True)
     mobile = models.BooleanField(default=True)
     deadly = models.BooleanField(default=True)
     mortal = models.BooleanField(default=True)
@@ -57,7 +57,6 @@ class NonPlayerCharacter(NamedModel):
         help_text="When Movement Entropy exceeds this threshold the NPC will move",
     )
     warning_text = models.CharField(max_length=200)
-    # loot = models.ManyToManyField("Item", blank=True)
 
 
 class Skill(NamedModel):

@@ -28,7 +28,7 @@
       {# deal with other items too #}
 
       {% for item in character.inventory.all %}
-        <li>{{ item.abstract_item.itemName }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %}</li>
+        <li>{{ item.name }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %}</li>
       {% endfor %}
       {% for item in character.items.all %}
         <li>{{ item.name }} &mdash; <a href="#">use</a></li>
@@ -52,7 +52,9 @@
         <p>In the room, you see:</p>
         <ul>
           {% for room_item in object.items.all %}
-            <li>{{ room_item.abstract_item.itemName }}</li>
+            {% if room_item.is_takeable %}
+              <li>{{ room_item.abstract_item.itemName }} -- <a href="{% url 'game:take' room_item.pk %}">take</a></li>
+            {% endif %}
           {% endfor %}
         </ul>
       </div>

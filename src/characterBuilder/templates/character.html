@@ -35,10 +35,7 @@
       {# deal with other items too #}
 
       {% for item in character.inventory.all %}
-        <li>{{ item.abstract_item.itemName }}</li>
-      {% endfor %}
-      {% for item in character.items.all %}
-        <li>{{ item.name }}
+        <li>{{ item.name }}</li>
       {% endfor %}
     </ul>
     </p>
