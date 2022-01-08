@@ -12,6 +12,7 @@ from Grotto.game.services import (
 )
 from mapBuilder.models import Room
 from itemBuilder.models import Item
+from itemBuilder.enum import ItemType
 from Grotto.game.services import ItemService
 
 
@@ -106,16 +107,6 @@ class MoveView(LivingCharacterBaseView):
                 deathnote=f"{request.character.name} was killed by {killers[0].name}",
             )
             return super().get(request)
-        # pick up any arrows in the room
-        arrow_count = room.arrow_count
-        if arrow_count > 0:
-            # message user about the arrows they picked up
-            room.arrow_count = 0
-            room.save()
-            messages.add_message(
-                request, messages.INFO, f"You have picked up arrows ({arrow_count})"
-            )
-            request.character.arrow_count += arrow_count
         request.character.room = room
         request.character.save()
         Visit.objects.create(room=old_room, character=request.character)
@@ -138,8 +129,9 @@ class FireArrowView(LivingCharacterBaseView):
         # check that character has an arrow
         if character.arrow_count < 0:
             raise Http404("You don't have any arrows")
-        character.arrow_count -= 1
-        character.save()
+        arrow = character.inventory.filter(abstract_item__itemType=ItemType.ARROW)[0]
+        arrow.current_owner = None
+        arrow.current_room = None
         # see what is in room (wumpus or player character or nothing)
         occupants = list(target_room.occupants.all())
         npcs = list(target_room.npcs.filter(mortal=True))
@@ -155,8 +147,8 @@ class FireArrowView(LivingCharacterBaseView):
                 deathnote=f"{unlucky.name} was killed by an arrow from the {character.room}",
             )
         else:
-            target_room.arrow_count += 1
-            target_room.save()
+            arrow.current_room = target_room
+        arrow.save()
         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 5})
         return super().get(request, *args, **kwargs)
 
@@ -175,39 +167,64 @@ class BecomeCharacterView(EnterGrottoView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class UseItemView(LivingCharacterBaseView):
-    def get(self, request, *args, item_pk, **kwargs):
+class ItemMixin:
+    action = "test"
+    holder = "character"
+
+    def _get_item(self, *, character, item_pk):
+        get_kwargs = {"pk": item_pk}
+        if self.holder == "character":
+            get_kwargs.update({
+                "current_owner": character,
+            })
+        elif self.holder == "room":
+            get_kwargs.update({
+                "current_room": character.room,
+            })
         try:
-            item = Item.objects.get(pk=item_pk, current_owner=request.character)
+            item = Item.objects.get(**get_kwargs)
         except Item.DoesNotExist:
             raise Http404("Item doesn't exist")
-        service_return = ItemService().use(item=item, character=request.character)
-        if service_return.message is not None:
-            messages.add_message(request, messages.INFO, service_return.message)
+        return item
+
+
+class BaseItemActionView(LivingCharacterBaseView, ItemMixin):
+    def get(self, request, *args, item_pk, **kwargs):
+        item = self._get_item(character=request.character, item_pk=item_pk)
+
+        service_return = getattr(ItemService(), self.action)(
+            item=item, character=request.character)
+        for message in service_return.messages:
+            messages.add_message(request, messages.INFO, message)
 
         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
         return super().get(request, *args, **kwargs)
 
 
-class PlaceItemView(LivingCharacterBaseView):
+class UseItemView(BaseItemActionView):
+    action = "use"
+
+
+class PlaceItemView(BaseItemActionView):
+    action = "place"
+
+
+class TakeItemView(BaseItemActionView):
+    action = "take"
+    holder = "room"
+
+
+class DropItemView(BaseItemActionView):
+    action = "drop"
+
+
+class ViewItemView(LivingCharacterBaseView, ItemMixin):
+    action = "view"
+    holder = "room"
+    pattern_name = "mapBuilder:cenotaph"
+
     def get(self, request, *args, item_pk, **kwargs):
-        try:
-            item = Item.objects.get(pk=item_pk, current_owner=request.character)
-        except Item.DoesNotExist:
-            raise Http404("Item doesn't exist")
-        ItemService().place(item=item, character=request.character)
-
-        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
-        return super().get(request, *args, **kwargs)
-
-
-class TakeItemView(LivingCharacterBaseView):
-    def get(self, request, *args, item_pk, **kwargs):
-        try:
-            item = Item.objects.get(pk=item_pk, current_room=request.character.room)
-        except Item.DoesNotExist:
-            raise Http404("Item doesn't exist")
-        ItemService().take(item=item, character=request.character)
+        item = self._get_item(character=request.character, item_pk=item_pk)
 
         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
         return super().get(request, *args, **kwargs)

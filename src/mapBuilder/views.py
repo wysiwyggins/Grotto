@@ -43,20 +43,7 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
     slug_field = "colorSlug"
     sanctity_adjectives = ("Cursed", "Mundane", "Sacred")
     cleanliness_adjectives = ("Profane", "Dirty", "Clean")
-    actions = [
-        {
-            "url": "#",
-            "text": "real action 1",
-        },
-        {
-            "url": "#",
-            "text": "real action 2",
-        },
-        {
-            "url": "#",
-            "text": "real action 3",
-        },
-    ]
+    actions = []
 
     def _room_level(self, item_type):
         room = self.request.character.room
@@ -147,3 +134,7 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
                     )
                 )
         return super().get(request, *args, **kwargs)
+
+
+class CenotaphView(RoomDetailView):
+    template_name = "cenotaph.html"

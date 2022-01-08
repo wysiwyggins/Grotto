@@ -11,4 +11,6 @@ urlpatterns = [
     path("itemActions/use/<int:item_pk>/", views.UseItemView.as_view(), name="use"),
     path("itemActions/take/<int:item_pk>/", views.TakeItemView.as_view(), name="take"),
     path("itemActions/place/<int:item_pk>/", views.PlaceItemView.as_view(), name="place"),
+    path("itemActions/drop/<int:item_pk>/", views.DropItemView.as_view(), name="drop"),
+    path("itemActions/view/<int:item_pk>/", views.ViewItemView.as_view(), name="view"),
 ]

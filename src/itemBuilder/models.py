@@ -20,6 +20,7 @@ class AbstractItem(models.Model):
     untakable = models.BooleanField(default=False)
     untakable_if_active = models.BooleanField(default=False)
     holders = models.ManyToManyField(NonPlayerCharacter, related_name="loot", blank=True)
+    viewable = models.BooleanField(default=False)
 
     def __str__(self):
         return self.itemName
@@ -48,6 +49,10 @@ class Item(models.Model):
         return True
 
     @property
+    def is_viewable(self):
+        return self.abstract_item.viewable
+
+    @property
     def is_active(self):
         if self.active is None:
             return False
@@ -56,3 +61,13 @@ class Item(models.Model):
         if self.active > now() - timedelta(days=self.abstract_item.active_days):
             return True
         return False
+
+
+class Swap(models.Model):
+    # picks_up_item
+    picks = models.ForeignKey(AbstractItem, on_delete=models.PROTECT, related_name="wanted")
+    # drops_item
+    puts = models.ForeignKey(AbstractItem, on_delete=models.PROTECT)
+    # npc
+    npc = models.ForeignKey(NonPlayerCharacter, on_delete=models.PROTECT)
+    message = models.CharField(max_length=200)

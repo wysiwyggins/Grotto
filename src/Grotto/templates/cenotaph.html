@@ -1,0 +1,35 @@
+{% extends "cenotaph_base.html" %}
+
+{% block room_name %}{{object.name}} Room{% endblock %}
+
+{% block exits_panel_ul %}
+  {% for exit in object.exits.all %}
+    <li class="exit {% if forloop.first %}selected{% endif %}" data-type="exit"><a href="{% url 'game:move' exit.colorSlug %}"></a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block items_panel_ul %}
+  {% for item in object.items.all %}
+    <li class="item {{ item.abstract_item.itemType.name.lower }}{% if item.is_active %}-active{% endif %}" data-type="{{ item.abstract_item.itemType.name.lower }}"><a href="#"></a></li>
+  {% endfor %}
+  {% for occupant in object.occupants.all %}
+    {% if occupant != character %}
+      <li class="character {{ occupant.kind.lower }}"><a href="#"></a></li>
+    {% endif %}
+  {% endfor %}
+  {% for occupant in object.npcs.all %}
+      <li class="character npc {{ occupant.name.lower }}"><a href="#"></a></li>
+  {% endfor %}
+{% endblock %}
+
+{% block status_bar %}
+  {% for message in messages %}
+    <span {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</span>
+  {% endfor %}
+{% endblock %}
+
+{% block inventory_panel_ul %}
+  {% for item in character.inventory.all %}
+    <li class="item {{ item.abstract_item.itemType.name.lower }}" data-type="{{ item.abstract_item.itemType.name.lower }}"><a href="#"></a></li>
+  {% endfor %}
+{% endblock %}

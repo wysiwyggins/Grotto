@@ -101,7 +101,7 @@ class RandomColorService:
         if "gold" in elaborate_color:
             green = randint(220, 255)
             red = randint(220, 255)
-            blue =randint(0, 20)
+            blue = randint(0, 20)
         if "cyan" in elaborate_color:
             red -= randint(100, 255)
             green = randint(200, 255)
@@ -146,32 +146,32 @@ class RandomColorService:
             green = 100
             blue = 100
         if "black" in elaborate_color:
-            if(red>0):
+            if red > 0:
                 red -= 200
-            if(green>0):
+            if green > 0:
                 green -= 200
-            if(blue>0):
+            if blue > 0:
                 blue -= 200
         if "white" in elaborate_color:
-            if(red<255):
+            if red < 255:
                 red += 200
-            if(green<255):
+            if green < 255:
                 green += 200
-            if(blue<255):
+            if blue < 255:
                 blue += 200
 
-        #oh god I don't know how to clamp in python
-        if(red > 255):
+        # oh god I don't know how to clamp in python
+        if red > 255:
             red = 255
-        if(green > 255):
+        if green > 255:
             green = 255
-        if(blue > 255):
+        if blue > 255:
             blue = 255
-        if(red < 0):
+        if red < 0:
             red = 0
-        if(green < 0):
+        if green < 0:
             green = 0
-        if(blue < 0):
+        if blue < 0:
             blue = 0
         color.append(red)
         color.append(green)
@@ -180,15 +180,17 @@ class RandomColorService:
 
 
 class ItemServiceReturn:
-    def __init__(self, *, message=None):
-        self.message = message
+    def __init__(self, *, messages=None):
+        self.messages = messages or []
 
 
 # service
 class ItemService:
     def create(self, *, abstract_item, character=None, room=None):
         color_name, color_hex = RandomColorService().get_color()
-        item_name, item_description = ItemGeneratorService().generate(abstract_item.itemType)
+        item_name, item_description = ItemGeneratorService().generate(
+            abstract_item.itemType
+        )
         return Item.objects.create(
             name=item_name,
             description=item_description,
@@ -210,34 +212,70 @@ class ItemService:
         if item.abstract_item.itemType == ItemType.SCRUBBRUSH:
             self._use_scrubbrush(item, character)
         if item.abstract_item.itemType == ItemType.JUNK:
-            ret.message = "You're not sure how to use this"
+            ret.messages.append("You're not sure how to use this")
+        if item.abstract_item.itemType == ItemType.ARROW:
+            ret.messages.append("That's not how you use this")
         return ret
 
     def place(self, item, character):
+        ret = ItemServiceReturn()
         item.current_owner = None
         item.current_room = character.room
         item.save()
         if item.abstract_item.itemType == ItemType.INCENSE and item.is_active:
             character.room.is_cursed = False
             character.room.save()
+        return ret
 
     def take(self, item, character):
         ret = ItemServiceReturn()
         if item.is_active and item.abstract_item.untakable_if_active:
             # cannot pick up an active candle
-            ret.message = "Cannot be taken when active"
+            ret.messages.append("Cannot be taken when active")
         elif item.abstract_item.untakable:
             # cannot pick up a cenotaph
-            ret.message = "Cannot be taken"
+            ret.messages.append("Cannot be taken")
         else:
             item.current_owner = character
             item.current_room = None
             item.save()
-            ret.message = f"you picked {item.abstract_item.itemName} up"
+            ret.messages.append(f"you picked {item.abstract_item.itemName} up")
         return ret
 
-    def give(self, item, character, recipient):
-        pass
+    def drop(self, item, character):
+        # actually drop item
+        item.current_owner = None
+        item.current_room = character.room
+        item.save()
+        ret = ItemServiceReturn()
+        self.check_swap(character.room, return_obj=ret)
+        return ret
+
+    def check_swap(self, room, *, return_obj=None):
+        # check for anyone who wants item in room and drop resulting item
+        # npcs_present = room.npcs.all()
+        for item in room.items.all():
+            print(f"checking item {item}")
+            swaps = (
+                item.abstract_item.wanted.all()
+                .filter(npc__in=room.npcs.all())
+                .order_by("?")
+            )
+            if swaps:
+                print(f"swap found")
+                swap = swaps[0]
+                if return_obj is not None:
+                    return_obj.messages.append(swap.message)
+                # produce new item
+                self.create(abstract_item=swap.puts, room=room)
+                # destroy item
+                self.destroy(item)
+
+
+    def destroy(self, item):
+        item.current_room = None
+        item.current_owner = None
+        item.save()
 
     def _use_burnable(self, item, character):
         if item.active:
@@ -260,6 +298,9 @@ class ItemService:
 class NonPlayerCharacterDeathService:
     def __init__(self, *, npc, killer, **kwargs):
         # transfer loot to room
-        [ItemService().create(abstract_item=a_i, room=npc.room) for a_i in npc.loot.all()]
+        [
+            ItemService().create(abstract_item=a_i, room=npc.room)
+            for a_i in npc.loot.all()
+        ]
         # npc is placed in random room
         NonPlayerCharacterMovementService(npc=npc, room="random")

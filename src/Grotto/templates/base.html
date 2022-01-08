@@ -7,35 +7,39 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block page_title %}{% endblock %}</title>
-    {% compress css %}
-    <link rel="stylesheet" type="text/x-scss" href="{% static 'main.scss' %}">
-    {% endcompress %}
+    {% block page_css %}
+      {% compress css %}
+      <link rel="stylesheet" type="text/x-scss" href="{% static 'main.scss' %}">
+      {% endcompress %}
+    {% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}" style="{% block body_style %}{% endblock %}">
+    {% block inner_body %}
     {% block header %}
       {% include "header.html" %}
     {% endblock %}
-    <div class="main">
-      {% block sidebar %}
-      {% endblock %}
-
-      <section class='{% block main_section_class %}description{% endblock %}'>
-        {% block content %}
-
+      <div class="main">
+        {% block sidebar %}
         {% endblock %}
-      </section>
-    </div>
-    {% if actions %}
-      <section class="actions-panel">
-        <ul class="actions">
-          {% for action in actions %}
-            <li><a href="{{ action.url }}">{{ action.text }}</a></li>
-          {% endfor %}
-        </ul>
-      </section>
-    {% endif %}
 
-    {% include "footer.html" %}
+        <section class='{% block main_section_class %}description{% endblock %}'>
+          {% block content %}
+
+          {% endblock %}
+        </section>
+      </div>
+      {% if actions %}
+        <section class="actions-panel">
+          <ul class="actions">
+            {% for action in actions %}
+              <li><a href="{{ action.url }}">{{ action.text }}</a></li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      {% include "footer.html" %}
+    {% endblock %}
     </body>
 
     {% block page_script %}
