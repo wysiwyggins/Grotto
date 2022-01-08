@@ -381,7 +381,7 @@ body.icon-ui-view, body.cenotaph {
     header {
         text-align: center;
         @include darkText();
-        
+        display: block;
     }
     h1{
         font-family: "Portfolio", monospace;
@@ -524,6 +524,26 @@ body.icon-ui-view, body.cenotaph {
         &.down {
             background-image: url('/static/images/door_down.png'); 
         }
+    }    li.character {
+        background-image: url('/assets/images/character.png');
+        &.robot {
+            background-image: url('/assets/images/robot.png'); 
+        }
+        &.animal {
+            background-image: url('/assets/images/animal.png'); 
+        }
+        &.ghost {
+            background-image: url('/assets/images/ghost.png'); 
+        }
+        &.bird {
+            background-image: url('/assets/images/bird.png'); 
+        }
+        &.vegetable {
+            background-image: url('/assets/images/vegetable.png'); 
+        }
+        &.fungus {
+            background-image: url('/assets/images/fungus.png'); 
+        }
     }
     li.item {
         display: block;
@@ -532,28 +552,31 @@ body.icon-ui-view, body.cenotaph {
         list-style: none;
         background-size: 130px,135px;
         height: 135px;
-        
+        background-image: url('/assets/images/junk.png');
+        &.scrubbrush {
+            background-image: url('/assets/images/scrubbrush.png');
+        }
         &.candle {
-            background-image: url('/static/images/candle_sm.png');
+            background-image: url('/assets/images/candle_sm.png');
             
         }
         &.arrow {
-            background-image: url('/static/images/arrow_sm.png');
+            background-image: url('/assets/images/arrow_sm.png');
             
         }
         &.candle-active {
-            background-image: url('/static/images/candle_sm_active.png');
+            background-image: url('/assets/images/candle_sm_active.png');
         
         }
         &.incense {
-            background-image: url('/static/images/incense_sm.png');
+            background-image: url('/assets/images/incense_sm.png');
             
         }
         &.incense-active {
-            background-image: url('/static/images/incense_sm_active.png');
+            background-image: url('/assets/images/incense_sm_active.png');
         }
         &.cenotaph {
-            background-image: url('/static/images/cenotaph_sm.png');
+            background-image: url('/assets/images/cenotaph_sm.png');
             
         }    
     }
