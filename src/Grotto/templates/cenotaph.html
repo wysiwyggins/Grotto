@@ -1,6 +1,6 @@
 {% extends "cenotaph_base.html" %}
 
-{% block room_name %}{{object.name}} Room{% endblock %}
+{% block room_name %}{{object.name}}{% endblock %}
 
 {% block exits_panel_ul %}
   {% for exit in object.exits.all %}
