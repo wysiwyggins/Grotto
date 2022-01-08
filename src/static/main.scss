@@ -171,6 +171,7 @@ video {
     align-content: center;
     box-sizing: border-box;
     margin: 5px;
+    overflow-y: scroll;
 }
 
 sidebar {
@@ -308,3 +309,244 @@ header {
 @import
         "saffron/saffron",
         "responsive-iframe";
+
+// GUI views
+
+
+@mixin scanlines {
+    background-image: url('/assets/images/Block8.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+@mixin darkscanlines {
+    background-image: url('/assets/images/Block3.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+@mixin black {
+    background-image: url('/assets/images/Block1.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+
+@mixin blackText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+        @include black();
+}
+
+@mixin darkText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+        @include darkscanlines();
+}
+
+@mixin lightText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+    @include scanlines();
+}
+
+@font-face {
+    font-family: "Portfolio";
+    src: url("/assets/fonts/Web437_Portfolio_6x8.woff") format("woff");
+  }
+
+$grid-cell-width: 10px;
+$grid-cell-height: 7.5px;
+$grid-block-width: 200px;
+$grid-block-height: 200px;
+$background-color: rgb(71, 150, 126);
+$inverse-color: lighten(invert($color: $background-color), 20%);
+
+body.icon-ui-view, body.cenotaph {
+    padding: 0;
+    margin: 0;
+    font-family: "Portfolio", monospace;
+    background-color: $background-color;
+    
+    &.dark {
+        @include black();
+    }
+    &.dim {
+        @include darkscanlines();
+    }
+
+    header {
+        text-align: center;
+        @include darkText();
+        
+    }
+    h1{
+        text-align: center;
+        font-size: 80px;
+        line-height: 82px;
+        padding-top: 4px;
+        margin: 0;
+    }
+    img.portrait {
+        max-width: 440px;
+        max-height: 600px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+    .obituary {
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        font-size: 12px;
+        line-height: 14px;
+        @include blackText();
+    }
+    
+    
+    .content {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        height: 100vh;
+        color: rgb(30, 30, 30);
+        * {
+            box-sizing: border-box;
+        }
+    }
+
+    .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-height: 100vh;
+        overflow-y: scroll;
+    }
+
+    .room-view {
+        //background-color: rgb(77, 77, 77);
+        //border: 2px solid #000;
+        //min-height: 50vh;
+        
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .exits {
+        //background-color: desaturate(darken($background-color, 20%), 40%);
+        @include scanlines();
+        padding: 20px;
+    }
+    .UIpanel {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    ul {
+        margin-left:0;
+        padding-left: 0;
+        
+        //li {background-color: rgb(103, 103, 103);}
+        //li:nth-child(even) {background-color: rgb(255, 255, 255);}
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-flow: row wrap;
+        &.items {
+            align-items: flex-end;
+        }
+    }
+    
+
+    .status-bar {
+        min-height: $grid-cell-height * 3;
+        line-height: $grid-cell-height * 3;
+        font-size: 1 em;
+        text-align: center;
+        //background-color:rgb(38, 38, 38);
+        @include darkscanlines();
+        color: $inverse-color;
+    }
+    .action-bar {
+        min-height: $grid-cell-height * 3;
+        line-height: $grid-cell-height * 3;
+        font-size: 1 em;
+        text-align: center;
+        //background-color:darken(invert($color: $background-color), 20%);
+        @include black();
+        color: $inverse-color;
+    }
+
+    .action-bar.attention, .status-bar.attention {
+     
+    }
+    .character {
+        background-color: $inverse-color;
+    }
+    li.exit, li.item {
+        list-style: none;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: bottom;
+        &.selected {
+            //background-color: rgba(255,255,255,0.4);
+            //@include pulsate();
+            filter: invert(100%);
+            //background-color: darken($background-color, 40%);
+            
+        };
+    }
+
+    li.exit {
+        background-image: url('/assets/images/door.png');
+        width: 90px;
+        height: 90px;
+        background-size: 90px;
+        &.up {
+            background-image: url('/assets/images/door_up.png'); 
+        }
+        &.down {
+            background-image: url('/assets/images/door_down.png'); 
+        }
+    }
+    li.item {
+        display: block;
+        width: $grid-block-width;
+        height: $grid-block-height;
+        list-style: none;
+        background-size: 130px,135px;
+        height: 135px;
+        
+        &.candle {
+            background-image: url('/assets/images/candle_sm.png');
+            
+        }
+        &.arrow {
+            background-image: url('/assets/images/arrow_sm.png');
+            
+        }
+        &.candle-active {
+            background-image: url('/assets/images/candle_sm_active.png');
+        
+        }
+        &.incense {
+            background-image: url('/assets/images/incense_sm.png');
+            
+        }
+        &.incense-active {
+            background-image: url('/assets/images/incense_sm_active.png');
+        }
+        &.cenotaph {
+            background-image: url('/assets/images/cenotaph_sm.png');
+            
+        }    
+    }
+}
