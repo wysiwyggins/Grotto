@@ -468,12 +468,19 @@ body.icon-ui-view, body.cenotaph {
 
     .status-bar {
         min-height: $grid-cell-height * 3;
+        max-height: $grid-cell-height * 9;
         line-height: $grid-cell-height * 3;
         font-size: 1 em;
         text-align: center;
         //background-color:rgb(38, 38, 38);
         @include darkscanlines();
         color: $inverse-color;
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: hidden;
+        span {
+            display:inline-block;
+        }
     }
     .action-bar {
         min-height: $grid-cell-height * 3;
