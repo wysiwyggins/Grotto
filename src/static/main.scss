@@ -171,7 +171,8 @@ video {
     align-content: center;
     box-sizing: border-box;
     margin: 5px;
-    overflow-y: scroll;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 sidebar {
@@ -193,6 +194,11 @@ header {
 //views
 
 .room {
+    .main {
+        overflow-y: scroll;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
     .description {
         margin-left: 0;
         margin-bottom: 0;
