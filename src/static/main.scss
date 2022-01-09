@@ -195,7 +195,7 @@ header {
 
 .room {
     .main {
-        overflow-y: scroll;
+        //overflow-y: scroll;
         border-radius: 5px;
         margin-bottom: 5px;
     }
@@ -377,10 +377,10 @@ body.icon-ui-view, body.cenotaph {
     font-family: "Portfolio", monospace;
     background-color: $background-color;
     
-    &.dark {
+    &.illuminate-0 {
         @include black();
     }
-    &.dim {
+    &.illuminate-1 {
         @include darkscanlines();
     }
 
