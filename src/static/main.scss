@@ -524,7 +524,9 @@ body.icon-ui-view, body.cenotaph {
         &.down {
             background-image: url('/static/images/door_down.png'); 
         }
-    }    li.character {
+    }    
+    
+    li.character {
         background-image: url('/assets/images/character.png');
         &.robot {
             background-image: url('/assets/images/robot.png'); 
