@@ -22,13 +22,8 @@
     </ul>
     <h2>Inventory:</h2>
     <ul>
-      {% if character.arrow_count > 0 %}
-        <li>{{ character.arrow_count | apnumber }} arrow{{ character.arrow_count | pluralize }}</li>
-      {% endif %}
-      {# deal with other items too #}
-
       {% for item in character.inventory.all %}
-        <li>{{ item.name }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %}</li>
+        <li>{{ item.name }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %} | <a href="{% url 'game:drop' item.pk %}">drop</a></li>
       {% endfor %}
       {% for item in character.items.all %}
         <li>{{ item.name }} &mdash; <a href="#">use</a></li>
@@ -54,6 +49,8 @@
           {% for room_item in object.items.all %}
             {% if room_item.is_takeable %}
               <li>{{ room_item.abstract_item.itemName }} -- <a href="{% url 'game:take' room_item.pk %}">take</a></li>
+            {% elif room_item.is_viewable %}
+              <li>{{ room_item.abstract_item.itemName }} -- <a href="{% url 'game:view' room_item.pk %}">view</a></li>
             {% endif %}
           {% endfor %}
         </ul>
@@ -66,6 +63,9 @@
         {% else %}
           <li><a href="{% url 'characterBuilder:character' occupant.pk %}">{{ occupant.name }}</a> is here!</li>
         {% endif %}
+      {% endfor %}
+      {% for occupant in object.npcs.all %}
+        <li>{{ occupant.name }} is here!</li>
       {% endfor %}
     </ul>
     <ul class="visits">

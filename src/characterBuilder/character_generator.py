@@ -10,9 +10,16 @@ from itemBuilder.enum import ItemType
 from Grotto.game.services import ItemService
 
 
-# in the pre-pyglet version you were able to type in a seed number and consistently get the same output from the same seed.
+# in the pre-pyglet version you were able to type in a seed number and
+#  consistently get the same output from the same seed.
 class Character:
     base_dir = "characterBuilder/"
+    default_item_types = (
+        ItemType.CANDLE,
+        ItemType.SCRUBBRUSH,
+        ItemType.JUNK,
+        ItemType.ARROW,
+    )
 
     def __init__(self, *, seed=None):
         self.seed = seed or random.randint(0, 999999)
@@ -57,12 +64,9 @@ class Character:
                 character=character,
             )
 
-        abstract_candle = AbstractItem.objects.filter(itemType=ItemType.CANDLE).order_by('?')[0]
-        ItemService().create(abstract_item=abstract_candle, character=character)
-        abstract_brush = AbstractItem.objects.filter(itemType=ItemType.SCRUBBRUSH).order_by('?')[0]
-        ItemService().create(abstract_item=abstract_brush, character=character)
-        abstract_junk = AbstractItem.objects.filter(itemType=ItemType.JUNK).order_by('?')[0]
-        ItemService().create(abstract_item=abstract_junk, character=character)
+        for item_type in self.default_item_types:
+            _abstract = AbstractItem.objects.filter(itemType=item_type).order_by("?")[0]
+            ItemService().create(abstract_item=_abstract, character=character)
         return character
 
     def getSkills(self):
@@ -99,7 +103,8 @@ class Character:
         adjectiveList = list(adjectiveFO)
         selection = random.randint(0, len(adjectiveList) - 1)
 
-        # This lets us pick from two different random names with the same seed, for two adjectives in one character.
+        # This lets us pick from two different random names with the same
+        #  seed, for two adjectives in one character.
 
         if reversed == True:
             adjective = adjectiveList[-selection]
@@ -519,7 +524,8 @@ class Character:
             + skillsString
         )
 
-    # puts either an 'a' or 'an' before a word depending on if the word starts with a vowel or not and not at all if it's plural
+    # puts either an 'a' or 'an' before a word depending on if the word starts
+    #   with a vowel or not and not at all if it's plural
 
     def addAorAn(self, word):
         if (

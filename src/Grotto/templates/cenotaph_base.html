@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_class %}icon-ui-view {% if illumination_level == 0 %}dark{% elif illumination_level == 1 %}dim{% endif %}{% endblock %}
+
+{% block inner_body %}
+  <div class="content">
+    <header>
+      <h1>{% block room_name %}Ivygreen Room{% endblock %}</h1>
+      <!--some more text could go here-->
+    </header>
+    <div class="main">
+      <div class="UIpanel" id="room-panel">
+        <ul class="exits panelItems">
+          {% block exits_panel_ul %}
+            <li class="exit selected" data-type="exit"><a href="first.html"></a></li>
+            <li class="exit up" data-type="exit"><a href="second.html"></a></li>
+            <li class="exit up" data-type="exit"><a href="third.html"></a></li>
+            <li class="exit down" data-type="exit"><a href="fourth.html"></a></li>
+          {% endblock %}
+        </ul>
+        <div class="room-view UIpanel">
+          <ul class="items panelItems">
+            {% block items_panel_ul %}
+              <li class="item incense-active" data-type="incense"><a href="#"></a></li>
+              <li class="item arrow" data-type="arrow"><a href="#"></a></li>
+              <li class="item incense" data-type="incense"><a href="#"></a></li>
+              <li class="item candle-active" data-type="candle"><a href="#"></a></li>
+              <li class="item incense" data-type="incense"><a href="#"></a></li>
+              <li class="item cenotaph" data-type="cenotaph"><a href="#"></a></li>
+            {% endblock %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="character">
+      <div class="status-bar" id="status-bar">
+        {% block status_bar %}
+          Wiley lit the candle.
+        {% endblock %}
+      </div>
+      <div class="action-bar" id="action-bar">
+          Climb green stairwell.
+          <!-- action examples:
+          use exit to blue room
+          get candle
+          view cenotaph
+          use incense
+          place incense
+          -->
+      </div>
+      <div class= "UIpanel " id="inventory-panel">
+        <ul class="items panelItems">
+          {% block inventory_panel_ul %}
+            <li class="item candle" data-type="candle"><a href="#"></a></li>
+            <li class="item incense" data-type="incense"><a href="#"></a></li>
+          {% endblock %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'scripts/UI.js' %}"></script>
+  <script src="{% static 'scripts/Input.js' %}"></script>
+  <script src="{% static 'scripts/main.js' %}"></script>
+{% endblock %}

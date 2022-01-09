@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 
 from mapBuilder.models import Room
+from itemBuilder.enum import ItemType
 
 
 class User(AbstractUser):
@@ -34,13 +35,17 @@ class Character(NamedModel):
     room = models.ForeignKey(
         Room, on_delete=models.SET_NULL, null=True, blank=True, related_name="occupants"
     )
-    arrow_count = models.IntegerField(default=1)
+    # arrow_count = models.IntegerField(default=1)
     dead = models.BooleanField(default=False)
     deathnote = models.CharField(max_length=200, null=True, blank=True)
     # items = models.ManyToManyField("Item", blank=True)
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+    @property
+    def arrow_count(self):
+        return self.inventory.filter(abstract_item__itemType=ItemType.ARROW).count()
 
 
 class NonPlayerCharacter(NamedModel):

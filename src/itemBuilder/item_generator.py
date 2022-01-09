@@ -23,6 +23,7 @@ class ItemGeneratorService:
         ItemType.INCENSE: "generateIncense",
         ItemType.SCRUBBRUSH: "generateScrubBrush",
         ItemType.AMULET: "generateJunk",
+        ItemType.ARROW: "generateArrow",
     }
 
     def generate(self, item_type):
@@ -120,5 +121,12 @@ class ItemGeneratorService:
         color = self.getColor()
         substance = self.getSubstance()
         self.item_name = "Amulet"
-        self.item_description = name + " made of " + color + " " + substance
+        self.item_description = self.item_name + " made of " + color + " " + substance
+        return self.item_name, self.item_description
+
+    def generateArrow(self, name=None):
+        color = self.getColor()
+        substance = self.getSubstance()
+        self.item_name = "Arrow"
+        self.item_description = self.item_name + " made of " + color + " " + substance
         return self.item_name, self.item_description

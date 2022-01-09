@@ -15,7 +15,7 @@ class ItemType(enum.Enum):
 
 class ItemAction(enum.Enum):
     USE = 0
-    GIVE = 1
+    DROP = 1
     PLACE = 2
     TAKE = 3
-
+    VIEW = 4

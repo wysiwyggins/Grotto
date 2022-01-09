@@ -29,9 +29,6 @@
     <p class="inventory">
       <h3>Inventory:</h3>
     <ul>
-      {% if character.arrow_count > 0 %}
-        <li>{{ character.arrow_count }} arrow{{ character.arrow_count | pluralize }}</li>
-      {% endif %}
       {# deal with other items too #}
 
       {% for item in character.inventory.all %}
