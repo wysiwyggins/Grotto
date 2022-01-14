@@ -15,6 +15,7 @@ class User(AbstractUser):
     """
 
     accepts_terms = models.BooleanField(default=False)
+    character = models.OneToOneField("Character", blank=True, null=True, on_delete=models.SET_NULL, related_name="chosen_one")
 
 
 class NamedModel(models.Model):
@@ -31,7 +32,7 @@ class Character(NamedModel):
     kind = models.CharField(max_length=200)
     description = models.TextField()
     pub_date = models.DateTimeField("date created", default=timezone.now)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="characters")
     room = models.ForeignKey(
         Room, on_delete=models.SET_NULL, null=True, blank=True, related_name="occupants"
     )
