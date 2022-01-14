@@ -132,6 +132,21 @@ USE_L10N = True
 
 USE_TZ = True
 
+## DRF config
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Token": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    }
+}
+
 ## Whitenoise config
 STATICFILES_DIRS = [
     BASE_DIR / "static",
