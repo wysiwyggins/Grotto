@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "characterBuilder.apps.CharacterBuilderConfig",
     "rest_framework",
     "django_filters",
+    "rest_framework.authtoken",
     "drf_yasg",
     "Grotto",
     "colorfield",
