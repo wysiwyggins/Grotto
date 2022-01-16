@@ -23,7 +23,7 @@
     <h2>Inventory:</h2>
     <ul>
       {% for item in character.inventory.all %}
-        <li>{{ item.name }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% else %}<a href="{% url 'game:use' item.pk %}">use</a>{% endif %} | <a href="{% url 'game:drop' item.pk %}">drop</a></li>
+        <li>{{ item.name }} -- {% if item.is_active %}<a href="{% url 'game:place' item.pk %}">place</a>{% elif item.is_usable %}<a href="{% url 'game:use' item.pk %}">use</a>{% else %}<a href="{% url 'game:drop' item.pk %}">drop</a>{% endif %}</li>
       {% endfor %}
       {% for item in character.items.all %}
         <li>{{ item.name }} &mdash; <a href="#">use</a></li>
@@ -48,10 +48,19 @@
         <ul>
           {% for room_item in object.items.all %}
             {% if room_item.is_takeable %}
-              <li>{{ room_item.abstract_item.itemName }} -- <a href="{% url 'game:take' room_item.pk %}">take</a></li>
+              <li>{{ room_item.name }} -- <a href="{% url 'game:take' room_item.pk %}">take</a></li>
             {% elif room_item.is_viewable %}
-              <li>{{ room_item.abstract_item.itemName }} -- <a href="{% url 'game:view' room_item.pk %}">view</a></li>
+              <li>{{ room_item.name }} -- <a href="{% url 'game:view' room_item.pk %}">view</a></li>
             {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <div class="room-inventory">
+        <p>Items are scattered on the ground:</p>
+        <ul>
+          {% for room_item in object.items.all %}
+            <li>Unidentifiable item</li>
           {% endfor %}
         </ul>
       </div>
@@ -84,6 +93,16 @@
         <li>{{ warning | safe }}</li>
       {% endfor %}
     </ul>
+  {% else %}
+  {# dark room #}
+    <div class="room-inventory">
+      <p>Items are scattered on the ground:</p>
+      <ul>
+        {% for room_item in object.items.all %}
+          <li>Unidentifiable item</li>
+        {% endfor %}
+      </ul>
+    </div>
   {% endif %}
   {% if messages %}
     <ul class="messages">

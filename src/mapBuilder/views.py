@@ -136,5 +136,5 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
         return super().get(request, *args, **kwargs)
 
 
-class CenotaphView(RoomDetailView):
+class GraphicalRoomView(RoomDetailView):
     template_name = "cenotaph.html"

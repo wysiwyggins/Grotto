@@ -29,5 +29,14 @@ urlpatterns = [
     ),
 
     path("map/", include("mapBuilder.api.urls", namespace="map-api")),
-    path("tableau/", views.TableauView.as_view(), name="tableau")
+    path("tableau/", views.TableauAPIView.as_view(), name="tableau"),
+    path("enter/", views.EnterAPIView.as_view()),
+    path("move/<int:pk>/", views.MoveAPIView.as_view()),
+    path("fire/<int:pk>/", views.FireArrowAPIView.as_view()),
+    path("become/<int:pk>/", views.BecomeCharacterAPIView.as_view()),
+    path("itemActions/use/<int:pk>/", views.UseItemAPIView.as_view()),
+    path("itemActions/take/<int:pk>/", views.TakeItemAPIView.as_view()),
+    path("itemActions/place/<int:pk>/", views.PlaceItemAPIView.as_view()),
+    path("itemActions/drop/<int:pk>/", views.DropItemAPIView.as_view()),
+    path("itemActions/view/<int:pk>/", views.ViewItemAPIView.as_view()),
 ]
