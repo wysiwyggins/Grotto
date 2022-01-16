@@ -4,25 +4,103 @@ from random import choice, randint
 from django.utils.timezone import now
 from django.db.models import F
 
-from characterBuilder.models import Visit
+from characterBuilder.models import Visit, NonPlayerCharacter
 from mapBuilder.models import Room
 from itemBuilder.models import Item, AbstractItem, Swap
 from itemBuilder.enum import ItemType
 from itemBuilder.item_generator import ItemGeneratorService
 
 
-class PlayerCharacterDeathService:
-    def __init__(self, *, character, deathnote, **kwargs):
+class GrottoGameWarning(Exception):
+    pass
+
+
+class ServiceReturn:
+    def __init__(self, *, messages=None):
+        self.messages = messages or []
+
+    def combine(self, other):
+        self.messages += other.messages
+
+
+class NonPlayerCharacterService:
+    pass
+
+
+class PlayerCharacterService:
+    def kill(self, *, character, deathnote, **kwargs):
         character.dead = True
         character.deathnote = deathnote
+        # leave a "tombstone"
+        Visit.objects.create(
+            room=character.room, character=character, died_here=True)
+        # character drops all their stuff
+        character.inventory.all().update(
+            current_room=character.room, current_owner=None)
         # remove character from the room
-        Visit.objects.create(room=character.room, character=character, died_here=True)
         character.room = None
         character.save()
+        return ServiceReturn(messages=(deathnote,))
+
+    def move(self, *, character, raises=GrottoGameWarning, **room_kwargs):
+        if character.room is None:
+            raise raises("Character is not in Grotto")
+        old_room = character.room
+        try:
+            room = old_room.exits.get(**room_kwargs)
+        except Room.DoesNotExist:
+            raise raises("Room is not accessable")
+
+        killers = list(room.npcs.filter(deadly=True).order_by("?"))
+        if killers:
+            return self.kill(
+                character=character,
+                deathnote=f"{character.name} was killed by {killers[0].name}",
+            )
+        character.room = room
+        character.save()
+        Visit.objects.create(room=old_room, character=character)
+        return ServiceReturn()
+
+    def fire_arrow(self, *, character, raises=GrottoGameWarning, **room_kwargs):
+        if character.room is None:
+            raise raises("Character is not in Grotto")
+        # check that the room being fired into is adjancent to character room
+        try:
+            target_room = character.room.exits.get(**room_kwargs)
+        except Room.DoesNotExist:
+            raise raises("Room is not accessable")
+        # check that character has an arrow
+        if character.arrow_count <= 0:
+            raise raises("You don't have any arrows")
+        arrow = character.inventory.filter(abstract_item__itemType=ItemType.ARROW)[0]
+        arrow.current_owner = None
+        arrow.current_room = None
+        # see what is in room (wumpus or player character or nothing)
+        occupants = list(target_room.occupants.all())
+        npcs = list(target_room.npcs.filter(mortal=True))
+        service_return = ServiceReturn()
+        if npcs:
+            unlucky = choice(npcs)
+            service_return.combine(
+                NonPlayerCharacterService().kill(npc=unlucky, killer=character))
+            service_return.messages.append(f"Your arrow killed the {unlucky}")
+        elif occupants:
+            unlucky = choice(occupants)
+            # kill unlucky
+            service_return.combine(self.kill(
+                character=unlucky,
+                deathnote=f"{unlucky.name} was killed by an arrow from the {character.room}",
+            ))
+            service_return.messages.append(f"Your arrow killed {unlucky}")
+        else:
+            arrow.current_room = target_room
+        arrow.save()
+        return service_return
 
 
-class NonPlayerCharacterMovementService:
-    def __init__(self, *, npc, room="adjacent", **kwargs):
+class NonPlayerCharacterService:
+    def move(self, *, npc, room="adjacent", **kwargs):
         # npc moves
         # choose a destination
         current = npc.room
@@ -49,13 +127,23 @@ class NonPlayerCharacterMovementService:
             npc.room.is_cursed = True
             npc.room.save()
         # does it kill?
+        ret = ServiceReturn()
         if npc.deadly:
             # kill any player characters in the room
             for unlucky in future.occupants.all():
-                PlayerCharacterDeathService(
+                ret.combine(PlayerCharacterService().kill(
                     character=unlucky,
                     deathnote=f"{unlucky.name} was killed by {npc.name}",
-                )
+                ))
+        return ret
+
+    def kill(self, *, npc, killer, **kwargs):
+        # transfer loot to room
+        item_service = ItemService()
+        for abstract_item in npc.loot.all():
+            item_service.create(abstract_item=abstract_item, room=npc.room)
+        # npc is placed in random room
+        return self.move(npc=npc, room="random")
 
 
 class RandomColorService:
@@ -181,11 +269,6 @@ class RandomColorService:
         return elaborate_color, color
 
 
-class ItemServiceReturn:
-    def __init__(self, *, messages=None):
-        self.messages = messages or []
-
-
 # service
 class ItemService:
     def create(self, *, abstract_item, character=None, room=None):
@@ -206,7 +289,7 @@ class ItemService:
 
     def use(self, *, item, character):  # Item model instance
         # validate that the item type exists
-        ret = ItemServiceReturn()
+        ret = ServiceReturn()
         if item.abstract_item.itemType == ItemType.CANDLE:
             self._use_burnable(item, character)
         if item.abstract_item.itemType == ItemType.INCENSE:
@@ -221,7 +304,7 @@ class ItemService:
         return ret
 
     def place(self, item, character):
-        ret = ItemServiceReturn()
+        ret = ServiceReturn()
         item.current_owner = None
         item.current_room = character.room
         item.save()
@@ -231,7 +314,7 @@ class ItemService:
         return ret
 
     def take(self, item, character):
-        ret = ItemServiceReturn()
+        ret = ServiceReturn()
         if item.is_active and item.abstract_item.untakable_if_active:
             # cannot pick up an active candle
             ret.messages.append("Cannot be taken when active")
@@ -250,7 +333,7 @@ class ItemService:
         item.current_owner = None
         item.current_room = character.room
         item.save()
-        ret = ItemServiceReturn()
+        ret = ServiceReturn()
         print("dropping item")
         self.check_swap(character.room, return_obj=ret)
         return ret
@@ -285,6 +368,17 @@ class ItemService:
             )
             old_candle.delete()
 
+    def get_item(self, *, character, pk, holder="character", raises=GrottoGameWarning):
+        get_kwargs = {"pk": pk}
+        if holder == "character":
+            get_kwargs.update({"current_owner": character})
+        elif holder == "room":
+            get_kwargs.update({"current_room": character.room})
+        try:
+            item = Item.objects.get(**get_kwargs)
+        except Item.DoesNotExist:
+            raise raises("Item doesn't exist")
+        return item
 
     def destroy(self, item):
         item.current_room = None
@@ -309,12 +403,40 @@ class ItemService:
         pass
 
 
-class NonPlayerCharacterDeathService:
-    def __init__(self, *, npc, killer, **kwargs):
-        # transfer loot to room
-        [
-            ItemService().create(abstract_item=a_i, room=npc.room)
-            for a_i in npc.loot.all()
-        ]
-        # npc is placed in random room
-        NonPlayerCharacterMovementService(npc=npc, room="random")
+class GameService:
+    def _roll(self, *, d=20):
+        return randint(1, d)
+
+    def roll_to_dirty_room(self, *, room, dice_count=1):
+        if room is None:
+            return
+        make_dirtier = False
+        for _ in range(dice_count):
+            if self._roll() == 1:
+                make_dirtier = True
+                break
+        if make_dirtier:
+            room.cleanliness = max(1, room.cleanliness - 1)
+            room.save()
+        return ServiceReturn()
+
+    def roll_to_move_npc(self, *, npc, dice_count=1):
+        entropy = 0
+        # roll appropriate number of dice
+        for x in range(dice_count):
+            # TODO: handle crits
+            entropy += self._roll()
+        # add the quantity to the entropy score for every mobile NPC
+        npc.movement_entropy += entropy
+        npc.save()
+        # resolve any NPC movements
+        ret = ServiceReturn()
+        if npc.movement_threshold <= npc.movement_entropy:
+            ret = NonPlayerCharacterService().move(npc=npc)
+        return ret
+
+    def roll_to_move_npcs(self, *, dice_count=1):
+        ret = ServiceReturn()
+        for npc in NonPlayerCharacter.objects.filter(mobile=True):
+            ret.combine(self.roll_to_move_npc(npc=npc, dice_count=dice_count))
+        return ret

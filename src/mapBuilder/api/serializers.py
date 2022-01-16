@@ -19,11 +19,12 @@ class RoomAttributeSerializer(serializers.Serializer):
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    exits = ExitSerializer(many=True)
-    occupants = OccupantSerializer(many=True)
-    npcs = NonPlayerCharacterSerializer(many=True)
-    items = ItemSerializer(many=True)
-    attributes = RoomAttributeSerializer(source="get_attributes")
+    exits = ExitSerializer(many=True, read_only=True)
+    occupants = OccupantSerializer(many=True, read_only=True)
+    npcs = NonPlayerCharacterSerializer(many=True, read_only=True)
+    items = ItemSerializer(many=True, read_only=True)
+    attributes = RoomAttributeSerializer(source="get_attributes", read_only=True)
+    warnings = serializers.ListField(child=serializers.CharField(), read_only=True)
 
     def get_attributes(self, obj):
         return RoomAttributeSerializer(RoomService().get_attributes(obj))
@@ -31,6 +32,7 @@ class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Room
         fields = (
+            "pk",
             "name",
             "colorName",
             "colorHex",
@@ -40,6 +42,7 @@ class RoomSerializer(serializers.ModelSerializer):
             "npcs",
             "items",
             "attributes",
+            "warnings",
         )
 
 

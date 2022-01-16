@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.views.generic import FormView, RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from rest_framework.authtoken.models import Token
 
 from Grotto.views import ActionMixin, LoginRequiredMixin
 
@@ -40,6 +41,7 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["now"] = timezone.now()
+        context["token"] = Token.objects.get_or_create(user=self.request.user)[0]
         return context
 
 

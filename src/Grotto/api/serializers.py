@@ -4,6 +4,10 @@ from mapBuilder.api.serializers import RoomSerializer
 from characterBuilder.api.serializers import CharacterSerializer
 
 
+class NullSerializer(serializers.Serializer):
+    pass
+
+
 class TableauSerializer(serializers.Serializer):
     character = CharacterSerializer()
     room = RoomSerializer()
