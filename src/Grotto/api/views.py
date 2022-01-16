@@ -90,6 +90,8 @@ class GameActionMixin(TableauSerializerMixin):
 
 class EnterAPIView(GameActionMixin, generics.GenericAPIView):
     serializer_class = serializers.NullSerializer
+
+    @swagger_auto_schema(responses={200: serializers.TableauSerializer})
     def post(self, request, *args, **kwargs):
         if request.character.room is None:
             # choose a random, but safe room to enter
