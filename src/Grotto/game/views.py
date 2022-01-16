@@ -157,12 +157,13 @@ class BecomeCharacterView(EnterGrottoView):
     pattern_name = "mapBuilder:room"
 
     def dispatch(self, request, *args, character_pk, **kwargs):
-        request.session["character_pk"] = character_pk
         character = None
         try:
-            character = Character.objects.get(user=request.user, pk=request.session.get("character_pk"))
+            character = Character.objects.get(user=request.user, pk=character_pk)
         except Character.DoesNotExist:
             raise Http404("Character doesn't exist")
+        request.user.character = character
+        request.user.save()
         request.character = character
         return super().dispatch(request, *args, **kwargs)
 
