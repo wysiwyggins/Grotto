@@ -16,11 +16,12 @@ class AbstractItem(models.Model):
     itemName = models.CharField(max_length=64)
     itemDescription = models.CharField(max_length=256)
 
-    active_days = models.IntegerField(null=True, blank=True)
+    active_time = models.DurationField(null=True, blank=True)
     untakable = models.BooleanField(default=False)
     untakable_if_active = models.BooleanField(default=False)
     holders = models.ManyToManyField(NonPlayerCharacter, related_name="loot", blank=True)
     viewable = models.BooleanField(default=False)
+    usable = models.BooleanField(default=False)
 
     def __str__(self):
         return self.itemName
@@ -40,6 +41,9 @@ class Item(models.Model):
     colorName = models.CharField(max_length=200)
     colorHex = ColorField(default="#222222")
 
+    def __str__(self):
+        return self.name
+
     @property
     def is_takeable(self):
         if self.abstract_item.untakable:
@@ -56,16 +60,20 @@ class Item(models.Model):
     def is_active(self):
         if self.active is None:
             return False
-        if self.abstract_item.active_days is None:
+        if self.abstract_item.active_time is None:
             return True
-        if self.active > now() - timedelta(days=self.abstract_item.active_days):
+        if self.active > now() - self.abstract_item.active_time:
             return True
         return False
+
+    @property
+    def is_usable(self):
+        return self.abstract_item.usable
 
 
 class Swap(models.Model):
     # picks_up_item
-    picks = models.ForeignKey(AbstractItem, on_delete=models.PROTECT, related_name="wanted")
+    picks_type = enum.EnumField(ItemType)
     # drops_item
     puts = models.ForeignKey(AbstractItem, on_delete=models.PROTECT)
     # npc

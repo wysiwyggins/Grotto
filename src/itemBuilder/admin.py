@@ -19,6 +19,6 @@ class ItemAdmin(admin.ModelAdmin):
 
 @admin.register(Swap)
 class SwapAdmin(admin.ModelAdmin):
-    list_display = ("id", "picks", "puts", "npc")
+    list_display = ("id", "picks_type", "puts", "npc")
 
 

@@ -34,6 +34,7 @@ class LivingCharacterBaseView(RedirectView):
     def get(self, request, *args, dice_count=1, **kwargs):
         # get current room
         colorSlug = kwargs.get("colorSlug")
+        ItemService().burnable_swap()
         if colorSlug:
             try:
                 room = Room.objects.get(colorSlug=colorSlug)
@@ -192,7 +193,7 @@ class ItemMixin:
 class BaseItemActionView(LivingCharacterBaseView, ItemMixin):
     def get(self, request, *args, item_pk, **kwargs):
         item = self._get_item(character=request.character, item_pk=item_pk)
-
+        print("BaseItemActionView.get")
         service_return = getattr(ItemService(), self.action)(
             item=item, character=request.character)
         for message in service_return.messages:

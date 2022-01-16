@@ -1,10 +1,12 @@
+from datetime import timedelta
 from random import choice, randint
 
 from django.utils.timezone import now
+from django.db.models import F
 
 from characterBuilder.models import Visit
 from mapBuilder.models import Room
-from itemBuilder.models import Item, AbstractItem
+from itemBuilder.models import Item, AbstractItem, Swap
 from itemBuilder.enum import ItemType
 from itemBuilder.item_generator import ItemGeneratorService
 
@@ -189,7 +191,8 @@ class ItemService:
     def create(self, *, abstract_item, character=None, room=None):
         color_name, color_hex = RandomColorService().get_color()
         item_name, item_description = ItemGeneratorService().generate(
-            abstract_item.itemType
+            item_type=abstract_item.itemType,
+            abstract_item_name=abstract_item.itemName,
         )
         return Item.objects.create(
             name=item_name,
@@ -248,28 +251,39 @@ class ItemService:
         item.current_room = character.room
         item.save()
         ret = ItemServiceReturn()
+        print("dropping item")
         self.check_swap(character.room, return_obj=ret)
         return ret
 
     def check_swap(self, room, *, return_obj=None):
         # check for anyone who wants item in room and drop resulting item
-        # npcs_present = room.npcs.all()
-        for item in room.items.all():
-            print(f"checking item {item}")
-            swaps = (
-                item.abstract_item.wanted.all()
-                .filter(npc__in=room.npcs.all())
-                .order_by("?")
-            )
-            if swaps:
-                print(f"swap found")
-                swap = swaps[0]
+        for swap in Swap.objects.filter(npc__in=room.npcs.all()):
+            for item in room.items.filter(abstract_item__itemType=swap.picks_type):
                 if return_obj is not None:
                     return_obj.messages.append(swap.message)
-                # produce new item
                 self.create(abstract_item=swap.puts, room=room)
-                # destroy item
                 self.destroy(item)
+
+    def burnable_swap(self):
+        """Check the room for burned out candles and replace them with a junk item"""
+        abstract_spent_candle, _ = AbstractItem.objects.get_or_create(
+            itemType=ItemType.JUNK,
+            itemName="Spent Candle",
+            itemDescription="A little fleck of wick sits at the bottom",
+        )
+        for old_candle in Item.objects.exclude(
+            abstract_item__active_time__isnull=True,
+            active__isnull=True,
+        ).filter(
+            abstract_item__itemType=ItemType.CANDLE,
+            active__lte=now()-F("abstract_item__active_time"),
+        ):
+            self.create(
+                abstract_item=abstract_spent_candle,
+                room=old_candle.current_room,
+                character=old_candle.current_owner,
+            )
+            old_candle.delete()
 
 
     def destroy(self, item):

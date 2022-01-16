@@ -26,10 +26,10 @@ class ItemGeneratorService:
         ItemType.ARROW: "generateArrow",
     }
 
-    def generate(self, item_type):
+    def generate(self, item_type, abstract_item_name):
         if item_type not in self._item_types:
             return "boring", "standard"
-        return getattr(self, self._item_types[item_type])()
+        return getattr(self, self._item_types[item_type])(name=abstract_item_name)
 
     def __init__(self, *, seed=None):
         self.seed = seed or random.randint(0, 999999)
@@ -87,14 +87,14 @@ class ItemGeneratorService:
         adjective = adjective.rstrip("\n")
         return adjective
     
-    def generateCandle(self):
+    def generateCandle(self, name=None):
         color = self.getColor()
         name = "candle"
         self.item_name = name
         self.item_description = "a pure " + color + " wax " + name
         return self.item_name, self.item_description
     
-    def generateIncense(self):
+    def generateIncense(self, name=None):
         color = self.getColor()
         substance = self.getSubstance()
         name = "incense"
@@ -102,7 +102,7 @@ class ItemGeneratorService:
         self.item_description = substance + name
         return self.item_name, self.item_description
     
-    def generateScrubBrush(self):
+    def generateScrubBrush(self, name=None):
         color = self.getColor()
         name = "scrub brush"
         self.item_name = name
@@ -112,7 +112,8 @@ class ItemGeneratorService:
     def generateJunk(self, name=None):
         color = self.getColor()
         substance = self.getSubstance()
-        name = self.getItemName()
+        if "candle" not in name:
+            name = self.getItemName()
         self.item_name = name
         self.item_description = name + " made of " + color + " " + substance
         return self.item_name, self.item_description

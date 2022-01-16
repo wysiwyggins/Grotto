@@ -5,7 +5,7 @@ from django.contrib.messages import get_messages
 # from mapBuilder import models
 from Grotto.api import serializers
 
-class TableauView(generics.GenericAPIView):
+class TableauAPIView(generics.GenericAPIView):
     serializer_class = serializers.TableauSerializer
 
     def get(self, request, *args, **kwargs):
@@ -19,3 +19,24 @@ class TableauView(generics.GenericAPIView):
         )
         # serializer.is_valid()
         return Response(serializer.data)
+
+
+
+class EnterAPIView(generics.GenericAPIView):
+    pass
+class MoveAPIView(generics.GenericAPIView):
+    pass
+class FireArrowAPIView(generics.GenericAPIView):
+    pass
+class BecomeCharacterAPIView(generics.GenericAPIView):
+    pass
+class UseItemAPIView(generics.GenericAPIView):
+    pass
+class TakeItemAPIView(generics.GenericAPIView):
+    pass
+class PlaceItemAPIView(generics.GenericAPIView):
+    pass
+class DropItemAPIView(generics.GenericAPIView):
+    pass
+class ViewItemAPIView(generics.GenericAPIView):
+    pass
