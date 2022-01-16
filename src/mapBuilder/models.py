@@ -56,3 +56,10 @@ class Room(models.Model):
             "brightness": self._room_level(item_type=ItemType.CANDLE),
             "sanctity": sanctity,
         }
+
+    def warnings(self):
+        _warnings = []
+        for exit in self.exits.all().prefetch_related("npcs").order_by("?"):
+            _warnings.extend(exit.npcs.all().values_list("warning_text", flat=True))
+        # ensure that the warnings are in a random order so that the
+        return _warnings
