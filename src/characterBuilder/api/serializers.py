@@ -22,3 +22,11 @@ class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Character
         fields = ("pk", "kind", "name", "description", "inventory", "arrow_count")
+
+
+class RoomVisitSerializer(serializers.ModelSerializer):
+    character = OccupantSerializer()
+
+    class Meta:
+        model = models.Visit
+        fields = ("character", "stamp_date", "died_here")

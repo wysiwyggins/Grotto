@@ -10,3 +10,13 @@ services:
       - DEBUG=True
     volumes:
       - ./src/:/app/src/
+      - ./svelte:/app/svelte/
+  node:
+    image: node:current-alpine
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./svelte:/home/node/app
+    command: "npm run dev"

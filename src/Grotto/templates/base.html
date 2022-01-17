@@ -15,29 +15,30 @@
   </head>
   <body class="{% block body_class %}{% endblock %}" style="{% block body_style %}{% endblock %}">
     {% block inner_body %}
-    {% block header %}
-      {% include "header.html" %}
-    {% endblock %}
-      <div class="main">
-        {% block sidebar %}
-        {% endblock %}
-
-        <section class='{% block main_section_class %}content{% endblock %}'>
-          {% block content %}
-
+      {% block header %}
+        {% include "header.html" %}
+      {% endblock %}
+      {% block main %}
+        <div class="main">
+          {% block sidebar %}
           {% endblock %}
-        </section>
-      </div>
-      {% if actions %}
-        <section class="actions-panel">
-          <ul class="actions">
-            {% for action in actions %}
-              <li><a href="{{ action.url }}">{{ action.text }}</a></li>
-            {% endfor %}
-          </ul>
-        </section>
-      {% endif %}
 
+          <section class='{% block main_section_class %}content{% endblock %}'>
+            {% block content %}
+
+            {% endblock %}
+          </section>
+        </div>
+        {% if actions %}
+          <section class="actions-panel">
+            <ul class="actions">
+              {% for action in actions %}
+                <li><a href="{{ action.url }}">{{ action.text }}</a></li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endif %}
+      {% endblock %}
       {% include "footer.html" %}
     {% endblock %}
     </body>
