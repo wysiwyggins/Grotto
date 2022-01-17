@@ -1,4 +1,4 @@
-import datetime
+from datetime import timedelta
 
 from colorfield.fields import ColorField
 from django.db import models
@@ -63,3 +63,18 @@ class Room(models.Model):
             _warnings.extend(exit.npcs.all().values_list("warning_text", flat=True))
         # ensure that the warnings are in a random order so that the
         return _warnings
+
+    @property
+    def visits(self):
+        deduped_visits = []
+        visitors = []
+        visits = (
+            self._visits.all().filter(room=self)
+            .exclude(stamp_date__lt=now() - timedelta(days=7))
+            .order_by("-stamp_date")
+        )
+        for visit in visits:
+            if visit.character not in visitors:
+                deduped_visits.append(visit)
+                visitors.append(visit.character)
+        return deduped_visits

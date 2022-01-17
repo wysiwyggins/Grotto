@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "Grotto",
     "colorfield",
+    "django_svelte",
     "compressor",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -151,6 +152,7 @@ SWAGGER_SETTINGS = {
 ## Whitenoise config
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    BASE_DIR.parent / "svelte" / "public" / "build",
 ]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_URL = "/static/"

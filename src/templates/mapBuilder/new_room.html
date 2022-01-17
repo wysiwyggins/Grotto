@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load django_svelte %}
+
+{% block page_title %}{{object.name}} Room{% endblock %}
+{% block body_class %}room {{ object.colorName }} illuminate-{{illumination_level}} {% endblock %}
+{% block body_style %}background-color:{{object.colorHex}}{% endblock %}
+
+{% block main %}
+    {% display_svelte "Room.svelte" %}
+{% endblock %}

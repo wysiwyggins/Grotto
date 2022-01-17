@@ -90,20 +90,9 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        deduped_visits = []
-        visitors = []
-        visits = (
-            Visit.objects.filter(room=self.object)
-            .exclude(stamp_date__lt=timezone.now() - timedelta(days=7))
-            .order_by("-stamp_date")
-        )
-        for visit in visits:
-            if visit.character not in visitors:
-                deduped_visits.append(visit)
-                visitors.append(visit.character)
         context.update(
             {
-                "visits": deduped_visits,
+                "visits": self.object.visits,
                 "illumination_level": self.get_room_level("illumination"),
                 "sanctity_adjective": self.get_room_adjective("sanctity"),
                 "cleanliness_adjective": self.get_room_adjective("cleanliness"),

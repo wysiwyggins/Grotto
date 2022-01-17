@@ -1,9 +1,12 @@
 from rest_framework import serializers
 
 from mapBuilder import models
-from characterBuilder.api.serializers import OccupantSerializer, NonPlayerCharacterSerializer
+from characterBuilder.api.serializers import (
+    NonPlayerCharacterSerializer,
+    OccupantSerializer,
+    RoomVisitSerializer,
+)
 from itemBuilder.api.serializers import ItemSerializer
-
 
 
 class ExitSerializer(serializers.ModelSerializer):
@@ -24,6 +27,7 @@ class RoomSerializer(serializers.ModelSerializer):
     npcs = NonPlayerCharacterSerializer(many=True, read_only=True)
     items = ItemSerializer(many=True, read_only=True)
     attributes = RoomAttributeSerializer(source="get_attributes", read_only=True)
+    visits = RoomVisitSerializer(many=True, read_only=True)
     warnings = serializers.ListField(child=serializers.CharField(), read_only=True)
 
     def get_attributes(self, obj):
@@ -41,8 +45,7 @@ class RoomSerializer(serializers.ModelSerializer):
             "occupants",
             "npcs",
             "items",
+            "visits",
             "attributes",
             "warnings",
         )
-
-

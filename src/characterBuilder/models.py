@@ -91,7 +91,7 @@ class CharacterTestChoice(models.Model):
 
 
 class Visit(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True, related_name="_visits")
     character = models.ForeignKey(Character, on_delete=models.SET_NULL, null=True)
     stamp_date = models.DateTimeField("date created", default=timezone.now)
     died_here = models.BooleanField(default=False)
