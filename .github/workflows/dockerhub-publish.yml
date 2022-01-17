@@ -18,10 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "17"
-      - run: cd svelte
-      - run: npm install
-      - run: npm run build
-      - run: cd ..
+      - run: cd svelte; npm install
+      - run: cd svelte; npm run build
 
       - name: Build App Image & Push to Docker Hub
         uses: opspresso/action-docker@master
