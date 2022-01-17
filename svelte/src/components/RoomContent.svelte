@@ -7,21 +7,12 @@ import RoomManifest from "./RoomManifest.svelte";
 import RoomVisits from "./RoomVisits.svelte";
 import RoomWarnings from "./RoomWarnings.svelte";
 
-
 function sanctityAdjective() {
-  return [
-    "Cursed",
-    "Mundane",
-    "Sacred"
-  ][$tableau.room.attributes.sanctity]
+  return ["Cursed", "Mundane", "Sacred"][$tableau.room.attributes.sanctity]
 }
 
 function cleanlinessAdjective() {
-  return [
-    "Profane",
-    "Dirty",
-    "Clean"
-  ][$tableau.room.attributes.cleanliness]
+  return ["Profane", "Dirty", "Clean"][$tableau.room.attributes.cleanliness]
 }
 
 </script>
