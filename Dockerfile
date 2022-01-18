@@ -3,6 +3,7 @@ FROM thismatters/grotto-deps:latest
 RUN apk add --no-cache libffi-dev build-base
 
 RUN mkdir -p /app/src
+RUN mkdir -p /app/svelte
 WORKDIR /app/src
 
 COPY requirements.txt /app/src/
@@ -15,9 +16,11 @@ COPY entrypoint.sh /app/
 RUN chmod -x /app/entrypoint.sh
 
 COPY src /app/src
+COPY svelte /app/svelte
 
 RUN adduser -D worker -u 1000
 RUN chown worker:worker -R /app/src
+RUN chown worker:worker -R /app/svelte
 USER worker
 
 ## setting debug triggers certain build behavior

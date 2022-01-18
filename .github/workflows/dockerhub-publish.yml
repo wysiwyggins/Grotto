@@ -14,7 +14,14 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Docker Build & Push to Docker Hub
+      - name: Build Svelte Frontend
+        uses: actions/setup-node@v1
+        with:
+          node-version: "17"
+      - run: cd svelte; npm install
+      - run: cd svelte; npm run build
+
+      - name: Build App Image & Push to Docker Hub
         uses: opspresso/action-docker@master
         with:
           args: --docker
@@ -23,7 +30,7 @@ jobs:
           PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKERFILE: "Dockerfile"
           IMAGE_NAME: "thismatters/grotto"
-          TAG_NAME: "v0.0.1"
+          TAG_NAME: "v0.0.4"
           LATEST: "true"
 
       - name: Deploy to Prod
@@ -33,3 +40,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: grotto
           privateKey: ${{ secrets.PROD_SSH_KEY }}
+

@@ -27,3 +27,6 @@ djangorestframework==3.12.4
 Markdown==3.3.4
 django-filter==2.4.0
 drf-yasg==1.20.0
+
+# Svelte frontend
+django-svelte==0.1.6

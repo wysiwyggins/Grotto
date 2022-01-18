@@ -50,6 +50,9 @@ class PlayerCharacterService:
             room = old_room.exits.get(**room_kwargs)
         except Room.DoesNotExist:
             raise raises("Room is not accessable")
+        character.room = room
+        character.save()
+        Visit.objects.create(room=old_room, character=character)
 
         killers = list(room.npcs.filter(deadly=True).order_by("?"))
         if killers:
@@ -57,9 +60,6 @@ class PlayerCharacterService:
                 character=character,
                 deathnote=f"{character.name} was killed by {killers[0].name}",
             )
-        character.room = room
-        character.save()
-        Visit.objects.create(room=old_room, character=character)
         return ServiceReturn()
 
     def fire_arrow(self, *, character, raises=GrottoGameWarning, **room_kwargs):
