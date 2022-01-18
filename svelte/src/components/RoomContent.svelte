@@ -24,7 +24,7 @@ function cleanlinessAdjective() {
     {$tableau.room.name}
   {/if}
 </h2>
-<p>
+<p class="room-attributes">
   The room is {sanctityAdjective()} and {cleanlinessAdjective()}.
   {#if $tableau.room.attributes.brightness == 1}
     The flicker of your held candle dimly lights the room. A candle-holder on the wall is empty.

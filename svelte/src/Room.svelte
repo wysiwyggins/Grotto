@@ -18,17 +18,15 @@ initTableau();
 
 {#if $tableau}
 	{#if $tableau.room}
-		<main style="background-color: {$tableau.room.colorHex};" >
-			<div class="main" >
-				<sidebar>
-					<RoomExits />
-					<CharacterInventory />
-				</sidebar>
-				<section class="content">
-					<RoomContent />
-					<PlayerMessages />
-				</section>
-			</div>
+		<main style="background-color: {$tableau.room.colorHex};" id="room-target">
+			<sidebar>
+				<RoomExits />
+				<CharacterInventory />
+			</sidebar>
+			<section class="content">
+				<RoomContent />
+				<PlayerMessages />
+			</section>
 			<RoomActions />
 		</main>
 	{:else}
