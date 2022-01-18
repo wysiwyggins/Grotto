@@ -8,7 +8,7 @@ function use(itemPk) {tableauPromise.set(post(`v1/items/${itemPk}/use/`, {}))}
 </script>
 
 <h2>Inventory:</h2>
-<ul>
+<ul class="character-inventory">
   {#each $tableau.character.inventory as item, pk}
     <li>{item.name} &mdash;
       {#if item.is_active}
