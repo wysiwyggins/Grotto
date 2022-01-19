@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
@@ -33,6 +34,24 @@ class Index(LoginRequiredMixin, ListView):
     def post(self, request):
         generateRoom()
         return redirect(".")  # points the user right back where they came from
+
+
+class NewRoomDetailView(LoginRequiredMixin, ActionMixin, TemplateView):
+    template_name = "mapBuilder/new_room.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "room_context": {
+                    "user": {
+                        "is_anonymous": self.request.user.is_anonymous,
+                        "is_staff": self.request.user.is_staff,
+                    }
+                }
+            }
+        )
+        return context
 
 
 class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):

@@ -4,27 +4,37 @@ import { tableau, tableauPromise } from "../stores.js";
 
 function take(itemPk) {tableauPromise.set(post(`v1/items/${itemPk}/take/`, {}))}
 
+let takeable_items = [];
+
+tableau.subscribe(_tableau => {
+  takeable_items = []
+  if (! _tableau.rooms) {
+    return
+  }
+  _tableau.rooms.items.forEach(item => {
+    if (item.is_takeable) {
+      takeable_items.push(item);
+    }
+  })
+})
 </script>
 
-
 <div class="room-inventory">
-  {#if $tableau.room.items}
+  {#if takeable_items.length > 0}
     {#if $tableau.room.attributes.brightness == 2}
-      Items are scattered on the ground:
+      <p>Items are scattered on the ground:</p>
     {:else}
-      In the darkness you can see several items in the room:
+      <p>In the darkness you can see several items in the room:</p>
     {/if}
     <ul>
-      {#each $tableau.room.items as item, pk}
-        <li>{item.name}
-          {#if item.is_takeable}
-            &mdash; <a href="#" on:click="{() => take(item.pk)}">take</a>
-          {/if}
-        </li>
+      {#each takeable_items as item, pk}
+        {#if item.is_takeable}
+          <li>{item.name} &mdash; <a href="#" on:click="{() => take(item.pk)}">take</a></li>
+        {/if}
       {/each}
     </ul>
   {:else}
-    Nothing can be taken.
+    <p>Nothing in the room can be taken.</p>
   {/if}
 </div>
 
