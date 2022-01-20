@@ -110,10 +110,10 @@ class NonPlayerCharacterService:
         if room == "random":
             all_rooms = Room.objects.all()
             dank_rooms = []
-            for room in all_rooms:
-                attributes = room.get_attributes()
+            for _room in all_rooms:
+                attributes = _room.get_attributes()
                 if attributes["brightness"] == 0 and attributes["sanctity"] == 0:
-                    dank_rooms.append(room)
+                    dank_rooms.append(_room)
             if dank_rooms:
                 future = choice(dank_rooms)
         elif isinstance(room, (Room,)):

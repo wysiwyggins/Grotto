@@ -8,12 +8,12 @@ let takeable_items = [];
 
 tableau.subscribe(_tableau => {
   takeable_items = []
-  if (! _tableau.rooms) {
+  if (! _tableau.room) {
     return
   }
-  _tableau.rooms.items.forEach(item => {
+  _tableau.room.items.forEach(item => {
     if (item.is_takeable) {
-      takeable_items.push(item);
+      takeable_items = [...takeable_items, item];
     }
   })
 })
