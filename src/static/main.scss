@@ -109,6 +109,7 @@ header {
             margin-left: 20px;
         }
     }
+    
 }
 body {
     display: flex;
@@ -532,7 +533,9 @@ body.icon-ui-view, body.cenotaph {
             background-image: url('/static/images/door_down.png'); 
         }
     }    
-    
+    li.trader {
+        background-image: url('/assets/images/trader.png');
+    }
     li.character {
         background-image: url('/assets/images/character.png');
         &.robot {
