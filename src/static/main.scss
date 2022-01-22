@@ -534,30 +534,30 @@ body.icon-ui-view, body.cenotaph {
         }
     }    
     li.trader {
-        background-image: url('/assets/images/trader.png');
+        background-image: url('/static/images/trader.png');
     }
     li.character {
-        background-image: url('/assets/images/character.png');
+        background-image: url('/static/images/character.png');
         &.robot {
-            background-image: url('/assets/images/robot.png'); 
+            background-image: url('/static/images/robot.png'); 
         }
         &.animal {
-            background-image: url('/assets/images/animal.png'); 
+            background-image: url('/static/images/animal.png'); 
         }
         &.bird {
-            background-image: url('/assets/images/bird.png'); 
+            background-image: url('/static/images/bird.png'); 
         }
         &.ghost {
-            background-image: url('/assets/images/ghost.png'); 
+            background-image: url('/static/images/ghost.png'); 
         }
         &.bird {
-            background-image: url('/assets/images/bird.png'); 
+            background-image: url('/static/images/bird.png'); 
         }
         &.vegetable {
-            background-image: url('/assets/images/vegetable.png'); 
+            background-image: url('/static/images/vegetable.png'); 
         }
         &.fungus {
-            background-image: url('/assets/images/fungus.png'); 
+            background-image: url('/static/images/fungus.png'); 
         }
     }
     li.item {
@@ -567,31 +567,31 @@ body.icon-ui-view, body.cenotaph {
         list-style: none;
         background-size: 130px,135px;
         height: 135px;
-        background-image: url('/assets/images/unknown.png');
+        background-image: url('/static/images/unknown.png');
         &.scrubbrush {
-            background-image: url('/assets/images/scrubbrush.png');
+            background-image: url('/static/images/scrubbrush.png');
         }
         &.candle {
-            background-image: url('/assets/images/candle_sm.png');
+            background-image: url('/static/images/candle_sm.png');
             
         }
         &.arrow {
-            background-image: url('/assets/images/arrow_sm.png');
+            background-image: url('/static/images/arrow_sm.png');
             
         }
         &.candle-active {
-            background-image: url('/assets/images/candle_sm_active.png');
+            background-image: url('/static/images/candle_sm_active.png');
         
         }
         &.incense {
-            background-image: url('/assets/images/incense_sm.png');
+            background-image: url('/static/images/incense_sm.png');
             
         }
         &.incense-active {
-            background-image: url('/assets/images/incense_sm_active.png');
+            background-image: url('/static/images/incense_sm_active.png');
         }
         &.cenotaph {
-            background-image: url('/assets/images/cenotaph_sm.png');
+            background-image: url('/static/images/cenotaph_sm.png');
             
         }    
     }
