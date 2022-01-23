@@ -96,20 +96,7 @@ ul.messages {
 }
 //features
 
-header > div{
-    display: flex;
-    flex-direction: row;
-    ul {
-        flex: 1;
-        list-style: none;
-        margin: 0;
-        li {
-            float: right;
-            margin-left: 20px;
-        }
-    }
-    
-}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -188,8 +175,21 @@ section {
 footer {
     @include room-div;
 }
+
 header > div {
     @include room-div;
+    display: flex;
+    flex-direction: row;
+    ul {
+        flex: 1;
+        list-style: none;
+        margin: 0;
+        li {
+            float: right;
+            margin-left: 20px;
+        }
+    }
+    
 }
 
 //views
@@ -558,17 +558,17 @@ body.icon-ui-view, body.cenotaph {
             background-image: url('/static/images/fungus.png'); 
         }
     }
+
     li.item, li.character{
+        
         list-style: none;
         display: block;
         width: $grid-block-width;
         height: $grid-block-height;
-    }
-    li.item {
-        
-        
         background-size: 130px,135px;
         height: 135px;
+    }
+    li.item {
         background-image: url('/static/images/unknown.png');
         &.scrubbrush {
             background-image: url('/static/images/scrubbrush.png');
