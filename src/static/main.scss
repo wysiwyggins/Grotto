@@ -78,7 +78,6 @@ h1 {
     font-size: 6em;
     margin-bottom: 10px;
     font-family: kern_mansionregular, cursive;
-    color:  #df8895;
     text-align: center;
 }
 h2 {
@@ -97,7 +96,7 @@ ul.messages {
 }
 //features
 
-header {
+header > div{
     display: flex;
     flex-direction: row;
     ul {
@@ -251,7 +250,6 @@ header > div {
 .index {
     h1 {
         text-align: center;
-
     }
     img {
         width: 420px;
@@ -386,12 +384,12 @@ body.icon-ui-view, body.cenotaph {
         @include darkscanlines();
     }
 
-    header > div{
+    header{
         text-align: center;
-        @include darkText();
         display: block;
     }
     h1{
+        @include darkText();
         font-family: "Portfolio", monospace;
         text-align: center;
         font-size: 80px;
