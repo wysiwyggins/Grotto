@@ -17,11 +17,11 @@
   {% endfor %}
   {% for occupant in object.occupants.all %}
     {% if occupant != character %}
-      <li class="character {{ occupant.kind.lower }}"><a href="#"></a></li>
+      <li class="character {{ occupant.kind.lower }}" data-type="character"><a href="#"></a></li>
     {% endif %}
   {% endfor %}
   {% for occupant in object.npcs.all %}
-      <li class="character npc {{ occupant.name.lower }}"><a href="#"></a></li>
+      <li class="character npc {{ occupant.name.lower }}" data-type="npc"><a href="#"></a></li>
   {% endfor %}
 {% endblock %}
 

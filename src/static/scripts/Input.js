@@ -38,8 +38,10 @@ function updateActionMessage(next) {
   let selected = next;
   let mine = isSelectedInInventory();
   let type = selected.getAttribute('data-type');
-
-  if (type === 'exit') {
+  if (type === 'character') {
+    console.log(`Examine ${selected.firstElementChild.href}`);
+    actionMessage.textContent = `Examine ${selected.firstElementChild.href}`;
+  } else if (type === 'exit') {
     console.log(`Follow the exit to ${selected.firstElementChild.href}`);
     actionMessage.textContent = `Follow the exit to ${selected.firstElementChild.href}`;
     // do POST to make action occu
@@ -49,15 +51,18 @@ function updateActionMessage(next) {
   } else if (type === 'cenotaph') {
     console.log(`Use the ${type}`);
     actionMessage.textContent = `View the ${type}`;
-    actionMessage.classList.add("attention");
-  } else if (mine) {
+  } else if (type === 'npc'){
+    actionMessage.textContent = `Greet the wanderer`;
+    actionMessage.textContent = `Greet the wanderer`;
+  }
+    else if (mine) {
     console.log(`Use the ${type}`);
     actionMessage.textContent = `Use the ${type}`;
-    actionMessage.classList.add("attention");
+    
   } else {
     console.log(`Pickup the ${type}`);
     actionMessage.textContent = `Pickup the ${type}`;
-    actionMessage.classList.add("attention");
+   
   }
 }
 
