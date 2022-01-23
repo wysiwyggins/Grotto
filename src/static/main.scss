@@ -78,7 +78,6 @@ h1 {
     font-size: 6em;
     margin-bottom: 10px;
     font-family: kern_mansionregular, cursive;
-    color:  #df8895;
     text-align: center;
 }
 h2 {
@@ -97,7 +96,7 @@ ul.messages {
 }
 //features
 
-header {
+header > div{
     display: flex;
     flex-direction: row;
     ul {
@@ -189,7 +188,7 @@ section {
 footer {
     @include room-div;
 }
-header {
+header > div {
     @include room-div;
 }
 
@@ -251,7 +250,6 @@ header {
 .index {
     h1 {
         text-align: center;
-
     }
     img {
         width: 420px;
@@ -386,12 +384,12 @@ body.icon-ui-view, body.cenotaph {
         @include darkscanlines();
     }
 
-    header {
+    header{
         text-align: center;
-        @include darkText();
         display: block;
     }
     h1{
+        @include darkText();
         font-family: "Portfolio", monospace;
         text-align: center;
         font-size: 80px;
@@ -504,10 +502,10 @@ body.icon-ui-view, body.cenotaph {
     .action-bar.attention, .status-bar.attention {
      
     }
-    .character {
+    .characterPanel {
         background-color: $inverse-color;
     }
-    li.exit, li.item {
+    li.exit, li.item. li.character {
         list-style: none;
         background-repeat: no-repeat;
         background-position-x: center;
@@ -560,11 +558,15 @@ body.icon-ui-view, body.cenotaph {
             background-image: url('/static/images/fungus.png'); 
         }
     }
-    li.item {
+    li.item, li.character{
+        list-style: none;
         display: block;
         width: $grid-block-width;
         height: $grid-block-height;
-        list-style: none;
+    }
+    li.item {
+        
+        
         background-size: 130px,135px;
         height: 135px;
         background-image: url('/static/images/unknown.png');
