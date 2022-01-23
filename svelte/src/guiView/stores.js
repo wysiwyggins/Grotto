@@ -4,7 +4,7 @@ import { tableau } from "../stores.js";
 export const selectedIndex = writable({"index": 0, "categoryIndex": 0});
 
 function resolveInventoryAction(item) {
-  if (item.is_useable) {
+  if (item.is_usable) {
     return "Use"
   } else if (item.is_active) {
     return "Place"
@@ -37,7 +37,7 @@ export const selectable = derived(tableau, ($tableau, set) => {
     let actionMessage = "Can't touch this";
     let actionUrl = null;
     if (item.is_takeable) {
-      actionUrl = `v1/rooms/${item.pk}/move/` ;
+      actionUrl = `v1/items/${item.pk}/take/` ;
       actionMessage = `Take ${item.name}`
     }
     items.push({
