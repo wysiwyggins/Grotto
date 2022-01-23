@@ -31,7 +31,6 @@ function renderItemClass(item) {
     return itemClass;
 }
 
-
 async function PaintRoom(tableau) {
     const headerElement = getElementByTagNames(["header", "h1"])
     console.log(headerElement);
@@ -39,6 +38,12 @@ async function PaintRoom(tableau) {
 
     const bodyElement = getElementByTagNames(["body"])
     bodyElement.style.backgroundColor = tableau.room.colorHex;
+    bodyElement.classList.add("icon-ui-view")
+    if (tableau.room.attributes.brightness == 0) {
+        bodyElement.classList.add("dark")
+    } else if (tableau.room.attributes.brightness == 1) {
+        bodyElement.classList.add("dim")
+    }
 
     const exitsElement = document.querySelector("ul.exits");
     let first = "selected"
@@ -71,9 +76,7 @@ async function PaintRoom(tableau) {
     tableau.character.inventory.forEach(item => {
         inventoryElement.innerHTML += `<li class="item ${renderItemClass(item)}" data-type="${item.abstract_item.itemType.toLowerCase()}"><a href="${item.pk}"></a></li>`
     })
-
 }
-
 
 async function LoadRoom() {
     console.log('Attempting to load page data...');

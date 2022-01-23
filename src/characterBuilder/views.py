@@ -45,7 +45,7 @@ class Index(LoginRequiredMixin, ActionMixin, ListView):
         return context
 
 
-class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
+class CharacterDetailView(ActionMixin, DetailView):
     model = Character
     template_name = "character.html"
     query_pk_and_slug = True
@@ -67,6 +67,18 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
 
     def formatted_actions(self):
         _formatted = []
+        if self.request.user.is_anonymous:
+            return [{
+                "text": "Log in",
+                "url": "/accounts/login/"
+            }]
+
+        if not self.is_players_character:
+            # just provide link back to grotto
+            return [{
+                "text": "Continue",
+                "url": "/game/enter/"
+            }]
         for action in self.actions:
             if action.get("become", False) and not self.is_players_character:
                 # Don't put a link to enter the grotto unless this is your character
@@ -79,7 +91,9 @@ class CharacterDetailView(LoginRequiredMixin, ActionMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.character_pk = kwargs["pk"]
-        self.is_players_character = Character.objects.filter(user=request.user, id=kwargs["pk"]).exists()
+        self.is_players_character = False
+        if not request.user.is_anonymous:
+            self.is_players_character = Character.objects.filter(user=request.user, id=kwargs["pk"]).exists()
         return super().get(request, *args, **kwargs)
 
 

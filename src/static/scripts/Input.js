@@ -42,6 +42,9 @@ function updateActionMessage(next) {
   if (type === 'exit') {
     console.log(`Follow the exit to ${selected.firstElementChild.href}`);
     actionMessage.textContent = `Follow the exit to ${selected.firstElementChild.href}`;
+    // do POST to make action occu
+    // use response to get room name
+    // redirect to appropriate room name
     //actionMessage.classList.add("attention");
   } else if (type === 'cenotaph') {
     console.log(`Use the ${type}`);
