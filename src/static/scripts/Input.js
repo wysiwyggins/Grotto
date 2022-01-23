@@ -39,8 +39,8 @@ function updateActionMessage(next) {
   let mine = isSelectedInInventory();
   let type = selected.getAttribute('data-type');
   if (type === 'character') {
-    console.log(`Examine ${selected.firstElementChild.href}`);
-    actionMessage.textContent = `Examine ${selected.firstElementChild.href}`;
+    console.log(`Examine ${type}`);
+    actionMessage.textContent = `Examine ${type}`;
   } else if (type === 'exit') {
     console.log(`Follow the exit to ${selected.firstElementChild.href}`);
     actionMessage.textContent = `Follow the exit to ${selected.firstElementChild.href}`;
