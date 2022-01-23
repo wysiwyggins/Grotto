@@ -504,10 +504,10 @@ body.icon-ui-view, body.cenotaph {
     .action-bar.attention, .status-bar.attention {
      
     }
-    .character {
+    .characterPanel {
         background-color: $inverse-color;
     }
-    li.exit, li.item {
+    li.exit, li.item. li.character {
         list-style: none;
         background-repeat: no-repeat;
         background-position-x: center;
