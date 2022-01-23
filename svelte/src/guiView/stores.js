@@ -4,10 +4,10 @@ import { tableau } from "../stores.js";
 export const selectedIndex = writable({"index": 0, "categoryIndex": 0});
 
 function resolveInventoryAction(item) {
-  if (item.is_usable) {
-    return "Use"
-  } else if (item.is_active) {
+  if (item.is_active) {
     return "Place"
+  } else if (item.is_usable) {
+    return "Use"
   } else {
     return "Drop"
   }
@@ -78,10 +78,14 @@ export const selectable = derived(tableau, ($tableau, set) => {
   const inventory = [];
   $tableau.character.inventory.forEach(item => {
     let action = resolveInventoryAction(item);
+    let itemClass = item.abstract_item.itemType.toLowerCase();
+    if (item.is_active) {
+      itemClass += "-active";
+    }
     inventory.push({
       "dataPk": item.pk,
       "dataType": item.name.toLowerCase(),
-      "classes": ["item", item.name.toLowerCase()],
+      "classes": ["item", itemClass],
       "actionUrl": `v1/items/${item.pk}/${action.toLowerCase()}/`,
       "actionText": `${action} ${item.name}`
     })
