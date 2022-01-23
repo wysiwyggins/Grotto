@@ -558,17 +558,17 @@ body.icon-ui-view, body.cenotaph {
             background-image: url('/static/images/fungus.png'); 
         }
     }
+
     li.item, li.character{
+        
         list-style: none;
         display: block;
         width: $grid-block-width;
         height: $grid-block-height;
-    }
-    li.item {
-        
-        
         background-size: 130px,135px;
         height: 135px;
+    }
+    li.item {
         background-image: url('/static/images/unknown.png');
         &.scrubbrush {
             background-image: url('/static/images/scrubbrush.png');
