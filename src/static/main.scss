@@ -96,20 +96,7 @@ ul.messages {
 }
 //features
 
-header > div{
-    display: flex;
-    flex-direction: row;
-    ul {
-        flex: 1;
-        list-style: none;
-        margin: 0;
-        li {
-            float: right;
-            margin-left: 20px;
-        }
-    }
-    
-}
+
 body {
     display: flex;
     min-height: 100vh;
@@ -188,8 +175,21 @@ section {
 footer {
     @include room-div;
 }
+
 header > div {
     @include room-div;
+    display: flex;
+    flex-direction: row;
+    ul {
+        flex: 1;
+        list-style: none;
+        margin: 0;
+        li {
+            float: right;
+            margin-left: 20px;
+        }
+    }
+    
 }
 
 //views
@@ -505,7 +505,7 @@ body.icon-ui-view, body.cenotaph {
     .characterPanel {
         background-color: $inverse-color;
     }
-    li.exit, li.item. li.character {
+    li.exit, li.item, li.character {
         list-style: none;
         background-repeat: no-repeat;
         background-position-x: center;
