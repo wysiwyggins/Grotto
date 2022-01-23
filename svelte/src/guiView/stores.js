@@ -4,7 +4,7 @@ import { tableau } from "../stores.js";
 export const selectedIndex = writable({"index": 0, "categoryIndex": 0});
 
 function resolveInventoryAction(item) {
-  if (item.is_useable) {
+  if (item.is_usable) {
     return "Use"
   } else if (item.is_active) {
     return "Place"
