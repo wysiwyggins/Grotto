@@ -1,7 +1,10 @@
 {% extends "cenotaph_base.html" %}
 
-{% block room_name %}{{object.name}}{% endblock %}
+{# {% block room_name %}{{object.name}}{% endblock %} #}
 
+{#{% block body_style %}background-color:{{object.colorHex}}{% endblock %}#}
+
+{% comment %}
 {% block exits_panel_ul %}
   {% for exit in object.exits.all %}
     <li class="exit {% if forloop.first %}selected{% endif %}" data-type="exit"><a href="{% url 'game:move' exit.colorSlug %}"></a></li>
@@ -33,3 +36,4 @@
     <li class="item {{ item.abstract_item.itemType.name.lower }}" data-type="{{ item.abstract_item.itemType.name.lower }}"><a href="#"></a></li>
   {% endfor %}
 {% endblock %}
+{% endcomment %}

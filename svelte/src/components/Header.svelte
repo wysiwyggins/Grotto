@@ -36,17 +36,19 @@ tableau.subscribe(_tableau => {
 </script>
 
 <header style="background-color: {headerBackgroundColor};">
-  <span class="header-title">
-    <a href="/guild/character/{$tableau.character.pk}/">{characterEmoji()} "{$tableau.character.name}"</a>
-  </span>
-  <ul class="nav">
-    {#if user.is_anonymous}
-      <li><a href="/accounts/login/">Log Out</a></li>
-    {:else}
-      <li><a href="/accounts/logout/">Log Out</a></li>
-      {#if user.is_staff}
-        <li><a href="/admin/">Admin</a></li>
+  <div>
+    <span class="header-title">
+      <a href="/guild/character/{$tableau.character.pk}/">{characterEmoji()} "{$tableau.character.name}"</a>
+    </span>
+    <ul class="nav">
+      {#if user.is_anonymous}
+        <li><a href="/accounts/login/">Log Out</a></li>
+      {:else}
+        <li><a href="/accounts/logout/">Log Out</a></li>
+        {#if user.is_staff}
+          <li><a href="/admin/">Admin</a></li>
+        {/if}
       {/if}
-    {/if}
-  </ul>
+    </ul>
+  </div>
 </header>
