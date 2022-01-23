@@ -37,7 +37,7 @@ export const selectable = derived(tableau, ($tableau, set) => {
     let actionMessage = "Can't touch this";
     let actionUrl = null;
     if (item.is_takeable) {
-      actionUrl = `v1/rooms/${item.pk}/move/` ;
+      actionUrl = `v1/items/${item.pk}/take/` ;
       actionMessage = `Take ${item.name}`
     }
     items.push({

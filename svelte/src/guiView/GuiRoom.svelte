@@ -112,7 +112,7 @@ selectedIndex.subscribe(value => {
   </div>
   <div class="characterPanel">
     <div class="status-bar" id="status-bar">
-      {$tableau.messages[0] ? $tableau.messages.length > 0 : ""}
+      {$tableau.messages.length > 0 ? $tableau.messages[0] : ""}
     </div>
     <div class="action-bar" id="action-bar">
       {selected.actionText}
