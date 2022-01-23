@@ -1,5 +1,5 @@
 <script>
-import { tableau } from "../stores.js";
+import { tableau } from "../../stores.js";
 </script>
 
 

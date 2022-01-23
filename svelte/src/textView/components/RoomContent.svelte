@@ -1,6 +1,6 @@
 <script>
-import { post } from "../api.js";
-import { tableau, tableauPromise } from "../stores.js";
+import { post } from "../../api.js";
+import { tableau, tableauPromise } from "../../stores.js";
 
 import RoomInventory from "./RoomInventory.svelte";
 import RoomManifest from "./RoomManifest.svelte";

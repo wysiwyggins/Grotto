@@ -1,7 +1,7 @@
 <script>
 export let user;
 
-import { tableau } from "../stores.js";
+import { tableau } from "../../stores.js";
 function characterEmoji() {
   switch ($tableau.character.kind.toLowerCase()) {
     case 'fungus':
