@@ -189,7 +189,7 @@ section {
 footer {
     @include room-div;
 }
-header {
+header > div {
     @include room-div;
 }
 
@@ -386,7 +386,7 @@ body.icon-ui-view, body.cenotaph {
         @include darkscanlines();
     }
 
-    header {
+    header > div{
         text-align: center;
         @include darkText();
         display: block;
@@ -560,11 +560,15 @@ body.icon-ui-view, body.cenotaph {
             background-image: url('/static/images/fungus.png'); 
         }
     }
-    li.item {
+    li.item, li.character{
+        list-style: none;
         display: block;
         width: $grid-block-width;
         height: $grid-block-height;
-        list-style: none;
+    }
+    li.item {
+        
+        
         background-size: 130px,135px;
         height: 135px;
         background-image: url('/static/images/unknown.png');
