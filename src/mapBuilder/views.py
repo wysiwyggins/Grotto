@@ -37,7 +37,7 @@ class Index(LoginRequiredMixin, ListView):
 
 
 class PlayDetailView(LoginRequiredMixin, TemplateView):
-    template_name = "mapBuilder/new_room.html"
+    template_name = "mapBuilder/play.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
