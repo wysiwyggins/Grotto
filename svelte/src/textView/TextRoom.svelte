@@ -5,6 +5,7 @@ import Header from "./components/Header.svelte";
 import RoomExits from "./components/RoomExits.svelte";
 import RoomActions from "./components/RoomActions.svelte";
 import RoomContent from "./components/RoomContent.svelte";
+import PlayerMessages from "./components/PlayerMessages.svelte";
 import CharacterInventory from "./components/CharacterInventory.svelte";
 
 import { tableauPromise, tableau } from "../stores.js";
