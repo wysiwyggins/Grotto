@@ -14,11 +14,20 @@ function resolveInventoryAction(item) {
 }
 
 export const selectable = derived(tableau, ($tableau, set) => {
-  const _selectable = {};
-  const exits = [];
-  console.log("watch me whip")
+  const _selectable = {
+    exits: [],
+    items: [],
+    occupants: [],
+    npcs: [],
+    inventory: []
+  };
+  if (! $tableau || ! $tableau.room) {
+    set(_selectable);
+    return
+  }
+
   $tableau.room.exits.forEach(room => {
-    exits.push({
+    _selectable.exits.push({
       "dataPk": room.pk,
       "dataType": "exit",  // used to generate element
       "classes": ["exit"],  // TODO: add up/down functionality
@@ -26,9 +35,7 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": `Move to ${room.name}`
     })
   });
-  _selectable["exits"] = exits;
 
-  const items = [];
   $tableau.room.items.forEach(item => {
     let itemClass = item.abstract_item.itemType.toLowerCase();
     if (item.is_active) {
@@ -40,7 +47,7 @@ export const selectable = derived(tableau, ($tableau, set) => {
       actionUrl = `v1/items/${item.pk}/take/` ;
       actionMessage = `Take ${item.name}`
     }
-    items.push({
+    _selectable.items.push({
       "dataPk": item.pk,
       "dataType": item.abstract_item.itemType.toLowerCase(),  // used to generate element
       "classes": ["item", itemClass],
@@ -48,11 +55,9 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": actionMessage
     })
   });
-  _selectable["items"] = items;
 
-  const occupants = [];
   $tableau.room.occupants.forEach(character => {
-    occupants.push({
+    _selectable.occupants.push({
       "dataPk": character.pk,
       "dataType": "character",  // used to generate element
       "classes": ["character", character.kind.toLowerCase()],  // TODO: add up/down functionality
@@ -61,11 +66,9 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": `Inspect ${character.name}`
     })
   });
-  _selectable["occupants"] = occupants;
 
-  const npcs = [];
   $tableau.room.npcs.forEach(character => {
-    npcs.push({
+    _selectable.npcs.push({
       "dataPk": character.pk,
       "dataType": "character",  // used to generate element
       "classes": ["character", character.name.toLowerCase()],  // TODO: add up/down functionality
@@ -73,16 +76,14 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": `Inspect ${character.name}`
     })
   });
-  _selectable["npcs"] = npcs;
 
-  const inventory = [];
   $tableau.character.inventory.forEach(item => {
     let action = resolveInventoryAction(item);
     let itemClass = item.abstract_item.itemType.toLowerCase();
     if (item.is_active) {
       itemClass += "-active";
     }
-    inventory.push({
+    _selectable.inventory.push({
       "dataPk": item.pk,
       "dataType": item.name.toLowerCase(),
       "classes": ["item", itemClass],
@@ -90,8 +91,6 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": `${action} ${item.name}`
     })
   });
-  _selectable["inventory"] = inventory;
-  console.log(_selectable);
   set(_selectable)
 });
 
