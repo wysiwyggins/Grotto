@@ -9,7 +9,7 @@ app_name = "mapBuilder"
 urlpatterns = [
     # ex: /polls/
     path("", views.Index.as_view(), name="index"),
-    path("new/", views.NewRoomDetailView.as_view()),
+    path("play/", views.PlayDetailView.as_view(), name="play"),
     path("<slug:colorSlug>/", views.RoomDetailView.as_view(), name="room"),
-    path("gui/<slug:colorSlug>/", views.GraphicalRoomView.as_view(), name="gui"),
+    # path("gui/<slug:colorSlug>/", views.GraphicalRoomView.as_view(), name="gui"),
 ]

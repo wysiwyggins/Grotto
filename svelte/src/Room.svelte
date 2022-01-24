@@ -21,7 +21,7 @@ const viewModes = [
   }
 ];
 
-let viewModeIdx = 1;
+let viewModeIdx = 0;  // This sets the default view for players
 
 let viewMode = viewModes[viewModeIdx];
 
@@ -72,11 +72,7 @@ tableau.subscribe(value => {
 	setBodyClasses()
   document.title = value.room.name;
 })
-
-
-
 </script>
-
 
 <svelte:window on:keydown={handleKeydown}/>
 

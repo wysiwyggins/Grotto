@@ -16,7 +16,7 @@ from Grotto.game.services import ItemService, GameService
 
 
 class LivingCharacterBaseView(RedirectView):
-    pattern_name = "mapBuilder:room"
+    pattern_name = "mapBuilder:play"
 
     def dispatch(self, request, *args, **kwargs):
         if request.character is None:
@@ -64,34 +64,33 @@ class EnterGrottoView(LivingCharacterBaseView):
                 npcs__deadly=True).order_by("?")[0]
             request.character.save()
             # redirect user to appropriate room
-        kwargs.update({"colorSlug": request.character.room.colorSlug})
         return super().get(request, *args, **kwargs)
 
 
-class MoveView(LivingCharacterBaseView):
-    def get(self, request, *args, colorSlug, **kwargs):
-        service_return = PlayerCharacterService().move(
-            character=request.character, raises=Http404, colorSlug=colorSlug)
-        for message in service_return.messages:
-            messages.add_message(request, messages.INFO, message)
-        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
-        return super().get(request, *args, **kwargs)
+# class MoveView(LivingCharacterBaseView):
+#     def get(self, request, *args, colorSlug, **kwargs):
+#         service_return = PlayerCharacterService().move(
+#             character=request.character, raises=Http404, colorSlug=colorSlug)
+#         for message in service_return.messages:
+#             messages.add_message(request, messages.INFO, message)
+#         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
+#         return super().get(request, *args, **kwargs)
 
 
-class FireArrowView(LivingCharacterBaseView):
-    pattern_name = "mapBuilder:room"
+# class FireArrowView(LivingCharacterBaseView):
+#     pattern_name = "mapBuilder:room"
 
-    def get(self, request, *args, colorSlug, **kwargs):
-        service_return = PlayerCharacterService().fire_arrow(
-            character=request.character, colorSlug=colorSlug, raises=Http404)
-        for message in service_return.messages:
-            messages.add_message(request, messages.INFO, message)
-        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 5})
-        return super().get(request, *args, **kwargs)
+#     def get(self, request, *args, colorSlug, **kwargs):
+#         service_return = PlayerCharacterService().fire_arrow(
+#             character=request.character, colorSlug=colorSlug, raises=Http404)
+#         for message in service_return.messages:
+#             messages.add_message(request, messages.INFO, message)
+#         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 5})
+#         return super().get(request, *args, **kwargs)
 
 
 class BecomeCharacterView(EnterGrottoView):
-    pattern_name = "mapBuilder:room"
+    pattern_name = "mapBuilder:play"
 
     def dispatch(self, request, *args, character_pk, **kwargs):
         character = None
@@ -105,48 +104,48 @@ class BecomeCharacterView(EnterGrottoView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class BaseItemActionView(LivingCharacterBaseView):
-    action = "test"
-    holder = "character"
+# class BaseItemActionView(LivingCharacterBaseView):
+#     action = "test"
+#     holder = "character"
 
-    def get(self, request, *args, item_pk, **kwargs):
-        item_service = ItemService()
-        item = item_service.get_item(
-            character=request.character, pk=item_pk, holder=self.holder, raises=Http404)
-        service_return = getattr(item_service, self.action)(
-            item=item, character=request.character)
-        for message in service_return.messages:
-            messages.add_message(request, messages.INFO, message)
+#     def get(self, request, *args, item_pk, **kwargs):
+#         item_service = ItemService()
+#         item = item_service.get_item(
+#             character=request.character, pk=item_pk, holder=self.holder, raises=Http404)
+#         service_return = getattr(item_service, self.action)(
+#             item=item, character=request.character)
+#         for message in service_return.messages:
+#             messages.add_message(request, messages.INFO, message)
 
-        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
-        return super().get(request, *args, **kwargs)
-
-
-class UseItemView(BaseItemActionView):
-    action = "use"
+#         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
+#         return super().get(request, *args, **kwargs)
 
 
-class PlaceItemView(BaseItemActionView):
-    action = "place"
+# class UseItemView(BaseItemActionView):
+#     action = "use"
 
 
-class TakeItemView(BaseItemActionView):
-    action = "take"
-    holder = "room"
+# class PlaceItemView(BaseItemActionView):
+#     action = "place"
 
 
-class DropItemView(BaseItemActionView):
-    action = "drop"
+# class TakeItemView(BaseItemActionView):
+#     action = "take"
+#     holder = "room"
 
 
-class ViewItemView(LivingCharacterBaseView):
-    action = "view"
-    holder = "room"
-    pattern_name = "mapBuilder:cenotaph"
+# class DropItemView(BaseItemActionView):
+#     action = "drop"
 
-    def get(self, request, *args, item_pk, **kwargs):
-        item = ItemService().get_item(
-            character=request.character, pk=item_pk, holder=self.holder, raises=Http404)
 
-        kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
-        return super().get(request, *args, **kwargs)
+# class ViewItemView(LivingCharacterBaseView):
+#     action = "view"
+#     holder = "room"
+#     pattern_name = "mapBuilder:cenotaph"
+
+#     def get(self, request, *args, item_pk, **kwargs):
+#         item = ItemService().get_item(
+#             character=request.character, pk=item_pk, holder=self.holder, raises=Http404)
+
+#         kwargs.update({"colorSlug": request.character.room.colorSlug, "dice_count": 1})
+#         return super().get(request, *args, **kwargs)
