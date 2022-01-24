@@ -3,6 +3,7 @@ import { get } from "./api.js";
 
 import TextRoom from "./textView/TextRoom.svelte";
 import GuiRoom from "./guiView/GuiRoom.svelte";
+import PlayerMessages from "./textView/components/PlayerMessages.svelte";
 
 import { tableauPromise, tableau } from "./stores.js";
 export let user;
@@ -80,5 +81,10 @@ tableau.subscribe(value => {
 <svelte:window on:keydown={handleKeydown}/>
 
 {#if $tableau}
-	<svelte:component this={viewMode.component} user={user}/>
+	{#if $tableau.room}
+		<svelte:component this={viewMode.component} user={user}/>
+	{:else}
+		<h1>You have died. Sorry.</h1>
+		<PlayerMessages />
+	{/if}
 {/if}

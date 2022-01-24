@@ -1,5 +1,7 @@
 <script>
+import { tick } from "svelte";
 import { post } from "../api.js";
+import { invertColor, lightenColor } from "../util.js";
 import { tableauPromise, tableau } from "../stores.js";
 
 import GuiRoomExits from "./components/GuiRoomExits.svelte"
@@ -50,10 +52,13 @@ let selected;
 
 function getSelected() {
   selected = $selectable[categories[$selectedIndex.categoryIndex]][$selectedIndex.index];
+  if (selected === undefined) {
+    decrementSelected()
+  }
   return selected;
 }
 
-function doSelected() {
+async function doSelected() {
   // each thing (indicated by `selectedIndex`) has a singular action
   const _selected = getSelected()
   if (_selected.actionUrl === null) {
@@ -61,6 +66,9 @@ function doSelected() {
     return
   }
   tableauPromise.set(post(_selected.actionUrl, {}));
+  await $tableauPromise;
+  await tick();
+  getSelected();
 }
 
 function handleKeydown(event) {
@@ -92,7 +100,12 @@ function handleKeydown(event) {
 }
 
 selectedIndex.subscribe(value => {
-  getSelected(value)
+  getSelected()
+})
+
+let contrastColor = "#FFFFFF";
+tableau.subscribe(value => {
+  contrastColor = lightenColor(invertColor(value.room.colorHex), 20)
 })
 
 </script>
@@ -110,9 +123,11 @@ selectedIndex.subscribe(value => {
       </div>
     </div>
   </div>
-  <div class="characterPanel">
+  <div class="characterPanel" style="background-color: {contrastColor};">
     <div class="status-bar" id="status-bar">
-      {$tableau.messages.length > 0 ? $tableau.messages[0] : ""}
+      {#each $tableau.messages as message}
+        <span>{message}</span>
+      {/each}
     </div>
     <div class="action-bar" id="action-bar">
       {selected.actionText}
