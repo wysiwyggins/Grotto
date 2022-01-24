@@ -63,7 +63,6 @@ class EnterGrottoView(LivingCharacterBaseView):
             request.character.room = Room.objects.exclude(
                 npcs__deadly=True).order_by("?")[0]
             request.character.save()
-            # redirect user to appropriate room
         return super().get(request, *args, **kwargs)
 
 

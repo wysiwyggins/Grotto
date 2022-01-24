@@ -26,7 +26,6 @@ const defaultHeaderBackgroundColor = "#050505";
 let headerBackgroundColor = defaultHeaderBackgroundColor;
 
 tableau.subscribe(_tableau => {
-  console.log("tableau did change?")
   headerBackgroundColor = defaultHeaderBackgroundColor
   if (_tableau.room) {
     headerBackgroundColor = _tableau.room.colorHex
