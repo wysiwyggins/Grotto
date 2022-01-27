@@ -5,7 +5,6 @@ apple
 apron
 arm
 armchair
-axe
 bag
 baguette
 ball
@@ -16,14 +15,31 @@ bicycle
 bike helmet
 bone
 book
+book of jokes
+book of matches
+bookmark
 boot
 bottle rack
+bottle cap
+bottle of glue
+bottle of honey
+bottle of ink
+bottle of lotion
+bottle of nail polish
+bottle of oil
+bottle of paint
+bottle of perfume
+bottle of pills
+bottle of soda
+bottle of sunscreen
+bottle of syrup
+bottle of water
+bouquet of flowers
 bowl
 box
 bra
 branch
 brick
-bridge
 bunch of grapes
 bunch of keys
 calculator
@@ -36,7 +52,6 @@ chainsaw
 chair
 chisel
 Christmas tree
-cleaver
 clock
 cloth
 clothes peg
@@ -49,7 +64,6 @@ curtain
 cylinder
 dice
 disk
-dissecting table
 dog
 dolmen
 electric guitar
@@ -61,11 +75,10 @@ flask
 flute
 football
 fork
-ghetto blaster
 glass
 glove
 guitar
-guitar amp
+gum
 hammer
 hat
 hat box
@@ -73,15 +86,15 @@ head
 heart
 hockey stick
 horse
-iBook
-iMac
 iron
 ironing board
 ironing board
 jar of kimchee
+pack of winstons
+broken brass lighter
 key
-knife
-laptop
+fudge recipe
+fishing lure
 leg
 lightbulb
 loaf
@@ -95,12 +108,10 @@ menhir
 metronome
 milk jug
 model giraffe
-monolith
 movie light
 nail
 nose
 notepad
-obelisk
 ocarina
 octahedron
 orange
@@ -113,28 +124,26 @@ pair of trousers
 panties
 pencil
 photocopier
-piano
+tiny piano
 pile of bones
 pinball machine
 pineapple
 policeman's helmet
-powerbook
 pyramid
 record
 record player
 recorder
 replica of the Mona Lisa
-revolver
 riot shield
 saw
 searchlight
 seashell
 security camera
 set of dentures
-sewing-machine
+broken sewing-machine
 shirt
+used shotgun shell
 shoe
-shot gun
 shrubbery
 skull
 slab
@@ -161,6 +170,8 @@ tape recorder
 taxi
 taxidermist's table
 rhinoceros
+soldering iron
+fingernail clippers
 bag of potato chips
 telescope
 television
@@ -178,6 +189,7 @@ umbrella
 urinal
 video camera
 video game console
+atari joystick
 walkman
 wheelbarrow
 wig
@@ -187,3 +199,4 @@ wire
 wrench
 wrestling title belt
 ZX Spectrum
+
