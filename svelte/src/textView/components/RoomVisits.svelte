@@ -1,7 +1,7 @@
 <script>
 import Time from "svelte-time";
 
-import { tableau } from "../stores.js";
+import { tableau } from "../../stores.js";
 </script>
 
 {#if $tableau.room.visits}

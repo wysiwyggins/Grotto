@@ -1,6 +1,6 @@
 <script>
-import { post } from "../api.js";
-import { tableau, tableauPromise } from "../stores.js";
+import { post } from "../../api.js";
+import { tableau, tableauPromise } from "../../stores.js";
 
 function place(itemPk) {tableauPromise.set(post(`v1/items/${itemPk}/place/`, {}))}
 function drop(itemPk) {tableauPromise.set(post(`v1/items/${itemPk}/drop/`, {}))}
