@@ -78,3 +78,9 @@ class Room(models.Model):
                 deduped_visits.append(visit)
                 visitors.append(visit.character)
         return deduped_visits
+
+
+class RoomEvent(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="events")
+    created = models.DateTimeField(auto_now_add=True)
+    text = models.CharField(max_length=256)

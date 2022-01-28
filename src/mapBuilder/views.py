@@ -36,8 +36,8 @@ class Index(LoginRequiredMixin, ListView):
         return redirect(".")  # points the user right back where they came from
 
 
-class NewRoomDetailView(LoginRequiredMixin, ActionMixin, TemplateView):
-    template_name = "mapBuilder/new_room.html"
+class PlayDetailView(LoginRequiredMixin, TemplateView):
+    template_name = "mapBuilder/play.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,7 +54,7 @@ class NewRoomDetailView(LoginRequiredMixin, ActionMixin, TemplateView):
         return context
 
 
-class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
+class RoomDetailView(DetailView):
     model = Room
     template_name = "mapBuilder/room.html"
     query_pk_and_slug = True
@@ -117,32 +117,32 @@ class RoomDetailView(LoginRequiredMixin, ActionMixin, DetailView):
                 "cleanliness_adjective": self.get_room_adjective("cleanliness"),
             }
         )
-        warnings = []
-        for exit in self.object.exits.all():
-            for npc in exit.npcs.all():
-                warnings.append(npc.warning_text)
-        context.update(
-            {
-                "warnings": sample(warnings, k=len(warnings)),
-            }
-        )
+        # warnings = []
+        # for exit in self.object.exits.all():
+        #     for npc in exit.npcs.all():
+        #         warnings.append(npc.warning_text)
+        # context.update(
+        #     {
+        #         "warnings": sample(warnings, k=len(warnings)),
+        #     }
+        # )
         return context
 
     def get(self, request, *args, **kwargs):
-        if request.character is None:
-            if not request.user.is_superuser:
-                # send them back to the guild hall
-                return redirect("/guild/")
-        else:
-            if request.character.room.colorSlug != kwargs["colorSlug"]:
-                return redirect(
-                    reverse(
-                        "mapBuilder:room",
-                        kwargs={"colorSlug": request.character.room.colorSlug},
-                    )
-                )
+        # if request.character is None:
+        #     if not request.user.is_superuser:
+        #         # send them back to the guild hall
+        #         return redirect("/guild/")
+        # else:
+        #     if request.character.room.colorSlug != kwargs["colorSlug"]:
+        #         return redirect(
+        #             reverse(
+        #                 "mapBuilder:room",
+        #                 kwargs={"colorSlug": request.character.room.colorSlug},
+        #             )
+        #         )
         return super().get(request, *args, **kwargs)
 
 
-class GraphicalRoomView(RoomDetailView):
-    template_name = "cenotaph.html"
+# class GraphicalRoomView(RoomDetailView):
+#     template_name = "cenotaph.html"
