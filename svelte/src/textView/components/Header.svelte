@@ -18,6 +18,8 @@ function characterEmoji() {
       return "👻"
     case 'vegetable':
       return "🥕"
+    default:
+      return ""
   }
 }
 

@@ -26,6 +26,11 @@
   {% comment %}
   log of events which occurred in this room
   {% endcomment %}
+  <ul class="events">
+    {% for event in object.events.all reversed %}
+      <li>{{ event.text }} &mdash; {{ event.created | naturaltime }}</li>
+    {% endfor %}
+  </ul>
   <ul class="visits">
     {% for visit in visits %}
       {% if visit.character == character %}
@@ -37,5 +42,4 @@
       {% endif %}
     {% endfor %}
   </ul>
-
 {% endblock %}

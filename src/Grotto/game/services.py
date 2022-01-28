@@ -5,7 +5,7 @@ from django.utils.timezone import now
 from django.db.models import F
 
 from characterBuilder.models import Visit, NonPlayerCharacter
-from mapBuilder.models import Room
+from mapBuilder.models import Room, RoomEvent
 from itemBuilder.models import Item, AbstractItem, Swap
 from itemBuilder.enum import ItemType
 from itemBuilder.item_generator import ItemGeneratorService
@@ -56,9 +56,16 @@ class PlayerCharacterService:
 
         killers = list(room.npcs.filter(deadly=True).order_by("?"))
         if killers:
+            RoomEvent.objects.create(
+                room=room,
+                text=(
+                    f"{character.name} walked in on the {killers[0].name} "
+                    "and was eaten"
+                )
+            )
             return self.kill(
                 character=character,
-                deathnote=f"{character.name} was killed by {killers[0].name}",
+                deathnote=f"{character.name} was killed by ",
             )
         return ServiceReturn()
 
@@ -80,6 +87,7 @@ class PlayerCharacterService:
         occupants = list(target_room.occupants.all())
         npcs = list(target_room.npcs.filter(mortal=True))
         service_return = ServiceReturn()
+        unlucky = None
         if npcs:
             unlucky = choice(npcs)
             service_return.combine(
@@ -95,6 +103,14 @@ class PlayerCharacterService:
             service_return.messages.append(f"Your arrow killed {unlucky}")
         else:
             arrow.current_room = target_room
+        if unlucky is not None:
+            RoomEvent.objects.create(
+                room=target_room,
+                text=(
+                    f"{character.name} fired an arrow from the {character.room.name} "
+                    f"and killed {unlucky.name}"
+                )
+            )
         arrow.save()
         return service_return
 
@@ -131,6 +147,10 @@ class NonPlayerCharacterService:
         if npc.deadly:
             # kill any player characters in the room
             for unlucky in future.occupants.all():
+                RoomEvent.objects.create(
+                    room=npc.room,
+                    text=(f"{npc.name} walked in on {unlucky.name} and ate them")
+                )
                 ret.combine(PlayerCharacterService().kill(
                     character=unlucky,
                     deathnote=f"{unlucky.name} was killed by {npc.name}",
@@ -296,7 +316,7 @@ class ItemService:
             self._use_burnable(item, character)
             self.place(item, character)
         if item.abstract_item.itemType == ItemType.SCRUBBRUSH:
-            self._use_scrubbrush(item, character)
+            ret.messages.append(self._use_scrubbrush(item, character))
         if item.abstract_item.itemType == ItemType.JUNK:
             ret.messages.append("You're not sure how to use this")
         if item.abstract_item.itemType == ItemType.ARROW:
@@ -308,6 +328,10 @@ class ItemService:
         item.current_owner = None
         item.current_room = character.room
         item.save()
+        RoomEvent.objects.create(
+            room=character.room,
+            text=(f"{character.name} placed {item.abstract_item}")
+        )
         if item.abstract_item.itemType == ItemType.INCENSE and item.is_active:
             character.room.is_cursed = False
             character.room.save()
@@ -325,6 +349,11 @@ class ItemService:
             item.current_owner = character
             item.current_room = None
             item.save()
+
+            RoomEvent.objects.create(
+                room=character.room,
+                text=(f"{character.name} took {item.abstract_item}")
+            )
             ret.messages.append(f"you picked {item.abstract_item.itemName} up")
         return ret
 
@@ -335,6 +364,10 @@ class ItemService:
         item.save()
         ret = ServiceReturn()
         print("dropping item")
+        RoomEvent.objects.create(
+            room=character.room,
+            text=(f"{character.name} dropped {item.abstract_item}")
+        )
         self.check_swap(character.room, return_obj=ret)
         return ret
 
@@ -344,8 +377,15 @@ class ItemService:
             for item in room.items.filter(abstract_item__itemType=swap.picks_type):
                 if return_obj is not None:
                     return_obj.messages.append(swap.message)
-                self.create(abstract_item=swap.puts, room=room)
+                created = self.create(abstract_item=swap.puts, room=room)
                 self.destroy(item)
+                RoomEvent.objects.create(
+                    room=room,
+                    text=(
+                        f"{swap.npc} swapped {item.abstract_item} for "
+                        f"{created.abstract_item}"
+                    )
+                )
 
     def burnable_swap(self):
         """Check the room for burned out candles and replace them with a junk item"""
@@ -367,6 +407,20 @@ class ItemService:
                 character=old_candle.current_owner,
             )
             old_candle.delete()
+            if old_candle.current_room:
+                RoomEvent.objects.create(
+                    room=old_candle.current_room,
+                    text=(f"{old_candle.abstract_item} burned out")
+                )
+            else:
+                RoomEvent.objects.create(
+                    room=old_candle.current_owner.room,
+                    text=(
+                        f"{old_candle.current_owner.name}'s "
+                        f"{old_candle.abstract_item} burned out"
+                    )
+                )
+
 
     def get_item(self, *, character, pk, holder="character", raises=GrottoGameWarning):
         get_kwargs = {"pk": pk}
@@ -393,11 +447,18 @@ class ItemService:
 
     def _use_scrubbrush(self, item, character):
         room = character.room
-        room.cleanliness = min(2, room.cleanliness + 1)
+        new_cleanliness = min(2, room.cleanliness + 1)
+        ret = []
+        if new_cleanliness == room.cleanliness:
+            ret.append("The room is already very clean!")
+            return "The room is already very clean!"
+        room.cleanliness = new_cleanliness
         room.save()
-
-    def _use_incense(self, item, character):
-        pass
+        RoomEvent.objects.create(
+            room=room,
+            text=(f"{character.name} cleaned the room")
+        )
+        return "You have cleaned the room"
 
     def _use_amulet(self, item, character):
         pass
@@ -416,8 +477,14 @@ class GameService:
                 make_dirtier = True
                 break
         if make_dirtier:
-            room.cleanliness = max(1, room.cleanliness - 1)
-            room.save()
+            new_cleanliness = max(1, room.cleanliness - 1)
+            if new_cleanliness != room.cleanliness:
+                room.cleanliness = new_cleanliness
+                room.save()
+                RoomEvent.objects.create(
+                    room=room,
+                    text=("Room was left dirtier than it was found")
+                )
         return ServiceReturn()
 
     def roll_to_move_npc(self, *, npc, dice_count=1):
