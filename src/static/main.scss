@@ -373,6 +373,16 @@ $grid-block-height: 200px;
 $background-color: rgb(71, 150, 126);
 $inverse-color: lighten(invert($color: $background-color), 20%);
 
+
+body.cenotaph div {
+    ul {
+        display: block;
+        li {
+            margin-left: 20px;
+        }
+    }
+}
+
 body.icon-ui-view, body.cenotaph {
     padding: 0;
     margin: 0;
@@ -399,6 +409,14 @@ body.icon-ui-view, body.cenotaph {
         padding-top: 4px;
         margin: 0;
     }
+
+    h3 {
+        font-family: "Portfolio", monospace;
+        @include darkText();
+        font-size: 18px;
+        line-height: 20px;
+        margin-bottom: 2px;
+    }
     img.portrait {
         max-width: 440px;
         max-height: 600px;
@@ -407,6 +425,33 @@ body.icon-ui-view, body.cenotaph {
         margin-right: auto;
         margin-bottom: 10px;
     }
+
+    pre {
+        white-space: pre-wrap;
+    }
+    .foreground {
+        z-index: 3;
+        background-color:rgba(255, 255, 255, 0.2);
+        max-width: 600px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        position: absolute;
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    details {
+        margin-bottom: 10px;
+    }
+    summary {
+        text-indent: 10px;
+        margin-bottom: 10px;
+    }
+    a-scene {
+        z-index: 0;
+    }
+
     .obituary {
         max-width: 440px;
         margin-left: auto;
@@ -416,7 +461,18 @@ body.icon-ui-view, body.cenotaph {
         line-height: 14px;
         @include blackText();
     }
+
     
+    .records {
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        font-size: 16px;
+        font-family: monospace;
+        
+        margin-bottom: 40px;
+    }
     
     .content {
         display: flex;
