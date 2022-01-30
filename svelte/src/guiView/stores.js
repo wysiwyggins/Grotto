@@ -16,6 +16,7 @@ function resolveInventoryAction(item) {
 export const selectable = derived(tableau, ($tableau, set) => {
   const _selectable = {
     exits: [],
+    cenotaph: [],
     items: [],
     occupants: [],
     npcs: [],
@@ -35,6 +36,17 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": `Move to ${room.name}`
     })
   });
+
+  if ($tableau.room.cenotaph) {
+    console.log("populating cenotaph");
+    _selectable.cenotaph.push({
+      "dataPk": $tableau.room.cenotaph.pk,
+      "dataType": "cenotaph",  // used to generate element
+      "classes": ["item", "cenotaph"],
+      "linkUrl": `/rooms/cenotaph/${$tableau.room.colorSlug}/`,
+      "actionText": `View the ${$tableau.room.colorName} cenotaph`
+    })
+  }
 
   $tableau.room.items.forEach(item => {
     let itemClass = item.abstract_item.itemType.toLowerCase();
@@ -91,6 +103,7 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "actionText": `${action} ${item.name}`
     })
   });
+  console.log(_selectable);
   set(_selectable)
 });
 

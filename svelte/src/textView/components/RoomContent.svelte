@@ -7,13 +7,13 @@ import RoomManifest from "./RoomManifest.svelte";
 import RoomVisits from "./RoomVisits.svelte";
 import RoomWarnings from "./RoomWarnings.svelte";
 
-function sanctityAdjective() {
-  return ["Cursed", "Mundane", "Sacred"][$tableau.room.attributes.sanctity]
-}
+let cleanlinessAdjective = "Dirty";
+let sanctityAdjective = "Mundane";
 
-function cleanlinessAdjective() {
-  return ["Profane", "Dirty", "Clean"][$tableau.room.attributes.cleanliness]
-}
+tableau.subscribe(value => {
+  cleanlinessAdjective = ["Profane", "Dirty", "Clean"][value.room.attributes.cleanliness];
+  sanctityAdjective = ["Cursed", "Mundane", "Sacred"][value.room.attributes.sanctity];
+});
 
 </script>
 
@@ -25,7 +25,7 @@ function cleanlinessAdjective() {
   {/if}
 </h2>
 <p class="room-attributes">
-  The room is {sanctityAdjective()} and {cleanlinessAdjective()}.
+  The room is {sanctityAdjective} and {cleanlinessAdjective}.
   {#if $tableau.room.attributes.brightness == 1}
     The flicker of your held candle dimly lights the room. A candle-holder on the wall is empty.
   {:else if $tableau.room.attributes.brightness == 2}

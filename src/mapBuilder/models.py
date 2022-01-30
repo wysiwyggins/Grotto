@@ -80,7 +80,24 @@ class Room(models.Model):
         return deduped_visits
 
 
+class Cenotaph(models.Model):
+    room = models.OneToOneField(Room, on_delete=models.PROTECT, related_name="cenotaph")
+    text = models.TextField(help_text="The inscription on the cenotaph")
+    name = models.CharField(max_length=64)
+    birth = models.CharField(max_length=32, null=True, blank=True)
+    death = models.CharField(max_length=32, null=True, blank=True)
+    scene = models.TextField(help_text="This 'a-frame' will be inserted in the cenotaph as background", null=True, blank=True)
+    portrait_filename = models.CharField(max_length=64, null=True, blank=True)
+    # TODO: get S3 uploads sorted out
+    # portrait = models.FileField()
+
+
 class RoomEvent(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE, related_name="events")
     created = models.DateTimeField(auto_now_add=True)
     text = models.CharField(max_length=256)
+
+
+# Eventually!
+# class CenotaphFileUpload(models.Model):
+#     file = models.FileField(...)

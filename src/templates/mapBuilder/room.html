@@ -23,6 +23,9 @@
   <h2>{{object.name}}</h2>
   <p>The room is {{ sanctity_adjective }} and {{ cleanliness_adjective }}. {% if illumination_level == 1 %}A player is holding a candle which dimly lights the room. A candle-holder on the wall is empty.{% elif illumination_level == 2%}A burning candle lights the room.{% else %}The room is totally dark.{% endif %}</p>
   <p class="description">{{ object.description }}</p>
+  {% if object.cenotaph %}
+  <p class="cenotaph"><a href="{% url 'mapBuilder:cenotaph' object.colorSlug %}">View Cenotaph</a></p>
+  {% endif %}
   {% comment %}
   log of events which occurred in this room
   {% endcomment %}

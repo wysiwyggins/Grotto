@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block page_title %}{{object.name}}{% endblock %}
+
+{% block body_class %}cenotaph{% endblock %}
+
+{% block body_style %}background-color:{{object.colorHex}}{% endblock %}
+
+{% block inner_body %}
+  <div class="content">
+    <div class="main">
+      <div class="foreground">
+        <header>
+          <h1>{{object.name}}</h1>
+          {% if object.birth %}{{ object.birth }}{% else %}????{% endif%}&mdash;{% if object.death %}{{ object.death }}{% else %}????{% endif%}
+        </header>
+
+        <img id="portrait" class="portrait" src="{% static object.portrait_filename %}"/>
+
+        <pre class="obituary">
+            <h3>Inscription:</h3>
+            {{object.text|safe}}
+        </pre>
+
+
+      </div>
+    </div>
+    {{object.scene|safe}}
+  </div>
+
+  <div class="characterPanel">
+    <div class="status-bar">
+      You examine the Cenotaph
+    </div>
+    <div class="action-bar">
+      {% if request.user.is_anonymous %}
+        <a href="{% url 'mapBuilder:room' object.room.colorSlug %}">Return</a>
+      {% else %}
+        <a href="{% url 'mapBuilder:play' %}">Return</a>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

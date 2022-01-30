@@ -19,6 +19,15 @@ tableau.subscribe(_tableau => {
 })
 </script>
 
+{#if $tableau.room.cenotaph}
+  <div class="cenotaph">
+    <p>There is a {$tableau.room.colorName} cenotaph in the room
+      {#if $tableau.room.attributes.brightness == 2}
+        &mdash; <a href="/rooms/cenotaph/{$tableau.room.colorSlug}/">view</a>
+      {/if}
+    </p>
+  </div>
+{/if}
 <div class="room-inventory">
   {#if takeable_items.length > 0}
     {#if $tableau.room.attributes.brightness == 2}

@@ -3,14 +3,14 @@ from datetime import timedelta
 
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
+from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
+from django.db.models import F
 from django.urls import reverse
 from django.utils import timezone
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
-
-from django.db.models import F
 
 from characterBuilder.models import Character, Visit
 from Grotto.views import ActionMixin, LoginRequiredMixin
@@ -65,7 +65,7 @@ class RoomDetailView(DetailView):
     actions = []
 
     def _room_level(self, item_type):
-        room = self.request.character.room
+        room = self.object
         # check items in room
         _item = room.items.filter(
             abstract_item__itemType=item_type, active__isnull=False
@@ -87,7 +87,7 @@ class RoomDetailView(DetailView):
         return 0
 
     def get_room_level(self, descriptor="illumination"):
-        room = self.request.character.room
+        room = self.object
         if descriptor == "cleanliness":
             return room.cleanliness
         if descriptor == "illumination":
@@ -117,32 +117,23 @@ class RoomDetailView(DetailView):
                 "cleanliness_adjective": self.get_room_adjective("cleanliness"),
             }
         )
-        # warnings = []
-        # for exit in self.object.exits.all():
-        #     for npc in exit.npcs.all():
-        #         warnings.append(npc.warning_text)
-        # context.update(
-        #     {
-        #         "warnings": sample(warnings, k=len(warnings)),
-        #     }
-        # )
         return context
 
     def get(self, request, *args, **kwargs):
-        # if request.character is None:
-        #     if not request.user.is_superuser:
-        #         # send them back to the guild hall
-        #         return redirect("/guild/")
-        # else:
-        #     if request.character.room.colorSlug != kwargs["colorSlug"]:
-        #         return redirect(
-        #             reverse(
-        #                 "mapBuilder:room",
-        #                 kwargs={"colorSlug": request.character.room.colorSlug},
-        #             )
-        #         )
         return super().get(request, *args, **kwargs)
 
 
-# class GraphicalRoomView(RoomDetailView):
-#     template_name = "cenotaph.html"
+class CenotaphView(DetailView):
+    model = Room
+    template_name = "mapBuilder/room.html"
+    query_pk_and_slug = True
+    slug_url_kwarg = "colorSlug"
+    slug_field = "colorSlug"
+    template_name = "mapBuilder/cenotaph.html"
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        try:
+            return obj.cenotaph
+        except ObjectDoesNotExist:
+            raise Http404("No cenotaph here")

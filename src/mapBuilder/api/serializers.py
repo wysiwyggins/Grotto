@@ -21,6 +21,12 @@ class RoomAttributeSerializer(serializers.Serializer):
     sanctity = serializers.IntegerField()
 
 
+class CenotaphSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Cenotaph
+        fields = ("pk", "name", "birth", "death", "text",)
+
+
 class RoomSerializer(serializers.ModelSerializer):
     exits = ExitSerializer(many=True, read_only=True)
     occupants = OccupantSerializer(many=True, read_only=True)
@@ -28,6 +34,7 @@ class RoomSerializer(serializers.ModelSerializer):
     items = ItemSerializer(many=True, read_only=True)
     attributes = RoomAttributeSerializer(source="get_attributes", read_only=True)
     visits = RoomVisitSerializer(many=True, read_only=True)
+    cenotaph = CenotaphSerializer(read_only=True, required=False)
     warnings = serializers.ListField(child=serializers.CharField(), read_only=True)
 
     def get_attributes(self, obj):
@@ -39,6 +46,7 @@ class RoomSerializer(serializers.ModelSerializer):
             "pk",
             "name",
             "colorName",
+            "colorSlug",
             "colorHex",
             "description",
             "exits",
@@ -46,6 +54,7 @@ class RoomSerializer(serializers.ModelSerializer):
             "npcs",
             "items",
             "visits",
+            "cenotaph",
             "attributes",
             "warnings",
         )

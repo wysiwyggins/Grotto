@@ -2,7 +2,7 @@
 import { post } from "../../api.js";
 
 export let items;
-const categoryIndex = 4;
+const categoryIndex = 5;
 
 import { tableauPromise } from "../../stores.js";
 import { selectedIndex } from "../stores.js";

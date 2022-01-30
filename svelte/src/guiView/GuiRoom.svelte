@@ -13,7 +13,7 @@ import { selectable, selectedIndex } from "./stores.js";
 
 export let user;
 
-const categories = ["exits", "items", "occupants", "npcs", "inventory"];
+const categories = ["exits", "cenotaph", "items", "occupants", "npcs", "inventory"];
 
 // let selectedIndex = {"index": 0, "categoryIndex": 0};
 
@@ -61,7 +61,11 @@ function getSelected() {
 async function doSelected() {
   // each thing (indicated by `selectedIndex`) has a singular action
   const _selected = getSelected()
-  if (_selected.actionUrl === null) {
+  if (_selected.linkUrl !== null && _selected.linkUrl !== undefined) {
+    console.log("Linking to another page");
+    location.href = _selected.linkUrl;
+  }
+  if (_selected.actionUrl === null || _selected.actionUrl === undefined) {
     console.log("No action for this thing!");
     return
   }
@@ -119,7 +123,12 @@ tableau.subscribe(value => {
     <div class="UIpanel" id="room-panel">
       <GuiRoomExits exits="{$selectable.exits}"/>
       <div class="room-view UIpanel">
-        <GuiRoomItems items="{$selectable.items}" occupants="{$selectable.occupants}" npcs="{$selectable.npcs}" />
+        <GuiRoomItems
+          cenotaph="{$selectable.cenotaph}"
+          items="{$selectable.items}"
+          occupants="{$selectable.occupants}"
+          npcs="{$selectable.npcs}"
+        />
       </div>
     </div>
   </div>

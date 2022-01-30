@@ -11,5 +11,5 @@ urlpatterns = [
     path("", views.Index.as_view(), name="index"),
     path("play/", views.PlayDetailView.as_view(), name="play"),
     path("<slug:colorSlug>/", views.RoomDetailView.as_view(), name="room"),
-    # path("gui/<slug:colorSlug>/", views.GraphicalRoomView.as_view(), name="gui"),
+    path("cenotaph/<slug:colorSlug>/", views.CenotaphView.as_view(), name="cenotaph"),
 ]
