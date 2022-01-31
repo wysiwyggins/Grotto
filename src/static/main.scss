@@ -441,6 +441,7 @@ body.icon-ui-view, body.cenotaph {
         position: absolute;
         height: 100vh;
         overflow-y: scroll;
+        margin-bottom: 20px;
     }
     details {
         margin-bottom: 10px;
@@ -562,6 +563,7 @@ body.icon-ui-view, body.cenotaph {
      
     }
     .characterPanel {
+        z-index: 5;
     }
     li.exit, li.item, li.character {
         list-style: none;
