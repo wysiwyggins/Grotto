@@ -376,6 +376,9 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
 
 body.cenotaph {
     padding: 0;
+    main {
+        margin: 0;
+    }
     div {
         ul {
             display: block;
