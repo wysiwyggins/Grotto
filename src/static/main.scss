@@ -374,14 +374,18 @@ $background-color: rgb(71, 150, 126);
 $inverse-color: lighten(invert($color: $background-color), 20%);
 
 
-body.cenotaph div {
-    ul {
-        display: block;
-        li {
-            margin-left: 20px;
+body.cenotaph {
+    padding: 0;
+    div {
+        ul {
+            display: block;
+            li {
+                margin-left: 20px;
+            }
         }
     }
 }
+
 
 body.icon-ui-view, body.cenotaph {
     padding: 0;
