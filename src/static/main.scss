@@ -396,6 +396,7 @@ body.cenotaph {
     main {
         margin: 0;
         padding: 0;
+        overflow-y: hidden;
     }
     div {
         ul {
@@ -470,7 +471,6 @@ body.icon-ui-view, body.cenotaph {
         height: 100vh;
         overflow-y: scroll;
         padding-bottom: 30px;
-        margin-bottom: 40px;
     }
     details {
         margin-bottom: 10px;
