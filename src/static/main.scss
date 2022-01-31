@@ -393,6 +393,7 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
 
 
 body.cenotaph {
+    overflow-y: hidden;
     main {
         margin: 0;
         padding: 0;
@@ -470,7 +471,7 @@ body.icon-ui-view, body.cenotaph {
         position: absolute;
         height: 100vh;
         overflow-y: scroll;
-        padding-bottom: 30px;
+        padding-bottom: 60px;
     }
     details {
         margin-bottom: 10px;
