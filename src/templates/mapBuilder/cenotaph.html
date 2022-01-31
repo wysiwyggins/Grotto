@@ -24,7 +24,7 @@
             <h3>Inscription:</h3>
             {{object.text|safe}}
         </pre>
-
+        <h3>Cenotaph Manifest:</h3>
         <ul class="events">
           {% for event in object.room.events.all reversed %}
             <li>{{ event.text }} &mdash; {{ event.created | naturaltime }}</li>
