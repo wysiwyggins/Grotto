@@ -494,6 +494,7 @@ body.icon-ui-view, body.cenotaph {
         line-height: 16px;
         h3 {
             @include darkText();
+            margin-left: 20px;
         }
 
         -webkit-text-fill-color: rgb(30, 30, 30);
