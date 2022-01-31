@@ -7,7 +7,7 @@
 
 {% block body_class %}cenotaph{% endblock %}
 
-{% block body_style %}background-color:{{object.colorHex}}{% endblock %}
+{% block body_style %}background-color:{{object.room.colorHex}}{% endblock %}
 
 {% block inner_body %}
   <div class="content">
@@ -25,6 +25,11 @@
             {{object.text|safe}}
         </pre>
 
+        <ul class="events">
+          {% for event in object.room.events.all reversed %}
+            <li>{{ event.text }} &mdash; {{ event.created | naturaltime }}</li>
+          {% endfor %}
+        </ul>
 
       </div>
       {{object.scene|safe}}
