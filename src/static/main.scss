@@ -432,6 +432,7 @@ body.icon-ui-view, body.cenotaph {
 
     pre {
         white-space: pre-wrap;
+        color: rgb(30, 30, 30);
     }
     .foreground {
         z-index: 3;
@@ -466,7 +467,7 @@ body.icon-ui-view, body.cenotaph {
         display: block;
         font-size: 12px;
         line-height: 14px;
-        @include blackText();
+        @include darkText();
     }
 
     
