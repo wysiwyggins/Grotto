@@ -4,15 +4,15 @@
   <div class="poll">
     {% if question %}
       {% if another %}
-      <p><em>Unsatisfied, the crone demands you answer another question</em></p>
+      <p><em>Unsatisfied, the crone demands you answer another question...</em></p>
       {% endif %}
-      <p>The crone penetrates you with her all-seeing eye and asks:</p>
+      <p><em>The crone penetrates you with her all-seeing eye and asks...</em></p>
 
       <form method="post">
         {% csrf_token %}
         {{ question }}
         <br />
-
+        <br />
         {% for choice in answer_choices %}
           <input id="choice-{{ choice.pk}}" type="radio" name="choice" value="{{ choice.pk }}"><label for="choice-{{ choice.pk}}">{{ choice.choice }}</label><br />
         {% endfor %}
