@@ -29,18 +29,18 @@
       </div>
     </div>
     {{object.scene|safe}}
-  </div>
-
-  <div class="characterPanel">
-    <div class="status-bar">
-      You examine the Cenotaph
+    <div class="characterPanel">
+      <div class="status-bar">
+        You examine the Cenotaph
+      </div>
+      <div class="action-bar">
+        {% if request.user.is_anonymous %}
+          <a href="{% url 'mapBuilder:room' object.room.colorSlug %}">Return</a>
+        {% else %}
+          <a href="{% url 'mapBuilder:play' %}">Return</a>
+        {% endif %}
+      </div>
     </div>
-    <div class="action-bar">
-      {% if request.user.is_anonymous %}
-        <a href="{% url 'mapBuilder:room' object.room.colorSlug %}">Return</a>
-      {% else %}
-        <a href="{% url 'mapBuilder:play' %}">Return</a>
-      {% endif %}
-    </div>
   </div>
+  
 {% endblock %}
