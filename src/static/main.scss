@@ -489,12 +489,12 @@ body.icon-ui-view, body.cenotaph {
         }
     }
     details {
+        display: inline;
         padding-bottom: 10px;
         -webkit-text-fill-color:inherit;
     }
     summary {
-        text-indent: 10px;
-        margin-bottom: 10px;
+        padding-bottom: 10px;;
     }
     a-scene {
         z-index: 0;
