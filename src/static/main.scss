@@ -75,7 +75,13 @@ h1, h2 {
 .small {
     font-size:small;
 }
-
+.secret {
+    background: black;
+    color: transparent;
+    cursor: help;
+    user-select: none;
+    transition: background 0.3s ease 0.2s, color 0.2s ease 0.25s;
+}
 // typography
 h1 {
     font-size: 6em;
