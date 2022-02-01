@@ -38,13 +38,20 @@ function clearBodyClasses() {
 
 const illuminationLevels = ["dark", "dim", "full"]
 
-function setBodyClasses() {
+function setIlluminationLevel(numericLevel) {
 	illuminationLevels.forEach(value => {
 		document.body.classList.remove(`illuminate-${value}`);
 	})
+	const level = illuminationLevels[numericLevel];
+	document.body.classList.add(`illuminate-${level}`);
+
+}
+
+function setBodyClasses() {
 	if ($tableau && $tableau.room) {
-		const level = illuminationLevels[$tableau.room.attributes.brightness];
-		document.body.classList.add(`illuminate-${level}`);
+		setIlluminationLevel($tableau.room.attributes.brightness);
+	} else {
+		setIlluminationLevel(2);
 	}
 	viewMode.bodyClasses.forEach(value => {
 		document.body.classList.add(value);
@@ -67,6 +74,8 @@ function handleKeydown(event) {
 
 tableau.subscribe(value => {
 	if (! value || !value.room) {
+		document.body.classList.add("dead");
+		setIlluminationLevel(2);
 		return
 	}
 	setBodyClasses()
