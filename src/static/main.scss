@@ -417,6 +417,11 @@ body.cenotaph {
     }
 }
 
+body.dead {
+    @extend body.cenotaph;
+    background-color: #bb8076;
+    text-align: center;
+}
 
 body.icon-ui-view, body.cenotaph {
     padding: 0;
@@ -429,6 +434,14 @@ body.icon-ui-view, body.cenotaph {
     }
     &.illuminate-1 {
         @include darkscanlines();
+    }
+
+    .main, main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-height: 100vh;
+        overflow-y: scroll;
     }
 
     header{
@@ -543,13 +556,7 @@ body.icon-ui-view, body.cenotaph {
         }
     }
 
-    .main, main {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        max-height: 100vh;
-        overflow-y: scroll;
-    }
+   
 
     .room-view {
         //background-color: rgb(77, 77, 77);
@@ -587,7 +594,6 @@ body.icon-ui-view, body.cenotaph {
             align-items: flex-end;
         }
     }
-    
 
     .status-bar {
         min-height: $grid-cell-height * 3;
