@@ -76,7 +76,7 @@ h1, h2 {
     font-size:small;
 }
 .secret {
-    background: #222222;
+    background: black;
     color: transparent;
     cursor: help;
     user-select: none;
@@ -316,9 +316,6 @@ header > div {
     .main, main {
         margin-bottom: 0px;
         flex-direction: row;
-        section, sidebar {
-            
-        }
         sidebar {
             border-top-left-radius: 5px;
         }
