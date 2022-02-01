@@ -20,10 +20,10 @@
 
         <img id="portrait" class="portrait" src="{% static object.portrait_filename %}"/>
 
-        <pre class="obituary">
+        <div class="obituary">
             <h3>Inscription:</h3>
             {{object.text|safe}}
-        </pre>
+        </div>
         <h3>Cenotaph Manifest:</h3>
         <ul class="events">
           {% for event in object.room.events.all reversed %}
