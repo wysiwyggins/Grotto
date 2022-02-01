@@ -21,7 +21,7 @@ def generateRoom():
     codexList = []
 
     nlp = spacy.load("en_core_web_sm")
-    with open("mapBuilder/corpuses/rooms.txt") as f:
+    with open("word_lists/rooms.txt") as f:
         text = f.read()
 
     text_model = markovify.Text(text)
@@ -36,7 +36,7 @@ def generateRoom():
             return sentence
 
     def getElaborateColor():
-        colorFO = io.open("mapBuilder/word_lists/colors.txt", encoding="utf-8")
+        colorFO = io.open("word_lists/colors.txt", encoding="utf-8")
         colorSet = set(colorFO)
         colorSet -= set(Room.objects.all().values_list("colorName", flat=True))
         elaborateColor = random.choice(list(colorSet))
