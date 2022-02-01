@@ -62,7 +62,6 @@ goldenrod
 green-yellow
 honeydew
 hot pink
-indian red
 ivory
 lavender
 lavender blush
