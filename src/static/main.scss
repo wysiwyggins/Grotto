@@ -81,8 +81,9 @@ h1, h2 {
     cursor: help;
     user-select: none;
     transition: background 0.3s ease 0.2s, color 0.2s ease 0.25s;
-    &:hover, :active {
+    &:hover, :active, :hover {
         color: #fff;
+        background: transparent;
     }
 }
 // typography
