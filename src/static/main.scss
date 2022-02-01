@@ -401,7 +401,7 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
 
 body.cenotaph {
     overflow-y: hidden;
-    main {
+    .main {
         margin: 0;
         padding: 0;
         overflow-y: hidden;
