@@ -430,10 +430,16 @@ body.icon-ui-view, body.cenotaph {
     background-color: $background-color;
     
     &.illuminate-dark {
+        .content {
+            @include darkscanlines();
+        }
         @include black();
     }
     &.illuminate-dim {
-        @include darkscanlines();
+        .content {
+            @include darkscanlines();
+        }
+        
     }
 
     .main, main {
