@@ -81,7 +81,8 @@ tableau.subscribe(value => {
 		<svelte:component this={viewMode.component} user={user}/>
 	{:else}
 		<h1>You have died. Sorry.</h1>
-		<img src="/static/images/reaper.png" alt="The grim reaper leers at you."/>
 		<PlayerMessages />
+		<a href="/guild/">Return to guild hall</a>
+		<img src="/static/images/reaper.png" alt="The grim reaper leers at you."/>
 	{/if}
 {/if}
