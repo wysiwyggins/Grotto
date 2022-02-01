@@ -81,7 +81,7 @@ h1, h2 {
     cursor: help;
     user-select: none;
     transition: background 0.3s ease 0.2s, color 0.2s ease 0.25s;
-    &:hover, &:active, &:hover {
+    &:hover, &:active, &:focus {
         color: #fff;
         background: transparent;
     }
@@ -498,7 +498,7 @@ body.icon-ui-view, body.cenotaph {
         -webkit-text-fill-color:inherit;
     }
     summary {
-        padding-bottom: 10px;;
+        padding-bottom: 10px;
     }
     a-scene {
         z-index: 0;
