@@ -78,6 +78,7 @@ tableau.subscribe(value => {
 		setIlluminationLevel(2);
 		return
 	}
+	document.body.classList.remove("dead");
 	setBodyClasses()
   document.title = value.room.name;
 })
