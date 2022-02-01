@@ -160,7 +160,7 @@ video {
     }
 }
 
-.center-block, {
+.center-block {
     max-width: 400px;
     margin: auto;
     font-size: 1.3em;
@@ -618,9 +618,6 @@ body.icon-ui-view, body.cenotaph {
         color: $inverse-color;
     }
 
-    .action-bar.attention, .status-bar.attention {
-     
-    }
     .characterPanel {
         z-index: 5;
     }
