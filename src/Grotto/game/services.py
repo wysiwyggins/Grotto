@@ -65,7 +65,7 @@ class PlayerCharacterService:
             )
             return self.kill(
                 character=character,
-                deathnote=f"{character.name} was killed by ",
+                deathnote=f"{character.name} was killed by {killers[0].name}",
             )
         return ServiceReturn()
 
