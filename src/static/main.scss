@@ -432,9 +432,9 @@ body.icon-ui-view, body.cenotaph {
         @include darkText();
         font-family: "Portfolio", monospace;
         text-align: center;
-        font-size: 80px;
+        font-size: 4em;
         line-height: 82px;
-        padding-top: 4px;
+        padding: 4px;
         margin: 0;
     }
 
@@ -442,8 +442,10 @@ body.icon-ui-view, body.cenotaph {
         font-family: "Portfolio", monospace;
         @include darkText();
         font-size: 18px;
-        line-height: 20px;
+        line-height: 24px;
         margin-bottom: 2px;
+        max-width: 400px;
+        margin: auto;
     }
     img.portrait {
         max-width: 420px;
