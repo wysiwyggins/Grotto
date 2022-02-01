@@ -429,10 +429,10 @@ body.icon-ui-view, body.cenotaph {
     font-family: "Portfolio", monospace;
     background-color: $background-color;
     
-    &.illuminate-0 {
+    &.illuminate-dark {
         @include black();
     }
-    &.illuminate-1 {
+    &.illuminate-dim {
         @include darkscanlines();
     }
 
