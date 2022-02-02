@@ -408,6 +408,10 @@ body.character {
         overflow-y: scroll;
         flex: 1;
     }
+    .content {
+        flex: 1;
+        height:100vh;
+    }
 }
 
 body.cenotaph {
