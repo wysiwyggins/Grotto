@@ -262,6 +262,8 @@ header > div {
 
 }
 
+
+
 .character_sheet, .poll {
     max-width: 600px;
     margin: auto;
@@ -399,6 +401,14 @@ $grid-block-height: 200px;
 $background-color: rgb(71, 150, 126);
 $inverse-color: lighten(invert($color: $background-color), 20%);
 
+body.character {
+    overflow-y: hidden;
+    height: 100vh;
+    .main {
+        overflow-y: scroll;
+        flex: 1;
+    }
+}
 
 body.cenotaph {
     overflow-y: hidden;
