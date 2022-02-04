@@ -1,0 +1,43 @@
+//iconic styles show a grotto app as viewed in a paper-sketched imaginary computer.
+//Interactions are re-imagined to work with an Atari 2600 style one-button joystick.
+//This design style was created for the Mud Room art installation in 2022
+
+@mixin scanlines {
+    background-image: url('/static/images/Block8.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+@mixin darkscanlines {
+    background-image: url('/static/images/Block3.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+@mixin black {
+    background-image: url('/static/images/Block1.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+
+@mixin blackText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+        @include black();
+}
+
+@mixin darkText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+        @include darkscanlines();
+}
+
+@mixin lightText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+    @include scanlines();
+}
