@@ -7,6 +7,7 @@ You're welcome to run your dev environment if you like, but here is the suggeste
 Be sure you have `docker` and `make` installed. Then `cd` into this directory. Use
 
 * `make build` to build your dev docker image
+* `make init` will get everything to a base running state (use this once)
 * `make run` to run your dev instance (navigate browser to `localhost:8000` to interact)
 * `make migrations` when you've changed the models (requires running instance)
 * `make stop` to bring the instance down

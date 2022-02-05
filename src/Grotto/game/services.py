@@ -330,7 +330,7 @@ class ItemService:
         item.save()
         RoomEvent.objects.create(
             room=character.room,
-            text=(f"{character.name} placed {item.abstract_item}")
+            text=(f"{character.name} placed {item.name}")
         )
         if item.abstract_item.itemType == ItemType.INCENSE and item.is_active:
             character.room.is_cursed = False
@@ -352,9 +352,9 @@ class ItemService:
 
             RoomEvent.objects.create(
                 room=character.room,
-                text=(f"{character.name} took {item.abstract_item}")
+                text=(f"{character.name} took {item.name}")
             )
-            ret.messages.append(f"you picked {item.abstract_item.itemName} up")
+            ret.messages.append(f"you picked {item.name} up")
         return ret
 
     def drop(self, item, character):
@@ -366,7 +366,7 @@ class ItemService:
         print("dropping item")
         RoomEvent.objects.create(
             room=character.room,
-            text=(f"{character.name} dropped {item.abstract_item}")
+            text=(f"{character.name} dropped {item.name}")
         )
         self.check_swap(character.room, return_obj=ret)
         return ret
@@ -382,8 +382,8 @@ class ItemService:
                 RoomEvent.objects.create(
                     room=room,
                     text=(
-                        f"{swap.npc} swapped {item.abstract_item} for "
-                        f"{created.abstract_item}"
+                        f"{swap.npc} swapped {item.name} for "
+                        f"{created.name}"
                     )
                 )
 
@@ -410,14 +410,14 @@ class ItemService:
             if old_candle.current_room:
                 RoomEvent.objects.create(
                     room=old_candle.current_room,
-                    text=(f"{old_candle.abstract_item} burned out")
+                    text=(f"{old_candle.name} burned out")
                 )
             else:
                 RoomEvent.objects.create(
                     room=old_candle.current_owner.room,
                     text=(
                         f"{old_candle.current_owner.name}'s "
-                        f"{old_candle.abstract_item} burned out"
+                        f"{old_candle.name} burned out"
                     )
                 )
 
