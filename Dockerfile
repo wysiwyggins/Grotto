@@ -1,4 +1,4 @@
-FROM thismatters/grotto-deps:latest
+FROM registry.gitlab.com/grotto/grotto-deps:latest-main
 
 RUN apk add --no-cache libffi-dev build-base
 
@@ -25,6 +25,7 @@ USER worker
 
 ## setting debug triggers certain build behavior
 ENV DEBUG=False
+ENV DJANGO_SETTINGS_MODULE=Grotto.settings.base
 ## https://stackoverflow.com/q/58712195/2754587
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compress --force

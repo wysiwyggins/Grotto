@@ -1,0 +1,98 @@
+image: "python:3.9-alpine"
+
+stages:
+  - pre-build
+  - build
+  # - test
+  - register
+  - deploy
+
+
+build-frontend:
+  stage: pre-build
+  image: node:current-alpine
+  script:
+    - cd svelte
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - svelte/public/build/
+
+build-app:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+.test-app:   # future!
+  stage: test
+  variables:
+    DJANGO_SETTINGS_MODULE: grotto.settings.test
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  script:
+    - python -m pip install -r requirements.test.txt
+    - cd src/
+    - /home/worker/.local/bin/flake8
+    - black --check .
+    - /home/worker/.local/bin/isort --check --diff .
+    - /home/worker/.local/bin/pytest
+
+register-container:
+  image: docker:latest
+  stage: register
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_REF_NAME
+    - docker push $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_REF_NAME
+
+.deploy-app: &deploy-app
+  stage: deploy
+  before_script:
+    # get kubectl
+    - apk add curl
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    # get aws
+    - python3 -m pip install awscli --upgrade
+    # Gitlab CI environment variables set the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+    - aws eks --region us-east-1 update-kubeconfig --name samfac-prod
+  script:
+    - output=$(./kubectl apply -k aws/k8s/$DEPLOY_ENV)
+    - echo $output
+    - echo "$output" | grep -q "deployment.apps/app unchanged" && ./kubectl -n grotto-$DEPLOY_ENV delete po -l role=app || echo "app updated"
+
+# deploy-app-staging:
+#   # deploy to digital ocean droplet
+#   only:
+#     - master@grotto/grotto
+#   before_script:
+#     - 'command -v ssh-agent >/dev/null || ( apk add openssh-client-default --no-cache )'
+#     - eval $(ssh-agent -s)
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#   script:
+#     - ssh grotto@$STAGING_HOST
+#     - cd prod
+#     - docker pull registry.gitlab.com/grotto/grotto:latest-master
+#     - docker-compose up -d
+#     - docker system prune -f  # keep the instance clean!
+#   variables:
+#     DEPLOY_ENV: prod
+
+deploy-app-prod:
+  <<: *deploy-app
+  only:
+    - prod@grotto/grotto
+  variables:
+    DEPLOY_ENV: prod

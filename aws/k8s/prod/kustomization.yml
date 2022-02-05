@@ -1,0 +1,12 @@
+bases:
+- ../base
+namespace: grotto-prod
+images:
+- name: appimage
+  newName: registry.gitlab.com/grotto/grotto
+  newTag: latest-prod
+patchesStrategicMerge:
+- env-overlay.yml
+- url-overlay.yml
+resources:
+- ingress.yml
