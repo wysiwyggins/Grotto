@@ -2,6 +2,16 @@
 //Interactions are re-imagined to work with an Atari 2600 style one-button joystick.
 //This design style was created for the Mud Room art installation in 2022
 
+
+$grid-cell-width: 10px;
+$grid-cell-height: 7.5px;
+$grid-block-width: 200px;
+$grid-block-height: 200px;
+$background-color: rgb(71, 150, 126);
+$inverse-color: lighten(invert($color: $background-color), 20%);
+
+
+
 @mixin scanlines {
     background-image: url('/static/images/Block8.png');
     background-repeat: repeat;
@@ -41,6 +51,7 @@
         background-clip:text; 
     @include scanlines();
 }
+
 
 
 body.icon-ui-view{

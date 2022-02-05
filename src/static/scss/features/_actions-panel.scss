@@ -1,0 +1,20 @@
+.actions-panel {
+    ul.actions {
+        list-style: none;
+        border: 4px double #fff;
+        padding: 20px;
+        display: flex;
+        margin: 0px;
+        background-color: rgba(0, 0, 0, 0.1);
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        li {
+            line-height: 2em;
+            min-width: 200px;
+            margin: auto;
+            text-align: center;
+        }
+    }
+}
