@@ -1,0 +1,42 @@
+
+body.room {
+    .main, main {
+        //overflow-y: scroll;
+        border-radius: 5px;
+        //margin-bottom: 5px;
+    }
+    .description {
+        margin-left: 0;
+        margin-bottom: 0;
+        
+    }
+    
+    sidebar {
+        margin-bottom: 0;
+        border-bottom-left-radius: 0;
+        padding-right: 20px;
+    }
+
+    ul.exits {
+        list-style: none;
+        padding: 0px;
+        li:before {
+            content: "\1F6AA";
+            margin: 0 .2em; 
+            font-size: 24px;
+        }
+        li {
+            line-height: 24px;
+            vertical-align: middle;
+            margin-bottom: 10px;
+        }
+    }
+
+    &.sparkly {
+        background-image: url('images/glitter.gif');
+    }
+    &.transparent {
+        background-image: url('images/checkerboard.png');
+    }
+
+}

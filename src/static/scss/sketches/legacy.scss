@@ -4,13 +4,8 @@
 
 
 
-video {
-    width: 100%;
-}
 
-
-
-.center-block {
+/* .center-block {
     max-width: 400px;
     margin: auto;
     font-size: 1.3em;
@@ -25,109 +20,9 @@ video {
         margin: 10px;
         box-sizing: border-box;
     }
-}
+} */
 
-
-.main, main {
-    display: flex;
-    flex:1;
-    flex-direction: column;
-    align-content: center;
-    box-sizing: border-box;
-    padding: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-sidebar {
-    @include room-div;
-    
-}
-section {
-    @include room-div;
-    flex: 1;
-}
-
-footer {
-    @include room-div;
-}
-
-header > div {
-    @include room-div;
-    display: flex;
-    flex-direction: row;
-    ul {
-        flex: 1;
-        list-style: none;
-        margin: 0;
-        li {
-            float: right;
-            margin-left: 20px;
-        }
-    }
-    
-}
 
 //views
-
-.room {
-    .main, main {
-        //overflow-y: scroll;
-        border-radius: 5px;
-        //margin-bottom: 5px;
-    }
-    .description {
-        margin-left: 0;
-        margin-bottom: 0;
-        
-    }
-    
-    sidebar {
-        margin-bottom: 0;
-        border-bottom-left-radius: 0;
-        padding-right: 20px;
-    }
-
-    ul.exits {
-        list-style: none;
-        padding: 0px;
-        li:before {
-            content: "\1F6AA";
-            margin: 0 .2em; 
-            font-size: 24px;
-        }
-        li {
-            line-height: 24px;
-            vertical-align: middle;
-            margin-bottom: 10px;
-        }
-    }
-
-    &.sparkly {
-        background-image: url('images/glitter.gif');
-    }
-    &.transparent {
-        background-image: url('images/checkerboard.png');
-    }
-
-}
-
-
-
-.character_sheet, .poll {
-    max-width: 600px;
-    margin: auto;
-    box-sizing: border-box;
-    padding: 50px;
-}
-
-.poll form {
-    line-height: 200%;
-    border: 1px solid #fff;
-    padding: 20px;
-    button {
-        margin-top: 10px;
-    }
-}
 
 
