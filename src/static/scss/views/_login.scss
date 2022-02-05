@@ -1,0 +1,33 @@
+section.welcome {
+    background-color:rgba(63, 20, 186, 0.91);
+    border-radius: 80px;
+}
+
+body.index {
+    h1 {
+        text-align: center;
+    }
+    img {
+        width: 420px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    section.welcome {
+        background-color:rgba(63, 20, 186, 0.91);
+        border-radius: 80px;
+    }
+    .login {
+        text-align: center;
+    }
+    .login,.news {
+        background-color: rgba(0,0,0,0.3);
+        display: grid;
+        max-width: 400px;
+        margin: auto;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 4px double #fff;
+    }
+}
+

@@ -1,0 +1,16 @@
+body.cenotaph {
+    overflow-y: hidden;
+    .main {
+        margin: 0;
+        padding: 0;
+        overflow-y: hidden;
+    }
+    div {
+        ul {
+            display: block;
+            li {
+                margin-left: 20px;
+            }
+        }
+    }
+}

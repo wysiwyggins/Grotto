@@ -1,0 +1,59 @@
+//mixins
+
+@mixin room-div {
+    background-color: rgba(5,5,5,0.7);
+    padding: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    
+}
+
+@mixin spoiler {
+    background: black;
+    color: transparent;
+    cursor: help;
+    user-select: none;
+    transition: background 0.3s ease 0.2s, color 0.2s ease 0.25s;
+    &:hover, &:active, &:focus {
+        color: #fff;
+        background: transparent;
+    }
+}
+
+//resets
+
+
+
+* {
+    box-sizing: border-box;
+}
+h1, h2, h3, h4, h5, h6 { /*reset for mobile browsers */
+
+    font-weight: normal;
+
+}
+img {
+    max-width: 100%;
+}
+
+//base
+
+html {
+}
+
+a {
+    color: #eee;
+}
+
+
+p {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    width: clamp(320px, 80vw);
+}
+
+h1, h2 {
+    margin-top: 0;
+    font-size: 2em;
+}
+

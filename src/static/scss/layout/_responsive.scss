@@ -1,0 +1,62 @@
+@media only screen and (min-width: 640px) {
+  .main, main {
+      margin-bottom: 0px;
+      flex-direction: row;
+      sidebar {
+          border-top-left-radius: 5px;
+      }
+      section {border-top-right-radius: 5px;}
+  }
+  .actions-panel {
+      margin: 5px;
+      margin-top: 0px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      flex: 0;
+  }
+  h2 {
+      font-size: 4em;
+      line-height: 74px;
+      font-family: 'Almendra Display', cursive;
+      padding-left: 15px;
+  }
+  .description {
+      padding-right: 20px;
+  }
+  
+}
+
+//responsive iframe
+
+.iframe-container {
+  overflow: hidden;
+  padding-top: 56.25%;
+  position: relative;
+  // @include media-query($on-palm) {
+    //min-width: 680px;
+  // }
+}
+
+.iframe-container iframe {
+   border: 0;
+   height: 100%;
+   left: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
+   box-sizing: border-box;
+   .vp-center {
+     display: block; //fixing vimeo's fix that broke my fix
+   }
+}
+
+
+video {
+  width: 100%;
+}
+
+/* 4x3 Aspect Ratio */
+.iframe-container-4x3 {
+  padding-top: 75%;
+}
+

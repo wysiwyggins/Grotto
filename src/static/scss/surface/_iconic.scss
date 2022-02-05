@@ -1,0 +1,359 @@
+//iconic styles show a grotto app as viewed in a paper-sketched imaginary computer.
+//Interactions are re-imagined to work with an Atari 2600 style one-button joystick.
+//This design style was created for the Mud Room art installation in 2022
+
+
+$grid-cell-width: 10px;
+$grid-cell-height: 7.5px;
+$grid-block-width: 200px;
+$grid-block-height: 200px;
+$background-color: rgb(71, 150, 126);
+$inverse-color: lighten(invert($color: $background-color), 20%);
+
+
+
+@mixin scanlines {
+    background-image: url('/static/images/Block8.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+@mixin darkscanlines {
+    background-image: url('/static/images/Block3.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+@mixin black {
+    background-image: url('/static/images/Block1.png');
+    background-repeat: repeat;
+    background-size: 10px,7px;
+}
+
+@mixin blackText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+        @include black();
+}
+
+@mixin darkText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+        @include darkscanlines();
+}
+
+@mixin lightText {
+    -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        -moz-background-clip:text;
+        background-clip:text; 
+    @include scanlines();
+}
+
+
+
+body.icon-ui-view{
+    padding: 0;
+    margin: 0;
+    font-family: "Portfolio", monospace;
+    background-color: $background-color;
+    
+    &.illuminate-dark {
+        .content {
+            @include darkscanlines();
+        }
+        @include black();
+    }
+    &.illuminate-dim {
+        .content {
+            @include darkscanlines();
+        }
+        
+    }
+
+    .main, main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        max-height: 100vh;
+        overflow-y: scroll;
+    }
+
+    header{
+        text-align: center;
+        display: block;
+    }
+    h1{
+        @include darkText();
+        font-family: "Portfolio", monospace;
+        text-align: center;
+        font-size: 4em;
+        line-height: 82px;
+        padding: 4px;
+        margin: 0;
+    }
+
+    h3 {
+        font-family: "Portfolio", monospace;
+        @include darkText();
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 2px;
+        max-width: 400px;
+        margin: auto;
+    }
+    img.portrait {
+        max-height: 600px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+    }
+
+    pre {
+        white-space: pre-wrap;
+        
+        color: rgb(30, 30, 30);
+        -webkit-text-fill-color: rgb(30, 30, 30);
+    }
+    .foreground {
+        z-index: 3;
+        background-color:rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        max-width: 600px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        position: absolute;
+        height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 60px;
+        @media only screen and (max-width: 440px)
+        {
+            left: 0px;
+            width: 100%;
+            padding: 10px;
+        }
+    }
+    details {
+        display: inline;
+        padding-bottom: 10px;
+        -webkit-text-fill-color:inherit;
+    }
+    summary {
+        padding-bottom: 10px;
+    }
+    a-scene {
+        z-index: 0;
+    }
+
+    .obituary, .inscription {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+        display: block;
+        font-family: monospace;
+        font-size: 14px;
+        line-height: 16px;
+        color: rgb(30, 30, 30);
+        -webkit-text-fill-color: rgb(30, 30, 30);
+        h3 {
+            @include darkText();
+            margin-left: 20px;
+        }
+
+        -webkit-text-fill-color: rgb(30, 30, 30);
+    }
+
+    
+    .events {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+        font-size: 16px;
+        font-family: monospace;
+        
+        margin-bottom: 40px;
+    }
+    
+    .content {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        height: 100vh;
+        color: rgb(30, 30, 30);
+        * {
+            box-sizing: border-box;
+        }
+    }
+
+   
+
+    .room-view {
+        //background-color: rgb(77, 77, 77);
+        //border: 2px solid #000;
+        //min-height: 50vh;
+        
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .exits {
+        //background-color: desaturate(darken($background-color, 20%), 40%);
+        @include scanlines();
+        padding: 20px;
+    }
+    .UIpanel {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    ul {
+        margin-left:0;
+        padding-left: 0;
+        
+        //li {background-color: rgb(103, 103, 103);}
+        //li:nth-child(even) {background-color: rgb(255, 255, 255);}
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-flow: row wrap;
+        &.items {
+            align-items: flex-end;
+        }
+    }
+
+    .status-bar {
+        min-height: $grid-cell-height * 3;
+        max-height: $grid-cell-height * 9;
+        line-height: $grid-cell-height * 3;
+        font-size: 1 em;
+        text-align: center;
+        //background-color:rgb(38, 38, 38);
+        @include darkscanlines();
+        color: $inverse-color;
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: hidden;
+        span {
+            display:inline-block;
+        }
+    }
+    .action-bar {
+        min-height: $grid-cell-height * 3;
+        line-height: $grid-cell-height * 3;
+        font-size: 1 em;
+        text-align: center;
+        //background-color:darken(invert($color: $background-color), 20%);
+        @include black();
+        color: $inverse-color;
+    }
+
+    .characterPanel {
+        z-index: 5;
+    }
+    li.exit, li.item, li.character {
+        list-style: none;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: bottom;
+        &.selected {
+            //background-color: rgba(255,255,255,0.4);
+            //@include pulsate();
+            filter: invert(100%);
+            //background-color: darken($background-color, 40%);
+            
+        };
+    }
+
+    li.exit {
+        background-image: url('/static/images/door.png');
+        width: 90px;
+        height: 90px;
+        background-size: 90px;
+        &.up {
+            background-image: url('/static/images/door_up.png'); 
+        }
+        &.down {
+            background-image: url('/static/images/door_down.png'); 
+        }
+    }    
+    li.trader {
+        background-image: url('/static/images/trader.png');
+    }
+    li.character {
+        background-image: url('/static/images/character.png');
+        &.robot {
+            background-image: url('/static/images/robot.png'); 
+        }
+        &.animal {
+            background-image: url('/static/images/animal.png'); 
+        }
+        &.bird {
+            background-image: url('/static/images/bird.png'); 
+        }
+        &.ghost {
+            background-image: url('/static/images/ghost.png'); 
+        }
+        &.bird {
+            background-image: url('/static/images/bird.png'); 
+        }
+        &.vegetable {
+            background-image: url('/static/images/vegetable.png'); 
+        }
+        &.fungus {
+            background-image: url('/static/images/fungus.png'); 
+        }
+        &.obelisk {
+            background-image: url('/static/images/obelisk.png'); 
+        }
+    }
+
+    li.item, li.character{
+        
+        list-style: none;
+        display: block;
+        width: $grid-block-width;
+        height: $grid-block-height;
+        background-size: 130px,135px;
+        height: 135px;
+    }
+    li.item {
+        background-image: url('/static/images/unknown.png');
+        &.scrubbrush {
+            background-image: url('/static/images/scrubbrush.png');
+        }
+        &.candle {
+            background-image: url('/static/images/candle_sm.png');
+            
+        }
+        &.arrow {
+            background-image: url('/static/images/arrow_sm.png');
+            
+        }
+        &.candle-active {
+            background-image: url('/static/images/candle_sm_active.png');
+        
+        }
+        &.incense {
+            background-image: url('/static/images/incense_sm.png');
+            
+        }
+        &.incense-active {
+            background-image: url('/static/images/incense_sm_active.png');
+        }
+        &.cenotaph {
+            background-image: url('/static/images/cenotaph_sm.png');
+            
+        }    
+    }
+}
