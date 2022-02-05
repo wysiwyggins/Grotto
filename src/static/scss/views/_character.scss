@@ -1,0 +1,12 @@
+body.character {
+    overflow-y: hidden;
+    height: 100vh;
+    .main {
+        overflow-y: scroll;
+        flex: 1;
+    }
+    .content {
+        flex: 1;
+        height:100vh;
+    }
+}
