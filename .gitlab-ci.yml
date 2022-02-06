@@ -56,12 +56,13 @@ register-container:
     - docker push $CI_REGISTRY_IMAGE:latest-$CI_COMMIT_REF_NAME
 
 deploy-app-staging:
+  image: ubuntu:latest
   stage: deploy
   # deploy to digital ocean droplet
   only:
     - main@grotto/grotto
   before_script:
-    - 'command -v ssh-agent >/dev/null || ( apk add openssh-client-default --no-cache )'
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
