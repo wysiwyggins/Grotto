@@ -74,7 +74,7 @@ register-container:
 deploy-app-staging:
   # deploy to digital ocean droplet
   only:
-    - master@grotto/grotto
+    - main@grotto/grotto
   before_script:
     - 'command -v ssh-agent >/dev/null || ( apk add openssh-client-default --no-cache )'
     - eval $(ssh-agent -s)
@@ -84,7 +84,7 @@ deploy-app-staging:
   script:
     - ssh grotto@$STAGING_HOST
     - cd prod
-    - docker pull registry.gitlab.com/grotto/grotto:latest-master
+    - docker pull registry.gitlab.com/grotto/grotto:latest-main
     - docker-compose up -d
     - docker system prune -f  # keep the instance clean!
   variables:
