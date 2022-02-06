@@ -70,15 +70,7 @@ deploy-app-staging:
     - ssh-keyscan $STAGING_HOST >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh grotto@$STAGING_HOST
-    - ls -al
-    - pwd
-    - whoami
-    - hostname
-    - cd prod
-    - docker pull registry.gitlab.com/grotto/grotto:latest-main
-    - docker-compose up -d
-    - docker system prune -f  # keep the instance clean!
+    - ssh grotto@$STAGING_HOST -c "cd prod && docker-compose up -d --quiet-pull && docker system prune -f"
   variables:
     DEPLOY_ENV: prod
 
