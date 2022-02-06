@@ -27,7 +27,16 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
     background-repeat: repeat;
     background-size: 10px,7px;
 }
-
+@mixin dirty {
+    background-image: url('/static/images/dirty.png');
+    background-repeat: repeat;
+    background-size: 90px,82px;
+}
+@mixin profane {
+    background-image: url('/static/images/profane.png');
+    background-repeat: repeat;
+    background-size: 90px,82px;
+}
 @mixin blackText {
     -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
@@ -73,6 +82,19 @@ body.icon-ui-view{
         
     }
 
+    &.cleanliness-profane {
+        .content {
+            @include profane();
+        }
+        @include black();
+    }
+    &.cleanliness-dim {
+        .content {
+            @include dirty();
+        }
+        
+    }
+
     .main, main {
         flex: 1;
         display: flex;
@@ -84,6 +106,10 @@ body.icon-ui-view{
     header{
         text-align: center;
         display: block;
+        span {
+            font-size: 14px;
+            line-height: 16px;
+        }
     }
     h1{
         @include darkText();
