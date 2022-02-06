@@ -3,7 +3,7 @@ from random import choice, randint
 
 from django.utils.text import slugify
 from django.utils.timezone import now
-from django.db.models import F
+from django.db.models import F, Count
 import markovify
 import webcolors
 
@@ -49,7 +49,7 @@ class PlayerCharacterService:
 
     def move(self, *, character, raises=GrottoGameWarning, **room_kwargs):
         if character.room is None:
-            raise raises("Character is not in Grotto")
+            raise raises("Character is not in grotto")
         old_room = character.room
         try:
             room = old_room.exits.get(**room_kwargs)
@@ -76,7 +76,7 @@ class PlayerCharacterService:
 
     def fire_arrow(self, *, character, raises=GrottoGameWarning, **room_kwargs):
         if character.room is None:
-            raise raises("Character is not in Grotto")
+            raise raises("Character is not in grotto")
         # check that the room being fired into is adjancent to character room
         try:
             target_room = character.room.exits.get(**room_kwargs)

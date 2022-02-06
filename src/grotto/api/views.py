@@ -4,8 +4,8 @@ from rest_framework import generics, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from Grotto.api import serializers
-from Grotto.game.services import (
+from grotto.api import serializers
+from grotto.game.services import (
     ItemService,
     GameService,
     PlayerCharacterService,

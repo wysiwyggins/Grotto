@@ -4,7 +4,7 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 from rest_framework.routers import DefaultRouter
 
-from Grotto.api import views
+from grotto.api import views
 
 schema_view = get_schema_view(
     openapi.Info(

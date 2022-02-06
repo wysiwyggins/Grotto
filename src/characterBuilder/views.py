@@ -9,8 +9,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from rest_framework.authtoken.models import Token
 
-from Grotto.views import ActionMixin, LoginRequiredMixin
-from Grotto.game.services import CharacterCreationService
+from grotto.views import ActionMixin, LoginRequiredMixin
+from grotto.game.services import CharacterCreationService
 
 from .models import Character, CharacterTest, CharacterTestChoice
 
@@ -55,7 +55,7 @@ class CharacterDetailView(ActionMixin, DetailView):
             "url": "/guild/",
         },
         {
-            "text": "Enter the Grotto",
+            "text": "Enter the grotto",
             "url": "/game/become/{character_pk}/",
             "become": True,
         },

@@ -1,4 +1,4 @@
-"""Grotto URL Configuration
+"""grotto URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import TemplateView
 
-from Grotto.views import RegisterView, TermsAcceptView
+from grotto.views import RegisterView, TermsAcceptView
 
 from . import views
 
@@ -28,8 +28,8 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path("register/", RegisterView.as_view(), name="register"),
     path("guild/", include("characterBuilder.urls")),
-    path("game/", include("Grotto.game.urls")),
-    path("api/v1/", include("Grotto.api.urls")),
+    path("game/", include("grotto.game.urls")),
+    path("api/v1/", include("grotto.api.urls")),
     path("terms/", TermsAcceptView.as_view(), name="terms"),
     path(
         "privacy/",

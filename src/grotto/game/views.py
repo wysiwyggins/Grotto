@@ -5,14 +5,14 @@ from django.http import Http404
 from django.views.generic import FormView, RedirectView, TemplateView
 
 from characterBuilder.models import Character, NonPlayerCharacter, Visit
-from Grotto.game.services import (
+from grotto.game.services import (
     NonPlayerCharacterService,
     PlayerCharacterService,
 )
 from mapBuilder.models import Room
 from itemBuilder.models import Item
 from itemBuilder.enum import ItemType
-from Grotto.game.services import ItemService, GameService
+from grotto.game.services import ItemService, GameService
 
 
 class LivingCharacterBaseView(RedirectView):

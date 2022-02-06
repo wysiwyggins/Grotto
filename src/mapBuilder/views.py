@@ -13,8 +13,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from characterBuilder.models import Character, Visit
-from Grotto.views import ActionMixin, LoginRequiredMixin
-from Grotto.game.services import RoomService
+from grotto.views import ActionMixin, LoginRequiredMixin
+from grotto.game.services import RoomService
 from mapBuilder.models import Room
 from itemBuilder.enum import ItemType
 

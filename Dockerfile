@@ -25,7 +25,7 @@ USER worker
 
 ## setting debug triggers certain build behavior
 ENV DEBUG=False
-ENV DJANGO_SETTINGS_MODULE=Grotto.settings.base
+ENV DJANGO_SETTINGS_MODULE=grotto.settings.base
 ## https://stackoverflow.com/q/58712195/2754587
 RUN python manage.py collectstatic --no-input
 RUN python manage.py compress --force
