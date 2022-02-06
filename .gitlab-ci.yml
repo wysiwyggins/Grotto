@@ -70,7 +70,7 @@ deploy-app-staging:
     - ssh-keyscan $STAGING_HOST >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh grotto@$STAGING_HOST -c "cd prod && docker-compose up -d --quiet-pull && docker system prune -f"
+    - ssh grotto@$STAGING_HOST "cd prod && docker-compose up -d --quiet-pull && docker system prune -f"
   variables:
     DEPLOY_ENV: prod
 
