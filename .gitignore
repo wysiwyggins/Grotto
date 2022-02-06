@@ -20,11 +20,7 @@ build/
 tests/report/
 venv/
 db.sqlite3
-mapBuilder/.DS_Store
 .DS_Store
 CACHE/
-characterBuilder/.DS_Store
-.DS_Store
-Grotto/__pycache__/urls.cpython-38.pyc
-characterBuilder/.DS_Store
 **/.DS_Store
+**/secret*

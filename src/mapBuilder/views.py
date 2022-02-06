@@ -13,12 +13,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from characterBuilder.models import Character, Visit
-from Grotto.views import ActionMixin, LoginRequiredMixin
+from grotto.views import ActionMixin, LoginRequiredMixin
+from grotto.game.services import RoomService
 from mapBuilder.models import Room
 from itemBuilder.enum import ItemType
-
-# import function to run
-from mapBuilder.room_generator import generateRoom
 
 
 class Index(LoginRequiredMixin, ListView):
@@ -32,7 +30,7 @@ class Index(LoginRequiredMixin, ListView):
         return context
 
     def post(self, request):
-        generateRoom()
+        RoomService().generate()
         return redirect(".")  # points the user right back where they came from
 
 

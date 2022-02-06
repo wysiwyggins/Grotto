@@ -1,0 +1,79 @@
+# Define deployment and service for data warehouse
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    role: app
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        role: app
+    spec:
+      imagePullSecrets:
+      - name: grotto-registry-read
+      containers:
+      - name: api
+        image: appimage
+        envFrom:
+        - secretRef:
+            name: aws-s3
+        - secretRef:
+            name: database
+        - secretRef:
+            name: secret-key
+        - secretRef:
+            name: email-addresses
+        env:
+        - name: CONTAINER_PURPOSE
+          value: "app"
+        - name: APP_ENV
+          value: base
+        - name: DJANGO_SETTINGS_MODULE
+          value: base
+        - name: DEBUG
+          value: "False"
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /
+            scheme: HTTP
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 20
+          timeoutSeconds: 1
+          failureThreshold: 4
+        readinessProbe:
+          httpGet:
+            path: /
+            scheme: HTTP
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 20
+          timeoutSeconds: 1
+          failureThreshold: 4
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "400Mi"
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-clusterip
+spec:
+  type: ClusterIP
+  ports:
+   - protocol: TCP
+     port: 8080
+     targetPort: 8000
+  selector:
+   role: app

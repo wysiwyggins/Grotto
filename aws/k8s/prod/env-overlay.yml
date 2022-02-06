@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+      - name: api
+        env:
+        - name: APP_ENV
+          value: "prod"
+        - name: DJANGO_SETTINGS_MODULE
+          value: "grotto.settings.prod"

@@ -2,8 +2,6 @@
 import { tableau } from "../../stores.js";
 </script>
 
-
-
 <p>There are some entities in the room:</p>
 <ul class="here">
   {#each $tableau.room.occupants as occupant}
@@ -11,7 +9,7 @@ import { tableau } from "../../stores.js";
       {#if occupant.pk == $tableau.character.pk}
         you
       {:else}
-        {occupant.name}
+        <a href="/guild/character/{occupant.pk}/">{occupant.name}</a>
       {/if}
     </li>
   {/each}

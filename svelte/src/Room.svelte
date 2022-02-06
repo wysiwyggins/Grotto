@@ -37,21 +37,30 @@ function clearBodyClasses() {
 }
 
 const illuminationLevels = ["dark", "dim", "full"]
-
 function setIlluminationLevel(numericLevel) {
 	illuminationLevels.forEach(value => {
 		document.body.classList.remove(`illuminate-${value}`);
 	})
 	const level = illuminationLevels[numericLevel];
 	document.body.classList.add(`illuminate-${level}`);
+}
 
+const cleanlinessLevels = ["profane", "dirty", "clean"]
+function setCleanlinessLevel(numericLevel) {
+	cleanlinessLevels.forEach(value => {
+		document.body.classList.remove(`cleanliness-${value}`);
+	})
+	const level = cleanlinessLevels[numericLevel];
+	document.body.classList.add(`cleanliness-${level}`);
 }
 
 function setBodyClasses() {
 	if ($tableau && $tableau.room) {
 		setIlluminationLevel($tableau.room.attributes.brightness);
+		setCleanlinessLevel($tableau.room.attributes.cleanliness);
 	} else {
 		setIlluminationLevel(2);
+		setCleanlinessLevel(2);
 	}
 	viewMode.bodyClasses.forEach(value => {
 		document.body.classList.add(value);

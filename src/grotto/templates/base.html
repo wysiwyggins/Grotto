@@ -1,0 +1,59 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}{% endblock %}</title>
+    {% block page_css %}
+      {% compress css %}
+      <link rel="stylesheet" type="text/x-scss" href="{% static 'main.scss' %}">
+      {% endcompress %}
+    {% endblock %}
+  </head>
+  <body class="{% block body_class %}{% endblock %}" style="{% block body_style %}{% endblock %}">
+    {% block inner_body %}
+      {% block header %}
+        {% include "header.html" %}
+      {% endblock %}
+      {% block main %}
+        <div class="main">
+          {% block sidebar %}
+          {% endblock %}
+
+          <section class='{% block main_section_class %}content{% endblock %}'>
+            {% block content %}
+
+            {% endblock %}
+          </section>
+        </div>
+        {% if actions %}
+          <section class="actions-panel">
+            <ul class="actions">
+              {% for action in actions %}
+                <li {% if forloop.first %}class="selected"{% endif %}><a href="{{ action.url }}">{{ action.text }}</a></li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endif %}
+      {% endblock %}
+      {% include "footer.html" %}
+    {% endblock %}
+    </body>
+
+    {% block toggle_view_script %}
+      <script type="text/javascript">
+        document.addEventListener("keydown", function(e) {
+          if (e.key === "`") {
+            document.body.classList.toggle("icon-ui-view");
+          } else {
+            console.log(`useless keypress ${e.key}`);
+          }
+        });
+      </script>
+    {% endblock %}
+    {% block page_script %}
+    {% endblock %}
+</html>

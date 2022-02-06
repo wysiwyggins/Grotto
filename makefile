@@ -1,5 +1,9 @@
+init:
+	@docker-compose -p grotto run node npm install
+	@docker-compose -p grotto up -d app node
+	@docker-compose -p grotto exec app python manage.py createsuperuser
 build:
-	@docker-compose -p grotto build
+	@docker-compose -p grotto build --pull
 run:
 	@docker-compose -p grotto up -d
 stop:

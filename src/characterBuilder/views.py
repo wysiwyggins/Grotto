@@ -9,9 +9,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from rest_framework.authtoken.models import Token
 
-from Grotto.views import ActionMixin, LoginRequiredMixin
+from grotto.views import ActionMixin, LoginRequiredMixin
+from grotto.game.services import CharacterCreationService
 
-from .character_generator import Character as CharacterGenerator
 from .models import Character, CharacterTest, CharacterTestChoice
 
 # Create your views here.
@@ -55,7 +55,7 @@ class CharacterDetailView(ActionMixin, DetailView):
             "url": "/guild/",
         },
         {
-            "text": "Enter the Grotto",
+            "text": "Enter the grotto",
             "url": "/game/become/{character_pk}/",
             "become": True,
         },
@@ -156,7 +156,7 @@ class NewCharacterView(LoginRequiredMixin, RedirectView):
 
     def get(self, request, *args, **kwargs):
         # actually create the character and associate to user
-        character = CharacterGenerator().generateCharacter(user=request.user)
+        character = CharacterCreationService().create(user=request.user)
         kwargs.update({"pk": character.pk})
         return super().get(request, *args, **kwargs)
 
