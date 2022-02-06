@@ -1,11 +1,13 @@
 from datetime import timedelta
 from random import choice, randint
 
+from django.utils.text import slugify
 from django.utils.timezone import now
 from django.db.models import F
+import markovify
 import webcolors
 
-from characterBuilder.models import Visit, NonPlayerCharacter
+from characterBuilder.models import Visit, NonPlayerCharacter, Character, Skill
 from characterBuilder.services import CharacterGeneratorService
 from mapBuilder.models import Room, RoomEvent
 from mapBuilder.services import RoomAdjacencyService
@@ -411,7 +413,7 @@ class ItemService:
         """Check the room for burned out candles, incense and replace them
         with an appropriate junk item"""
         for item_type in (ItemType.CANDLE, ItemType.INCENSE):
-            self._burnable_swap(item_typee)
+            self._burnable_swap(item_type)
 
     def _burnable_swap(self, item_type):
         abstract_spent_item, _ = AbstractItem.objects.get_or_create(
@@ -506,8 +508,9 @@ class RoomService(MarkovifyService):
         color_name, color_hex = RandomColorService().get_color()
         # get description
         text_model = self.get_text_model()
+        description = ""
         for number in range(3):
-            description += "\n" + text_model.make_sentence() + " "
+            description += text_model.make_sentence() + " "
         # create instance
         room = Room.objects.create(
             name=color_name.capitalize() + " Room",
@@ -533,12 +536,12 @@ class CharacterCreationService:
         # use generator service to
         char = CharacterGeneratorService().generate()
         skills = char.pop("skills")
-        character = models.Character.objects.create(
+        character = Character.objects.create(
             user=user,
             **char,
         )
         for skill, level in skills.items():
-            models.Skill.objects.create(
+            Skill.objects.create(
                 name=skill,
                 level=level,
                 character=character,

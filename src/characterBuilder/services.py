@@ -1,5 +1,7 @@
 from random import choice, choices, randint
 
+import markovify
+
 
 class BaseCharacterGeneration:
     kind = "unknown"
@@ -120,7 +122,7 @@ class BirdCharacterGeneration(BaseCharacterGeneration):
         )
 
 
-class AnimalCharacterGeneration(BaseCharacterGeneration)
+class AnimalCharacterGeneration(BaseCharacterGeneration):
     kind = "Animal"
     name_list = "word_lists/firstnames.txt"
     description_corpus = "word_lists/animal_corpus.txt"
@@ -130,7 +132,7 @@ class AnimalCharacterGeneration(BaseCharacterGeneration)
     def description(self, *, name=None):
         _type = (
             f"{self.add_a_or_an(self.adjective())} "
-            f"{self._choose_from_file("word_lists/animals.txt")}"
+            f"{self._choose_from_file('word_lists/animals.txt')}"
         )
         return f"{_type.capitalize()} {self._description()}"
 
@@ -141,9 +143,9 @@ class HumanCharacterGeneration(BaseCharacterGeneration):
 
     def name(self):
         return (
-            f"{self._choose_from_file("word_lists/firstnames.txt")} "
-            f"{self._choose_from_file("word_lists/lastnameBeginnings.txt")}"
-            f"{self._choose_from_file("word_lists/lastnameEndings.txt")}"
+            f"{self._choose_from_file('word_lists/firstnames.txt')} " +
+            self._choose_from_file("word_lists/lastnameBeginnings.txt") +
+            self._choose_from_file("word_lists/lastnameEndings.txt")
         )
 
     def description(self, *, name=None):
@@ -151,17 +153,17 @@ class HumanCharacterGeneration(BaseCharacterGeneration):
         adjectives.append(self.adjective(exclude=adjectives))
         adjectives.append(self.adjective(exclude=adjectives))
         return (
-            "A bipedal mammal with smooth skin and "
-            self._choose_from_file("word_lists/hair.txt")
+            "A bipedal mammal with smooth skin and " +
+            self._choose_from_file("word_lists/hair.txt") +
             f" hair on its head. It is wearing {self.add_a_or_an(self.color())} "
-            f"{self._choose_from_file("word_lists/clothes.txt")}. "
-            f"{name} worked as "
-            self.add_a_or_an(self._choose_from_file("word_lists/careers.txt"))
-            f"before embarking on their {adjectives[0]} quest to find the "
+            f"{self._choose_from_file('word_lists/clothes.txt')}. "
+            f"{name} worked as " +
+            self.add_a_or_an(self._choose_from_file("word_lists/careers.txt")) +
+            f" before embarking on their {adjectives[0]} quest to find the "
             f"legendary {self.substance()} obelisk. They are followed by their "
-            f"faithful compainion {self._choose_from_file("word_lists/firstnames.txt")}"
+            f"faithful compainion {self._choose_from_file('word_lists/firstnames.txt')}"
             f" the {adjectives[1]} "
-            f"{self._choose_from_file("word_lists/animals.txt")}. "
+            f"{self._choose_from_file('word_lists/animals.txt')}. "
         )
 
 
@@ -193,7 +195,7 @@ class FungusCharacterGeneration(InanimateCharacterGeneration):
 
 class VegetableCharacterGeneration(InanimateCharacterGeneration):
     kind = "Vegetable"
-    description_corpus = "text_corpus/veggie_corpus.txt"
+    description_corpus = "word_lists/veggie_corpus.txt"
     description_sentences = (("", ()), ("", ()),)
     markovify_newline = True
 
@@ -202,7 +204,7 @@ class VegetableCharacterGeneration(InanimateCharacterGeneration):
 
     def description(self, *, name=None):
         _bin = choice(["pumpkin", "vegetable"])
-        _type = self._choose_from_file(f"word_list/{_bin}s.txt")
+        _type = self._choose_from_file(f"word_lists/{_bin}s.txt")
         return f"{self.add_a_or_an(self.color())} {_type}. {self._description()}"
 
 

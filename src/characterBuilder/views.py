@@ -12,7 +12,6 @@ from rest_framework.authtoken.models import Token
 from Grotto.views import ActionMixin, LoginRequiredMixin
 from Grotto.game.services import CharacterCreationService
 
-from .character_generator import Character as CharacterGenerator
 from .models import Character, CharacterTest, CharacterTestChoice
 
 # Create your views here.
