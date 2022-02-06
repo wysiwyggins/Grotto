@@ -1,6 +1,5 @@
 import io
 import random
-from django.utils.text import slugify
 
 from itemBuilder.enum import ItemType
 

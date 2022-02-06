@@ -9,7 +9,7 @@ libsass==0.20.1
 markovify==0.9.3
 webcolors==1.11.1
 
-django-enumfield
+django-enumfield==2.0.2
 
 # deployment needs
 gunicorn==20.0.4
