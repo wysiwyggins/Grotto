@@ -1,16 +1,54 @@
+
 body.cenotaph {
-    overflow-y: hidden;
-    .main {
-        margin: 0;
-        padding: 0;
-        overflow-y: hidden;
+    .main div, .main img {
+        max-width: 700px;
+        margin: auto;
     }
     div {
+        font-size: 16px;
+        line-height: 18px;
+    }
+    ul {
+        list-style: square;
+    }
+    details > summary {
+        padding: 2px 6px;
+        background-color: rgba(255, 255, 255, 0.4);
+        border: none;
+        box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        margin-bottom: 10px;
+      }
+    details[open] {
+        background-color: rgba(255, 255, 255, 0.4);
+        padding-left: 4px;
+        padding-bottom: 6px;
+        font-family: 'courier_prime_coderegular', Courier, monospace;
+    }
+    details[open] > summary {
+        background-color: rgba(255, 255, 255, 0.4);
+        color: #666;
+        padding-left: 2px;
+        
+      }
+    
+    h3 {
+        font-size: 30px;
+        line-height: 36px;
+        margin-bottom: 20px;
+    }
+    div {
+        
         ul {
             display: block;
+            
             li {
                 margin-left: 20px;
             }
         }
     }
+    a-scene {
+        display: none;
+    }
 }
+

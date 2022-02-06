@@ -173,8 +173,13 @@ body.icon-ui-view{
     summary {
         padding-bottom: 10px;
     }
+    details[open] > summary {
+        font-family: "Portfolio", monospace;
+        @include darkText();
+        
+      }
     a-scene {
-        z-index: 0;
+        display: none;
     }
 
     .obituary, .inscription {
@@ -383,3 +388,4 @@ body.icon-ui-view{
         }    
     }
 }
+
