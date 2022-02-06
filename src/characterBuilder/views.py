@@ -10,6 +10,7 @@ from django.views.generic.list import ListView
 from rest_framework.authtoken.models import Token
 
 from Grotto.views import ActionMixin, LoginRequiredMixin
+from Grotto.game.services import CharacterCreationService
 
 from .character_generator import Character as CharacterGenerator
 from .models import Character, CharacterTest, CharacterTestChoice
@@ -156,7 +157,7 @@ class NewCharacterView(LoginRequiredMixin, RedirectView):
 
     def get(self, request, *args, **kwargs):
         # actually create the character and associate to user
-        character = CharacterGenerator().generateCharacter(user=request.user)
+        character = CharacterCreationService().create(user=request.user)
         kwargs.update({"pk": character.pk})
         return super().get(request, *args, **kwargs)
 

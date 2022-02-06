@@ -3,9 +3,12 @@ from random import choice, randint
 
 from django.utils.timezone import now
 from django.db.models import F
+import webcolors
 
 from characterBuilder.models import Visit, NonPlayerCharacter
+from characterBuilder.services import CharacterGeneratorService
 from mapBuilder.models import Room, RoomEvent
+from mapBuilder.services import RoomAdjacencyService
 from itemBuilder.models import Item, AbstractItem, Swap
 from itemBuilder.enum import ItemType
 from itemBuilder.item_generator import ItemGeneratorService
@@ -168,7 +171,7 @@ class NonPlayerCharacterService:
 
 class RandomColorService:
     def get_elaborate_color(self):
-        with open("word_lists/colors.txt") as f:
+        with open("word_lists/elaborate_colors.txt") as f:
             colors = f.readlines()
         # colorFO = io.open("word_lists/colors.txt", encoding="utf-8")
         # colors = list(colorFO)
@@ -286,7 +289,8 @@ class RandomColorService:
         color.append(red)
         color.append(green)
         color.append(blue)
-        return elaborate_color, color
+        color_hex = webcolors.rgb_to_hex(color)
+        return elaborate_color, color_hex
 
 
 # service
@@ -388,38 +392,43 @@ class ItemService:
                 )
 
     def burnable_swap(self):
-        """Check the room for burned out candles and replace them with a junk item"""
-        abstract_spent_candle, _ = AbstractItem.objects.get_or_create(
+        """Check the room for burned out candles, incense and replace them
+        with an appropriate junk item"""
+        for item_type in (ItemType.CANDLE, ItemType.INCENSE):
+            self._burnable_swap(item_typee)
+
+    def _burnable_swap(self, item_type):
+        abstract_spent_item, _ = AbstractItem.objects.get_or_create(
             itemType=ItemType.JUNK,
-            itemName="Spent Candle",
-            itemDescription="A little fleck of wick sits at the bottom",
+            itemName=f"Spent {str(item_type).capitalize()}",
+            itemDescription="It's all burned up!",
         )
-        for old_candle in Item.objects.exclude(
+        for old_item in Item.objects.exclude(
             abstract_item__active_time__isnull=True,
             active__isnull=True,
         ).filter(
-            abstract_item__itemType=ItemType.CANDLE,
+            abstract_item__itemType=item_type,
             active__lte=now()-F("abstract_item__active_time"),
         ):
             self.create(
-                abstract_item=abstract_spent_candle,
-                room=old_candle.current_room,
-                character=old_candle.current_owner,
+                abstract_item=abstract_spent_item,
+                room=old_item.current_room,
+                character=old_item.current_owner,
             )
-            old_candle.delete()
-            if old_candle.current_room:
+            if old_item.current_room:
                 RoomEvent.objects.create(
-                    room=old_candle.current_room,
-                    text=(f"{old_candle.abstract_item} burned out")
+                    room=old_item.current_room,
+                    text=(f"{old_item.abstract_item} burned out")
                 )
             else:
                 RoomEvent.objects.create(
-                    room=old_candle.current_owner.room,
+                    room=old_item.current_owner.room,
                     text=(
-                        f"{old_candle.current_owner.name}'s "
-                        f"{old_candle.abstract_item} burned out"
+                        f"{old_item.current_owner.name}'s "
+                        f"{old_item.abstract_item} burned out"
                     )
                 )
+            old_item.delete()
 
 
     def get_item(self, *, character, pk, holder="character", raises=GrottoGameWarning):
@@ -462,6 +471,66 @@ class ItemService:
 
     def _use_amulet(self, item, character):
         pass
+
+
+class MarkovifyService:
+    word_list = "word_list.txt"
+    def get_text_model(self, *, word_list=None):
+        if word_list is None:
+            word_list = self.word_list
+        with open(word_list) as f:
+            text = f.read()
+        return markovify.Text(text).compile()
+
+
+class RoomService(MarkovifyService):
+    word_list = "word_lists/rooms.txt"
+    def generate(self):
+        # get color
+        color_name, color_hex = RandomColorService().get_color()
+        # get description
+        text_model = self.get_text_model()
+        for number in range(3):
+            description += "\n" + text_model.make_sentence() + " "
+        # create instance
+        room = Room.objects.create(
+            name=color_name.capitalize() + " Room",
+            description=description,
+            colorHex=color_hex,
+            colorName=color_name,
+            colorSlug=slugify(color_name),
+        )
+        # add adjacencies
+        RoomAdjacencyService().add_room(room)
+        return room
+
+
+class CharacterCreationService:
+    default_item_types = (
+        ItemType.CANDLE,
+        ItemType.SCRUBBRUSH,
+        ItemType.JUNK,
+        ItemType.ARROW,
+    )
+
+    def create(self, *, user):
+        # use generator service to
+        char = CharacterGeneratorService().generate()
+        skills = char.pop("skills")
+        character = models.Character.objects.create(
+            user=user,
+            **char,
+        )
+        for skill, level in skills.items():
+            models.Skill.objects.create(
+                name=skill,
+                level=level,
+                character=character,
+            )
+        for item_type in self.default_item_types:
+            _abstract = AbstractItem.objects.filter(itemType=item_type).order_by("?")[0]
+            ItemService().create(abstract_item=_abstract, character=character)
+        return character
 
 
 class GameService:
