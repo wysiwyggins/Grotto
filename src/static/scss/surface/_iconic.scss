@@ -27,7 +27,16 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
     background-repeat: repeat;
     background-size: 10px,7px;
 }
-
+@mixin dirty {
+    background-image: url('/static/images/dirty.png');
+    background-repeat: repeat;
+    background-size: 90px,82px;
+}
+@mixin profane {
+    background-image: url('/static/images/profane.png');
+    background-repeat: repeat;
+    background-size: 90px,82px;
+}
 @mixin blackText {
     -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
@@ -73,6 +82,19 @@ body.icon-ui-view{
         
     }
 
+    &.cleanliness-profane {
+        .content {
+            @include profane();
+        }
+        @include black();
+    }
+    &.cleanliness-dim {
+        .content {
+            @include dirty();
+        }
+        
+    }
+
     .main, main {
         flex: 1;
         display: flex;
@@ -84,6 +106,10 @@ body.icon-ui-view{
     header{
         text-align: center;
         display: block;
+        span {
+            font-size: 14px;
+            line-height: 16px;
+        }
     }
     h1{
         @include darkText();
@@ -147,8 +173,13 @@ body.icon-ui-view{
     summary {
         padding-bottom: 10px;
     }
+    details[open] > summary {
+        font-family: "Portfolio", monospace;
+        @include darkText();
+        
+      }
     a-scene {
-        z-index: 0;
+        display: none;
     }
 
     .obituary, .inscription {
@@ -355,5 +386,62 @@ body.icon-ui-view{
             background-image: url('/static/images/cenotaph_sm.png');
             
         }    
+    }
+}
+//temporary fix for cenotaphs not having the gui class added
+
+body.cenotaph {
+
+    .content {
+        overflow-y: scroll;
+    }
+    h1{
+        @include darkText();
+        font-family: "Portfolio", monospace;
+        text-align: center;
+        font-size: 4em;
+        line-height: 82px;
+        padding: 4px;
+        margin: 0;
+    }
+
+    h3 {
+        font-family: "Portfolio", monospace;
+        @include darkText();
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 2px;
+        max-width: 400px;
+        margin: auto;
+    }
+
+    .status-bar {
+        min-height: $grid-cell-height * 3;
+        max-height: $grid-cell-height * 9;
+        line-height: $grid-cell-height * 3;
+        font-size: 1 em;
+        text-align: center;
+        //background-color:rgb(38, 38, 38);
+        @include darkscanlines();
+        color: $inverse-color;
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: hidden;
+        span {
+            display:inline-block;
+        }
+    }
+    .action-bar {
+        min-height: $grid-cell-height * 3;
+        line-height: $grid-cell-height * 3;
+        font-size: 1 em;
+        text-align: center;
+        //background-color:darken(invert($color: $background-color), 20%);
+        @include black();
+        color: $inverse-color;
+    }
+
+    .characterPanel {
+        z-index: 5;
     }
 }
