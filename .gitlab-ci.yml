@@ -71,24 +71,24 @@ register-container:
     - echo $output
     - echo "$output" | grep -q "deployment.apps/app unchanged" && ./kubectl -n grotto-$DEPLOY_ENV delete po -l role=app || echo "app updated"
 
-# deploy-app-staging:
-#   # deploy to digital ocean droplet
-#   only:
-#     - master@grotto/grotto
-#   before_script:
-#     - 'command -v ssh-agent >/dev/null || ( apk add openssh-client-default --no-cache )'
-#     - eval $(ssh-agent -s)
-#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#     - mkdir -p ~/.ssh
-#     - chmod 700 ~/.ssh
-#   script:
-#     - ssh grotto@$STAGING_HOST
-#     - cd prod
-#     - docker pull registry.gitlab.com/grotto/grotto:latest-master
-#     - docker-compose up -d
-#     - docker system prune -f  # keep the instance clean!
-#   variables:
-#     DEPLOY_ENV: prod
+deploy-app-staging:
+  # deploy to digital ocean droplet
+  only:
+    - master@grotto/grotto
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add openssh-client-default --no-cache )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - ssh grotto@$STAGING_HOST
+    - cd prod
+    - docker pull registry.gitlab.com/grotto/grotto:latest-master
+    - docker-compose up -d
+    - docker system prune -f  # keep the instance clean!
+  variables:
+    DEPLOY_ENV: prod
 
 deploy-app-prod:
   <<: *deploy-app
