@@ -21,6 +21,50 @@ function resetSelected() {
   selectedIndex.set({"index": 0, "categoryIndex": 0});
 }
 
+function incrementCategory() {
+  let newCategory = 0;
+  switch ($selectedIndex.categoryIndex) {
+    case 0:
+      newCategory = 1;
+      break;
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      newCategory = 5;
+      break;
+    case 5:
+      newCategory = 0;
+      break;
+    default:
+      newCategory = 0;
+      break;
+  }
+  selectedIndex.set({"index": 0, "categoryIndex": newCategory});
+}
+
+function decrementCategory() {
+  let newCategory = 0;
+  switch ($selectedIndex.categoryIndex) {
+    case 0:
+      newCategory = 5;
+      break;
+    case 1:
+      break;
+      newCategory = 0;
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+      newCategory = 1;
+      break;
+    default:
+      newCategory = 0;
+      break;
+  }
+  selectedIndex.set({"index": 0, "categoryIndex": newCategory});
+}
+
 function incrementSelected() {
   // This is kinda ugly, but it works!
   let newIndex = $selectedIndex.index;
@@ -77,21 +121,25 @@ async function doSelected() {
 
 function handleKeydown(event) {
   switch (event.key) {
-    case "w":
-    case "ArrowUp":
     case "a":
     case "ArrowLeft":
       console.log("change selected (left)")
       decrementSelected();
       console.log($selectedIndex);
       break;
-    case "s":
-    case "ArrowDown":
     case "d":
     case "ArrowRight":
       console.log("change selected (right)")
       incrementSelected();
       console.log($selectedIndex);
+      break;
+    case "w":
+    case "ArrowUp":
+      incrementCategory();
+      break;
+    case "s":
+    case "ArrowDown":
+      decrementCategory();
       break;
     case "Enter":
     case " ":
@@ -118,7 +166,10 @@ tableau.subscribe(value => {
 
 
 <div class="content" style="background-color: {$tableau.room.colorHex};">
-  <header><h1>{$tableau.room.name}</h1></header>
+  <header>
+    <h1>{$tableau.room.name}</h1>
+    <span>grotto.wileywiggins.com/rooms/{$tableau.room.colorName}/</span>
+  </header>
   <div class="main">
     <div class="UIpanel" id="room-panel">
       <GuiRoomExits exits="{$selectable.exits}"/>

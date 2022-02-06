@@ -33,7 +33,7 @@
           <section class="actions-panel">
             <ul class="actions">
               {% for action in actions %}
-                <li><a href="{{ action.url }}">{{ action.text }}</a></li>
+                <li {% if forloop.first %}class="selected"{% endif %}><a href="{{ action.url }}">{{ action.text }}</a></li>
               {% endfor %}
             </ul>
           </section>
@@ -43,6 +43,17 @@
     {% endblock %}
     </body>
 
+    {% block toggle_view_script %}
+      <script type="text/javascript">
+        document.addEventListener("keydown", function(e) {
+          if (e.key === "`") {
+            document.body.classList.toggle("icon-ui-view");
+          } else {
+            console.log(`useless keypress ${e.key}`);
+          }
+        });
+      </script>
+    {% endblock %}
     {% block page_script %}
     {% endblock %}
 </html>

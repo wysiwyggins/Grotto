@@ -135,7 +135,23 @@ class NonPlayerCharacterService:
         elif isinstance(room, (Room,)):
             future = room
         else:
-            future = choice(current.exits.all())
+            choice_qs = current.exits.all()
+            if npc.demonic:
+                # don't let demonic npcs go into rooms with incense burning
+                incense_count = Count(
+                    "item",
+                    filter=(
+                        Q(item__abstract_item__itemType=ItemType.INCENSE) &
+                        Q(item__isnull=False)
+                    )
+                )
+                choice_qs = choice_qs.annotate(
+                    incense_count=incense_count).filter(incense_count__gt=1)
+            try:
+                future = choice_qs.order_by("?")[0]
+            except IndexError:
+                # No place for the npc to go
+                future = current
         npc.room = future
         npc.movement_entropy = 0
         npc.save()
@@ -287,6 +303,7 @@ class RandomColorService:
         color.append(green)
         color.append(blue)
         return elaborate_color, color
+        # TODO: that color needs to be converted to hex!
 
 
 # service
