@@ -391,6 +391,10 @@ body.icon-ui-view{
 //temporary fix for cenotaphs not having the gui class added
 
 body.cenotaph {
+
+    .main {
+        overflow-y: scroll;
+    }
     h1{
         @include darkText();
         font-family: "Portfolio", monospace;
