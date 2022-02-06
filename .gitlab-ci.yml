@@ -71,6 +71,10 @@ deploy-app-staging:
     - chmod 644 ~/.ssh/known_hosts
   script:
     - ssh grotto@$STAGING_HOST
+    - ls -al
+    - pwd
+    - whoami
+    - hostname
     - cd prod
     - docker pull registry.gitlab.com/grotto/grotto:latest-main
     - docker-compose up -d
