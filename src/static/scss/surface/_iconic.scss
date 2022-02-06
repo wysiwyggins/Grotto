@@ -388,4 +388,26 @@ body.icon-ui-view{
         }    
     }
 }
+//temporary fix for cenotaphs not having the gui class added
 
+body.cenotaph {
+    h1{
+        @include darkText();
+        font-family: "Portfolio", monospace;
+        text-align: center;
+        font-size: 4em;
+        line-height: 82px;
+        padding: 4px;
+        margin: 0;
+    }
+
+    h3 {
+        font-family: "Portfolio", monospace;
+        @include darkText();
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 2px;
+        max-width: 400px;
+        margin: auto;
+    }
+}
