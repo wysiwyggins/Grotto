@@ -3,7 +3,7 @@ from random import choice, randint
 
 from django.utils.text import slugify
 from django.utils.timezone import now
-from django.db.models import F, Count
+from django.db.models import F, Count, Q
 import markovify
 import webcolors
 
