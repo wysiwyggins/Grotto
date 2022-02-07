@@ -144,10 +144,10 @@ class NonPlayerCharacterService:
             if npc.demonic:
                 # don't let demonic npcs go into rooms with incense burning
                 incense_count = Count(
-                    "item",
+                    "items",
                     filter=(
-                        Q(item__abstract_item__itemType=ItemType.INCENSE) &
-                        Q(item__isnull=False)
+                        Q(items__abstract_item__itemType=ItemType.INCENSE) &
+                        Q(items__isnull=False)
                     )
                 )
                 choice_qs = choice_qs.annotate(
