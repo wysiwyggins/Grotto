@@ -1,6 +1,15 @@
 
 body.cenotaph {
-    
+    header {
+        text-align: center;
+    }
+    .content {
+        height: 100vh;
+        overflow-y: hidden;
+    }
+    .main {
+        overflow-y: scroll;
+    }
     .main div, .main img {
         max-width: 700px;
         margin: auto;
@@ -37,6 +46,7 @@ body.cenotaph {
         font-size: 30px;
         line-height: 36px;
         margin-bottom: 20px;
+        text-align: center;
     }
     div {
         
@@ -51,5 +61,7 @@ body.cenotaph {
     a-scene {
         display: none;
     }
+    
+
 }
 
