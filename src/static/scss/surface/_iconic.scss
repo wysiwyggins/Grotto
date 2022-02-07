@@ -64,6 +64,7 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
 
 
 body.icon-ui-view{
+    
     padding: 0;
     margin: 0;
     font-family: "Portfolio", monospace;
@@ -95,6 +96,14 @@ body.icon-ui-view{
         
     }
 
+    section.content {
+        background-color: transparent;
+        max-width: 600px;
+        margin: auto;
+        ul {
+            flex-direction: column;
+        }
+    }
     .main, main {
         flex: 1;
         display: flex;
@@ -111,7 +120,7 @@ body.icon-ui-view{
             line-height: 16px;
         }
     }
-    h1{
+    h1, h2{
         @include darkText();
         font-family: "Portfolio", monospace;
         text-align: center;
