@@ -8,6 +8,7 @@ body.cenotaph {
         overflow-y: hidden;
     }
     .main {
+        max-height: 96vh;
         overflow-y: scroll;
     }
     .main div, .main img {
