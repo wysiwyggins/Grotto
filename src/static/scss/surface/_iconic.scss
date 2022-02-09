@@ -89,7 +89,7 @@ body.icon-ui-view{
         }
         @include black();
     }
-    &.cleanliness-dim {
+    &.cleanliness-dirty {
         .content {
             @include dirty();
         }
