@@ -35,7 +35,7 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
 @mixin profane {
     background-image: url('/static/images/profane.png');
     background-repeat: repeat;
-    background-size: 100px,92px;
+    background-size: 140px,188px;
 }
 @mixin blackText {
     -webkit-text-fill-color: transparent;
