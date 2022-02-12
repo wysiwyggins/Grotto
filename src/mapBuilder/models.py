@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 from colorfield.fields import ColorField
@@ -5,6 +6,7 @@ from django.db import models
 from django.utils.timezone import now
 
 from itemBuilder.enum import ItemType
+from mapBuilder.validators import validate_pdf_image_or_audio
 
 
 class Room(models.Model):
@@ -80,6 +82,11 @@ class Room(models.Model):
         return deduped_visits
 
 
+def centaph_portrait_uploads(instance, filename):
+    name = f"cenotaph/portraits/{filename}"
+    return name
+
+
 class Cenotaph(models.Model):
     room = models.OneToOneField(Room, on_delete=models.PROTECT, related_name="cenotaph")
     text = models.TextField(help_text="The inscription on the cenotaph")
@@ -87,9 +94,12 @@ class Cenotaph(models.Model):
     birth = models.CharField(max_length=32, null=True, blank=True)
     death = models.CharField(max_length=32, null=True, blank=True)
     scene = models.TextField(help_text="This 'a-frame' will be inserted in the cenotaph as background", null=True, blank=True)
-    portrait_filename = models.CharField(max_length=64, null=True, blank=True)
-    # TODO: get S3 uploads sorted out
-    # portrait = models.FileField()
+    portrait_filename = models.CharField(max_length=128, null=True, blank=True)
+    portrait = models.FileField(
+        upload_to=centaph_portrait_uploads,
+        validators=[validate_pdf_image_or_audio],
+        null=True,
+    )
 
 
 class RoomEvent(models.Model):
@@ -98,6 +108,29 @@ class RoomEvent(models.Model):
     text = models.CharField(max_length=256)
 
 
-# Eventually!
-# class CenotaphFileUpload(models.Model):
-#     file = models.FileField(...)
+def centaph_file_uploads(instance, filename):
+    ext = os.path.splitext(filename)[1]
+    name = f"cenotaph/{instance.cenotaph.pk}_{now()}{ext}"
+    print(name)
+    return name
+
+
+class CenotaphFile(models.Model):
+    cenotaph = models.ForeignKey(
+        Cenotaph, on_delete=models.CASCADE, related_name="files")
+    file = models.FileField(
+        upload_to=centaph_file_uploads,
+        validators=[validate_pdf_image_or_audio],
+    )
+    original_filename = models.CharField(max_length=128, blank=True)
+    extension = models.CharField(max_length=8, blank=True)
+
+    def __str__(self):
+        return f"{self.original_filename}{self.extension}"
+
+    def save(self, **kwargs):
+        """If this is the first time saving, then capture the original
+        filename"""
+        if not self.id:
+            self.original_filename, self.extension = os.path.splitext(str(self.file))
+        return super().save(**kwargs)

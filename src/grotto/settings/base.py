@@ -181,6 +181,14 @@ LOGIN_REDIRECT_URL = "/guild/"
 ## debugging the 500 error
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ADMINS = [("whoever", "whoever@somewhere.net")]
+ADMINS = [("paul", os.environ.get("PAUL_EMAIL", "fake@email.com"))]
 
 ENV = "DEV"
+
+# S3
+DEFAULT_FILE_STORAGE = "grotto.storage.MediaStorage"
+AWS_S3_ACCESS_KEY_ID = os.environ.get("AWS_S3_ACCESS_KEY_ID")
+AWS_S3_SECRET_ACCESS_KEY = os.environ.get("AWS_S3_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = "grotto-media"
+AWS_S3_REGION_NAME = "us-east-1"
+AWS_S3_MEDIA_URL = ""
