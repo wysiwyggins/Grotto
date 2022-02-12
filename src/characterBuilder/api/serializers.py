@@ -13,7 +13,7 @@ class OccupantSerializer(serializers.ModelSerializer):
 class NonPlayerCharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.NonPlayerCharacter
-        fields = ("pk", "name")
+        fields = ("pk", "name", "greeting")
 
 
 class CharacterSerializer(serializers.ModelSerializer):

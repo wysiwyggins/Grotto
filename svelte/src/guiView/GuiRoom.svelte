@@ -2,7 +2,7 @@
 import { tick } from "svelte";
 import { post } from "../api.js";
 import { invertColor, lightenColor } from "../util.js";
-import { tableauPromise, tableau } from "../stores.js";
+import { tableauPromise, tableau, baseUrl, messages, insertedMessage } from "../stores.js";
 
 import GuiRoomExits from "./components/GuiRoomExits.svelte"
 import GuiRoomItems from "./components/GuiRoomItems.svelte"
@@ -40,7 +40,8 @@ function incrementCategory() {
       newCategory = 0;
       break;
   }
-  selectedIndex.set({"index": 0, "categoryIndex": newCategory});
+  // selectedIndex.set({"index": 0, "categoryIndex": newCategory});
+  return newCategory
 }
 
 function decrementCategory() {
@@ -62,15 +63,21 @@ function decrementCategory() {
       newCategory = 0;
       break;
   }
-  selectedIndex.set({"index": 0, "categoryIndex": newCategory});
+  return newCategory;
+  // selectedIndex.set({"index": 0, "categoryIndex": newCategory});
 }
 
-function incrementSelected() {
+function incrementSelected(scope="item") {
   // This is kinda ugly, but it works!
   let newIndex = $selectedIndex.index;
   let newCategory = $selectedIndex.categoryIndex;
   const maxLen = $selectable[categories[newCategory]].length
-  newIndex += 1;
+  if (scope == "category") {
+    newCategory = incrementCategory();
+    newIndex = 0;
+  } else {
+    newIndex += 1;
+  }
   while (newIndex >= $selectable[categories[newCategory]].length) {
     newCategory = (newCategory + 1) % categories.length;
     newIndex = 0;
@@ -78,10 +85,15 @@ function incrementSelected() {
   selectedIndex.set({"index": newIndex, "categoryIndex": newCategory});
 }
 
-function decrementSelected() {
+function decrementSelected(scope="item") {
   let newIndex = $selectedIndex.index;
   let newCategory = $selectedIndex.categoryIndex;
-  newIndex -= 1
+  if (scope == "category") {
+    newCategory = decrementCategory();
+    newIndex = 0;
+  } else {
+    newIndex -= 1
+  }
   while (newIndex < 0) {
     newCategory -= 1
     if (newCategory < 0) {
@@ -109,6 +121,9 @@ async function doSelected() {
     console.log("Linking to another page");
     location.href = _selected.linkUrl;
   }
+  if (_selected.actionMessage !== null && _selected.actionMessage !== undefined ) {
+   insertedMessage.set(_selected.actionMessage);
+  }
   if (_selected.actionUrl === null || _selected.actionUrl === undefined) {
     console.log("No action for this thing!");
     return
@@ -135,11 +150,11 @@ function handleKeydown(event) {
       break;
     case "w":
     case "ArrowUp":
-      incrementCategory();
+      decrementSelected("category");
       break;
     case "s":
     case "ArrowDown":
-      decrementCategory();
+      incrementSelected("category");
       break;
     case "Enter":
     case " ":
@@ -168,7 +183,7 @@ tableau.subscribe(value => {
 <div class="content" style="background-color: {$tableau.room.colorHex};">
   <header>
     <h1>{$tableau.room.name}</h1>
-    <span>grotto.wileywiggins.com/rooms/{$tableau.room.colorName}/</span>
+    <span>{$baseUrl}/rooms/{$tableau.room.colorSlug}/</span>
   </header>
   <div class="main">
     <div class="UIpanel" id="room-panel">
@@ -185,7 +200,7 @@ tableau.subscribe(value => {
   </div>
   <div class="characterPanel" style="background-color: {contrastColor};">
     <div class="status-bar" id="status-bar">
-      {#each $tableau.messages as message}
+      {#each $messages as message}
         <span>{message}</span>
       {/each}
     </div>

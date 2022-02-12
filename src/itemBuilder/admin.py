@@ -14,7 +14,7 @@ class AbstractItemAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ("abstract_item", "current_owner", "current_room")
+    list_display = ("abstract_item", "current_owner", "current_room", "active")
 
 
 @admin.register(Swap)

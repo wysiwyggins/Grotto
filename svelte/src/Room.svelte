@@ -5,8 +5,11 @@ import TextRoom from "./textView/TextRoom.svelte";
 import GuiRoom from "./guiView/GuiRoom.svelte";
 import PlayerMessages from "./textView/components/PlayerMessages.svelte";
 
-import { tableauPromise, tableau } from "./stores.js";
+import { tableauPromise, tableau, baseUrl } from "./stores.js";
 export let user;
+export let base_url;
+
+baseUrl.set(base_url);
 
 const viewModes = [
 	{

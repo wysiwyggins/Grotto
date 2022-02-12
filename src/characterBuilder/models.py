@@ -63,6 +63,7 @@ class NonPlayerCharacter(NamedModel):
         help_text="When Movement Entropy exceeds this threshold the NPC will move",
     )
     warning_text = models.CharField(max_length=200)
+    greeting = models.CharField(max_length=140, null=True, blank=True)
 
 
 class Skill(NamedModel):

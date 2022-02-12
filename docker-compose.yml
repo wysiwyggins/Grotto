@@ -8,6 +8,8 @@ services:
     environment:
       - APP_ENV=dev
       - DEBUG=True
+    env_file:
+      - ./s3.env
     volumes:
       - ./src/:/app/src/
       - ./svelte:/app/svelte/

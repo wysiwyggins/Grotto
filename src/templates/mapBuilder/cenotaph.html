@@ -18,7 +18,7 @@
           {% if object.birth %}{{ object.birth }}{% else %}????{% endif%}&mdash;{% if object.death %}{{ object.death }}{% else %}????{% endif%}
         </header>
 
-        <img id="portrait" class="portrait" src="{% static object.portrait_filename %}"/>
+        <img id="portrait" class="portrait" src="{{ object.portrait.url }}"/>
 
         <div class="obituary">
             <h3>Inscription:</h3>

@@ -24,4 +24,4 @@ db.sqlite3
 CACHE/
 **/.DS_Store
 **/secret*
-s3.env
+*.env

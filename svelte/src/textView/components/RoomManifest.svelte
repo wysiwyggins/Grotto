@@ -1,5 +1,5 @@
 <script>
-import { tableau } from "../../stores.js";
+import { tableau, insertedMessage } from "../../stores.js";
 </script>
 
 <p>There are some entities in the room:</p>
@@ -14,6 +14,6 @@ import { tableau } from "../../stores.js";
     </li>
   {/each}
   {#each $tableau.room.npcs as npc}
-    <li>{npc.name} is here!</li>
+    <li>{npc.name} is here! &mdash; <a href="#" on:click="{() => insertedMessage.set(npc.greeting)}">greet</a></li>
   {/each}
 </ul>
