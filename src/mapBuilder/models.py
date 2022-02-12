@@ -67,6 +67,12 @@ class Room(models.Model):
         return _warnings
 
     @property
+    def visible_items(self):
+        if self._room_level(item_type=ItemType.CANDLE) == 0:
+            return self.items.all().none()
+        return self.items.all()
+
+    @property
     def visits(self):
         deduped_visits = []
         visitors = []

@@ -53,30 +53,32 @@ export const selectable = derived(tableau, ($tableau, set) => {
     if (item.is_active) {
       itemClass += "-active";
     }
-    let actionMessage = "Can't touch this";
+    let actionText = "Can't touch this";
     let actionUrl = null;
     if (item.is_takeable) {
       actionUrl = `v1/items/${item.pk}/take/` ;
-      actionMessage = `Take ${item.name}`
+      actionText = `Take ${item.name}`
     }
     _selectable.items.push({
       "dataPk": item.pk,
       "dataType": item.abstract_item.itemType.toLowerCase(),  // used to generate element
       "classes": ["item", itemClass],
       "actionUrl": actionUrl,
-      "actionText": actionMessage
+      "actionText": actionText
     })
   });
 
   $tableau.room.occupants.forEach(character => {
-    _selectable.occupants.push({
-      "dataPk": character.pk,
-      "dataType": "character",  // used to generate element
-      "classes": ["character", character.kind.toLowerCase()],  // TODO: add up/down functionality
-      "actionUrl": null,  // TODO: link to view character sheet
-      "redirectUrl": null,
-      "actionText": `Inspect ${character.name}`
-    })
+    if (character.pk != $tableau.character.pk) {
+      _selectable.occupants.push({
+        "dataPk": character.pk,
+        "dataType": "character",  // used to generate element
+        "classes": ["character", character.kind.toLowerCase()],  // TODO: add up/down functionality
+        "actionUrl": null,  // TODO: link to view character sheet
+        "linkUrl": `/guild/character/${character.pk}/`,
+        "actionText": `Inspect ${character.name}`
+      })
+    }
   });
 
   $tableau.room.npcs.forEach(character => {
@@ -85,7 +87,8 @@ export const selectable = derived(tableau, ($tableau, set) => {
       "dataType": "character",  // used to generate element
       "classes": ["character", character.name.toLowerCase()],  // TODO: add up/down functionality
       "actionUrl": null,  // TODO: talk to npc
-      "actionText": `Inspect ${character.name}`
+      "actionMessage": `"${character.greeting}"`,
+      "actionText": `Greet ${character.name}`
     })
   });
 

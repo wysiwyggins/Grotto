@@ -18,7 +18,6 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATES_DIRS = BASE_DIR / "templates"
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -31,6 +30,8 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = ["localhost", "ilocalhost", "grotto.wileywiggins.com"]
+
+BASE_URL = "localhost:8000"
 
 # Application definition
 

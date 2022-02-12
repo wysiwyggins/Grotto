@@ -1,10 +1,10 @@
 <script>
-import { tableau } from "../../stores.js";
+import { messages } from "../../stores.js";
 </script>
 
-{#if $tableau.messages}
+{#if $messages}
   <ul class="messages">
-    {#each $tableau.messages.reverse() as message}
+    {#each $messages.reverse() as message}
       <li>{message}</li>
     {/each}
   </ul>

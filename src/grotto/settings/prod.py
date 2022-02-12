@@ -14,3 +14,5 @@ DATABASES = {
         "PORT": os.environ.get("DATABASE_PORT", "5432"),
     }
 }
+
+BASE_URL = "www.mudroom.rip"

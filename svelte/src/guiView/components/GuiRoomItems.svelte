@@ -6,11 +6,16 @@ export let items;
 export let occupants;
 export let npcs;
 
-import { tableauPromise } from "../../stores.js";
+import { tableauPromise, insertedMessage } from "../../stores.js";
 import { selectedIndex } from "../stores.js";
 
-function handleOccupantClick(occupant) {}
-function handleNpcClick(npc) {}
+function handleOccupantClick(occupant) {
+  // forward to character sheet
+  location.href = occupant.linkUrl;
+}
+function handleNpcClick(npc) {
+  insertedMessage.set(npc.actionMessage);
+}
 function handleItemClick(item) {
   if (! items.is_takeable) {
     return
