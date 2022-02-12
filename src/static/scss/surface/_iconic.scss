@@ -63,6 +63,8 @@ $inverse-color: lighten(invert($color: $background-color), 20%);
 
 
 
+
+
 body.icon-ui-view{
     
     padding: 0;
@@ -94,6 +96,57 @@ body.icon-ui-view{
             @include dirty();
         }
         
+    }
+
+    section.welcome {
+        border-radius: 0px;
+        -webkit-animation:change-color 20s linear 5s infinite normal;
+        -moz-animation:change-color 20s linear 5s infinite normal;
+        -ms-animation:change-color 20s linear 5s infinite normal;
+        animation:change-color 20s linear 5s infinite normal;
+        @-webkit-keyframes change-color {
+            0%{ background-color:rgba(218, 211, 211, 0.6); }
+            20%{ background-color:rgba(218, 211, 211, 0.6);}
+            21%{ background-color:rgb(147, 72, 72);}
+            40%{ background-color:rgb(147, 72, 72); }
+            41%{ background-color:rgb(72, 147, 118); }
+            60%{ background-color:rgb(72, 147, 118); }
+            61%{ background-color:rgb(113, 111, 214); }
+            80%{ background-color:rgb(113, 111, 214); }
+            81%{ background-color:rgb(228, 185, 92); }
+            100%{ background-color:rgb(228, 185, 92); }
+            }
+            
+            @keyframes change-color {
+                0%{ background-color:rgba(218, 211, 211, 0.6); }
+                20%{ background-color:rgba(218, 211, 211, 0.6);}
+                21%{ background-color:rgb(147, 72, 72);}
+                40%{ background-color:rgb(147, 72, 72); }
+                41%{ background-color:rgb(72, 147, 118); }
+                60%{ background-color:rgb(72, 147, 118); }
+                61%{ background-color:rgb(113, 111, 214); }
+                80%{ background-color:rgb(113, 111, 214); }
+                81%{ background-color:rgb(228, 185, 92); }
+                100%{ background-color:rgb(228, 185, 92); }
+            }
+    
+        ul.game-select-list {
+            flex-flow: column;
+            min-width: 200px;
+            margin:auto;
+            padding-top: 50px;
+            font-size: 24px;
+            @include darkText();
+            li {
+                padding-bottom: 50px;
+                a:hover,a:focus {
+                    @include black();
+                    color:rgba(255, 255, 255, 0.6);
+                    -webkit-text-fill-color: rgba(255, 255, 255, 0.6);
+                }
+            }
+            
+        }
     }
 
     section.content {
@@ -398,59 +451,3 @@ body.icon-ui-view{
     }
 }
 //temporary fix for cenotaphs not having the gui class added
-
-body.cenotaph {
-
-    .content {
-        overflow-y: scroll;
-    }
-    h1{
-        @include darkText();
-        font-family: "Portfolio", monospace;
-        text-align: center;
-        font-size: 4em;
-        line-height: 82px;
-        padding: 4px;
-        margin: 0;
-    }
-
-    h3 {
-        font-family: "Portfolio", monospace;
-        @include darkText();
-        font-size: 18px;
-        line-height: 24px;
-        margin-bottom: 2px;
-        max-width: 400px;
-        margin: auto;
-    }
-
-    .status-bar {
-        min-height: $grid-cell-height * 3;
-        max-height: $grid-cell-height * 9;
-        line-height: $grid-cell-height * 3;
-        font-size: 1 em;
-        text-align: center;
-        //background-color:rgb(38, 38, 38);
-        @include darkscanlines();
-        color: $inverse-color;
-        display: flex;
-        flex-direction: column-reverse;
-        overflow-y: hidden;
-        span {
-            display:inline-block;
-        }
-    }
-    .action-bar {
-        min-height: $grid-cell-height * 3;
-        line-height: $grid-cell-height * 3;
-        font-size: 1 em;
-        text-align: center;
-        //background-color:darken(invert($color: $background-color), 20%);
-        @include black();
-        color: $inverse-color;
-    }
-
-    .characterPanel {
-        z-index: 5;
-    }
-}
