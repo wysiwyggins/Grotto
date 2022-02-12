@@ -45,7 +45,8 @@ class PlayDetailView(LoginRequiredMixin, TemplateView):
                     "user": {
                         "is_anonymous": self.request.user.is_anonymous,
                         "is_staff": self.request.user.is_staff,
-                    }
+                    },
+                    "base_url": settings.BASE_URL,
                 }
             }
         )

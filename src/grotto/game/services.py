@@ -143,6 +143,7 @@ class NonPlayerCharacterService:
             choice_qs = current.exits.all()
             if npc.demonic:
                 # don't let demonic npcs go into rooms with incense burning
+                # TODO: Test this!
                 incense_count = Count(
                     "items",
                     filter=(
@@ -165,7 +166,7 @@ class NonPlayerCharacterService:
             npc.room.save()
         # does it kill?
         ret = ServiceReturn()
-        if npc.deadly:
+        if npc.deadly and npc.room:
             # kill any player characters in the room
             for unlucky in future.occupants.all():
                 RoomEvent.objects.create(
@@ -433,12 +434,12 @@ class ItemService:
                 room=old_item.current_room,
                 character=old_item.current_owner,
             )
-            if old_item.current_room:
+            if old_item.current_room is not None:
                 RoomEvent.objects.create(
                     room=old_item.current_room,
                     text=(f"{old_item.name} burned out")
                 )
-            else:
+            elif old_item.current_owner.room is not None:
                 RoomEvent.objects.create(
                     room=old_item.current_owner.room,
                     text=(
@@ -527,6 +528,7 @@ class RoomService(MarkovifyService):
 class CharacterCreationService:
     default_item_types = (
         ItemType.CANDLE,
+        ItemType.INCENSE,
         ItemType.SCRUBBRUSH,
         ItemType.JUNK,
         ItemType.ARROW,
